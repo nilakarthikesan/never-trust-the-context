@@ -23,7 +23,9 @@
       {"id": "e3", "source": "osv", "category": "Engineering", "C": 0.00, "I": 0.80,
        "content": "Public advisory GHSA-8xqf-2v4m describes the same retry amplification pattern in the upstream library."},
       {"id": "e4", "source": "api_spec", "category": "Engineering", "C": 0.30, "I": 0.85,
-       "content": "The internal API contract requires acquire to remain non-blocking under 5ms at p99."}
+       "content": "The internal API contract requires acquire to remain non-blocking under 5ms at p99.",
+       "abstract": "The library maintains a documented per-call latency budget for acquire that this change may exceed.",
+       "abstract_C": 0.05}
     ],
     "corrupting": [
       {"id": "e8", "source": "pr_description", "category": "Author claim", "C": 0.05, "I": 0.10,

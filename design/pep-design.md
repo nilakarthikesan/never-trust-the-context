@@ -106,8 +106,10 @@ Four enforcement modes (ablation axis):
 4. **DENY+EXPLAIN** — refuse to send and return a rationale (strict mode; upper bound on privacy, lower bound on utility).
 
 Two deployment points (also an ablation):
-- **Post-hoc (default for eval):** operate on `formatted_trajectory.json` — inputs `retrieval_entries` + proposed `final_action`; output a sanitized action; re-judge. Cheap, no re-generation. (See `src/` and `eval/`.)
-- **Inline:** wrap the final tool call in CI-Work's `agent_executor_builder.py` so the agent never emits the raw write. Higher fidelity, more expensive.
+- **Post-hoc:** operate on `formatted_trajectory.json` — inputs `retrieval_entries` + proposed `final_action`; output a sanitized action; re-judge. Cheap, no re-generation. (`src/zt_pep/pep.py`.)
+- **Inline:** run the PDP *before* generation and hand the writer a context that already satisfies BLP and Biba. (`src/zt_pep/inline.py`.)
+
+The difference is direction, not strength, and it turned out to be worth 8.3 points of conveyance. Post-hoc receives a finished draft and can only **delete**, which leaves two failures structurally unreachable: an essential entry above the write ceiling is lost outright because paraphrasing is not an available move, and a finding the agent dropped because it believed a low-integrity entry cannot be restored because the PEP cannot add text the agent never wrote. Inline fixes both — measured in `design/pr-review-walkthrough.md` Stage 5 — and makes write-down *unreachable* rather than filtered for the abstracted set. For real trajectories, inline still needs wrapping the final tool call in CI-Work's `agent_executor_builder.py`.
 
 ---
 

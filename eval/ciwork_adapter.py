@@ -49,6 +49,9 @@ def _entry_from_ci(item: dict, idx: int, prefix: str, kind: str) -> Entry:
     if "I" in item:
         e.I = float(item["I"])
     e.regulated = bool(item.get("regulated", False))
+    if "abstract" in item:
+        e.abstract = item["abstract"]
+        e.abstract_C = float(item.get("abstract_C", 0.0))
     return e
 
 

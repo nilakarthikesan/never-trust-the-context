@@ -50,6 +50,12 @@ class Entry:
     C: Optional[float] = None        # confidentiality label in [0,1]
     I: Optional[float] = None        # integrity label in [0,1]
     regulated: bool = False          # PII / PCI / HIPAA / export-controlled: never theta-overridable
+    # L2 handle-mediated citation (design/enforcement-mechanics.md §4): a low-C restatement
+    # that carries the entry's task value without its restricted specifics. Generated offline
+    # at labeling time and itself label-checked, so `abstract_C` must clear the write ceiling
+    # on its own before the abstract may be used.
+    abstract: Optional[str] = None
+    abstract_C: Optional[float] = None
 
     def salient_keywords(self, max_k: int = 8) -> list[str]:
         """Cheap, deterministic keyword signature used by the offline judge/redactor.
