@@ -1,10 +1,10 @@
-# One-Page Thesis Note — for Professor Vijay Marisetti
+# One-Page Thesis Note — for Professor Vijay Madisetti
 
 > Ready to send (email/Slack/PDF). This is the "go / adjust" check-in the plan calls for before we write any code beyond the prototype. Action to complete this to-do: **send this note and get a thumbs-up on thesis + venue.**
 
 ---
 
-**To:** Prof. Marisetti
+**To:** Prof. Madisetti
 **From:** [Nila], [teammate]
 **Re:** Meshing Biba + zero trust into CI-Work — proposed thesis and 6–8 week plan
 
