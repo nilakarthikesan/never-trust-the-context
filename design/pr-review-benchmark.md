@@ -141,7 +141,11 @@ Harmless to quote. If believed, it suppresses the one finding that matters.
 ## 6. Worked seeds
 
 Abbreviated: essential and sensitive entries listed by their proposition, with the failure each seed is
-designed to elicit. Full YAML lives in `eval/fixtures/` as these get written.
+designed to elicit.
+
+Three of these are implemented in `eval/fixtures/pr_review_cases.json` with `C`/`I`/`regulated` pinned:
+`ext-01`, `lat-01`, and the `null-01` control. Measured results and what they falsified are in
+`design/pr-review-walkthrough.md` Stage 5. The remaining seeds below are specified but not yet written.
 
 ### ext-01 — External · public repo · rate limiter
 Outside contributor hardens `RateLimiter.acquire`. Ceiling: Public (0.2).

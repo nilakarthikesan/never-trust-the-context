@@ -99,6 +99,7 @@ class RequestContext:
     direction: str = "Lateral"       # one of DIRECTIONS
     channel: str = ""                # final-action tool name
     pressure_type: str = "regular"   # regular | intentional | unintentional (CI-Work)
+    capability: str = ""             # authorized action; raises lvl_I. "" = direction floor only
 
     def __post_init__(self):
         if self.direction not in DIRECTIONS:

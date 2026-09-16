@@ -88,8 +88,12 @@ def label_integrity(entry: Entry, ctx: RequestContext, policy: Policy = DEFAULT_
 
 
 def required_outbound_integrity(ctx: RequestContext, policy: Policy = DEFAULT_POLICY) -> float:
-    """lvl_I(a_fin): the integrity high-water mark the outbound artifact must meet."""
-    return policy.lvl_I(ctx.direction)
+    """lvl_I(a_fin): the integrity high-water mark the outbound artifact must meet.
+
+    Composes the direction floor with the floor imposed by the agent's authorized action,
+    so revoking merge permission genuinely lowers the evidence bar.
+    """
+    return policy.lvl_I(ctx.direction, ctx.capability)
 
 
 def label_entry(entry: Entry, ctx: RequestContext, policy: Policy = DEFAULT_POLICY,

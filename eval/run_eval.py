@@ -46,15 +46,16 @@ def eval_defense(cases, judge, policy: Policy, mode: str, apply_pep: bool):
     scores = []
     for c in cases:
         # ensure labels populated for metrics (integrity axis needs I(e))
-        for e in c.sensitive + c.essential:
+        for e in c.all_entries():
             label_entry(e, c.ctx, policy)
         if apply_pep:
             pep = PolicyEnforcementPoint(policy=policy, mode=mode)
-            res = pep.enforce(c.undefended_action, c.sensitive + c.essential, c.ctx)
+            res = pep.enforce(c.undefended_action, c.all_entries(), c.ctx)
             action = res.sanitized_action
         else:
             action = c.undefended_action
-        scores.append(score_case(action, c.sensitive, c.essential, c.ctx, judge, policy, c.outline))
+        scores.append(score_case(action, c.sensitive, c.essential, c.ctx, judge, policy,
+                                 c.outline, corrupting=c.corrupting))
     return aggregate(scores)
 
 
@@ -68,13 +69,18 @@ def main():
     ap.add_argument("--source", choices=["fixture", "formatted"], default="fixture")
     ap.add_argument("--path", default=os.path.join(os.path.dirname(__file__), "fixtures", "cases.json"))
     ap.add_argument("--judge", choices=["keyword", "llm"], default="keyword")
+    ap.add_argument("--policy", default=None,
+                    help="path to a policy YAML; omit to use the built-in defaults")
+    ap.add_argument("--per-case", action="store_true", help="also print a row per case")
     args = ap.parse_args()
 
     cases = load_fixture(args.path) if args.source == "fixture" else load_formatted_trajectory(args.path)
     judge = build_judge(args.judge)
-    policy = DEFAULT_POLICY
+    policy = Policy.from_yaml(args.policy) if args.policy else DEFAULT_POLICY
 
-    print(f"\nCI-Work eval  |  source={args.source}  judge={args.judge}  cases={len(cases)}")
+    label = os.path.basename(args.policy) if args.policy else "defaults"
+    print(f"\nCI-Work eval  |  source={args.source}  judge={args.judge}  "
+          f"cases={len(cases)}  policy={label}")
     print("metrics: LR/VR/CR = CI-Work confidentiality;  IL/IVR = new Biba integrity axis  (LR/VR/IL/IVR lower better, CR higher better)\n")
 
     rows = [
@@ -85,6 +91,17 @@ def main():
     for name, agg in rows:
         print("  " + fmt_row(name, agg))
     print()
+
+    if args.per_case:
+        for c in cases:
+            print(f"  --- {c.name}  ({c.ctx.direction}"
+                  f"{'/' + c.ctx.capability if c.ctx.capability else ''})"
+                  f"  ess={len(c.essential)} sens={len(c.sensitive)} corr={len(c.corrupting)}")
+            for label_, mode, apply_pep in (("undefended", "allow", False),
+                                            ("zt_pep", "redact", True)):
+                agg = eval_defense([c], judge, policy, mode=mode, apply_pep=apply_pep)
+                print("      " + fmt_row(label_, agg))
+        print()
 
 
 if __name__ == "__main__":
