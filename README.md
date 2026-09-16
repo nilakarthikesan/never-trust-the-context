@@ -35,7 +35,7 @@ We mesh two papers:
 ## Quick start (offline, no API key)
 
 ```bash
-python3 tests/test_pdp.py            # unit tests
+python3 tests/test_pdp.py            # 10 unit tests, incl. regressions for both fixed bugs
 python3 eval/run_eval.py --source fixture --judge keyword
 python3 eval/verify_walkthrough.py   # reproduces every number in the PR-review walkthrough (needs pyyaml)
 ```
@@ -70,17 +70,27 @@ python3 eval/run_eval.py --source formatted \
   --judge llm
 ```
 
-## Blocking bugs (found while writing `design/weight-calibration.md`)
+## Fixed: two latent policy bugs
 
-Both affect reported numbers, so they gate the results table.
+Both were found while deriving the weights in `design/weight-calibration.md`, and both were reachable under
+the configuration the paper was about to adopt rather than the one already measured.
 
-- [ ] **`labels.py` — content markers override the source channel.** A high-integrity marker such as
-  `"approved"` unconditionally raises `I` to 0.85 regardless of source, so an author-controlled PR
-  description containing that one word clears the Biba check. Adversarially reachable, and it is our own
-  integrity labeler being prompt-injected. Fix + principle in `design/weight-calibration.md` §3.1.
-- [ ] **`pdp.py` — the `θ` override can release regulated content.** The override applies to `DENY`, not
-  just `QUARANTINE`, with no floor. Worked counterexample and the required precedence fix in
-  `design/weight-calibration.md` §4.4. Until it lands every reported `VR` is optimistic.
+- [x] **`labels.py` — content markers could override the source channel.** A high-integrity marker such as
+  `"approved"` raised `I` to 0.85 regardless of source, so an author-controlled PR description containing
+  that one word cleared the Biba check: our own integrity labeler being prompt-injected by the party under
+  review. Now the uplift is bounded by provenance (`max_content_uplift`) with an absolute
+  `author_controlled_ceiling` applied last. `"approved"` and `"final"` removed from the marker defaults.
+  Principle and code in `design/weight-calibration.md` §3.1.
+- [x] **`pdp.py` — the `θ` override could release regulated content.** The override applied to `DENY`, not
+  just `QUARANTINE`, with no floor. `Entry.regulated` and `Policy.hard_deny_floor` now hard-block above the
+  override. Measured across the planned `θ` sweep, the pre-fix code released a named-customer regulated
+  entry at every operating point from `θ = 0.2` upward; see the table in
+  `design/weight-calibration.md` §4.4.
+
+The offline demo numbers below are unchanged, because `DEFAULT_POLICY` (`w_C = 1.0`, `θ = 0.15`) never
+reached the override. That is a fact about the old configuration, not a defense of it. Regression coverage:
+`test_author_controlled_marker_cannot_raise_integrity`, `test_regulated_entry_never_released_by_theta`, and
+two paired tests pinning the behavior that must *not* change.
 
 ## Status / human actions still needed
 

@@ -127,13 +127,25 @@ is an integrity violation that Biba handles, and this is our own integrity label
 The principle the fix follows from: **integrity is a property of provenance, and content cannot vouch for
 its own provenance.** A marker may raise integrity only within what the channel already permits.
 
+**Status: fixed.** `labels.py::label_integrity` now bounds the uplift by provenance and applies an absolute
+ceiling to author-controlled channels last, so no later signal can undo it:
+
 ```python
-ceiling = source_ceiling(entry.source)     # author-controlled channels cap at ~0.25
+uplift_cap = base + policy.max_content_uplift          # default 0.25
 for m in policy.high_integrity_markers:
     if m in text:
-        score = min(max(score, 0.85), ceiling)
+        score = min(max(score, 0.85), uplift_cap)
         break
+...
+if author_controlled:                                   # applied last
+    score = min(score, policy.author_controlled_ceiling)  # default 0.25
 ```
+
+The bound is expressed relative to the source's base score rather than as a per-source ceiling table, so an
+unknown source cannot escape it by failing to match a key. Legitimate artifact-type refinement still works:
+an `Email` entry (base 0.70) reading "executed contract" still reaches 0.85, because the transport is
+trusted and the content only refines it. Covered by `test_author_controlled_marker_cannot_raise_integrity`
+and `test_content_uplift_still_works_on_trusted_channels`.
 
 Two supporting changes, both reflected in `config/policy.pr-review.yaml`:
 
@@ -220,16 +232,36 @@ A Restricted-class entry is emitted because its margin over clearance happened t
 direction's weight is low. Leniency on the confidentiality axis is reasonable for near-threshold entries;
 silently releasing regulated content is not.
 
-Required fix, and it must sit *above* the override in precedence:
+**Status: fixed.** The hard block now sits above the override in `pdp.py`, which is precedence rule 3 in
+`design/pr-review-benchmark.md` §2:
 
 ```python
-HARD_DENY_FLOOR = 0.75     # config surface
-if entry.regulated or entry.C >= HARD_DENY_FLOOR:
-    return DENY            # never eligible for threshold override
+hard_denied = not conf_ok and (entry.regulated or entry.C >= policy.hard_deny_floor)
+
+if decision is not Decision.ALLOW and not hard_denied and risk <= theta:
+    decision = Decision.ALLOW
 ```
 
-This is precedence rule 3 in `design/pr-review-benchmark.md` §2. Tracked in the README checklist. Until it
-lands, every reported `VR` is optimistic by an unknown amount, so this blocks the results table.
+`Entry` gained a `regulated` flag; `hard_deny_floor` defaults to 0.75.
+
+**Why this was not cosmetic.** The current README demo numbers are unchanged by the fix, because
+`DEFAULT_POLICY` uses `w_C = 1.0` everywhere with `θ = 0.15`, and at those values the override never
+reached a sensitive entry. But the derived weights lower `w_C(Downward)` to 0.67, and the paper plans a
+`θ` sweep over 0.0 → 0.5. Measured across that sweep:
+
+| `θ` | Pre-fix | Post-fix |
+|---|---|---|
+| 0.10 | DENY | DENY |
+| 0.15 | DENY | DENY |
+| **0.20** | **ALLOW** | DENY |
+| 0.30 | **ALLOW** | DENY |
+| 0.50 | **ALLOW** | DENY |
+
+So the planned sweep would itself have emitted a named-customer regulated entry at every operating point
+from 0.2 upward — the leak was latent in the configuration we were about to adopt, not in the one we had
+measured. Covered by `test_regulated_entry_never_released_by_theta`, with
+`test_nonregulated_near_threshold_still_gets_leniency` pinning the other side so the hard block does not
+remove the intended leniency for ordinary near-threshold entries.
 
 ## 5. Per-entry severity, for the graduated score
 

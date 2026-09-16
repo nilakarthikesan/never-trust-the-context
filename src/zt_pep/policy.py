@@ -63,6 +63,8 @@ DEFAULT_SOURCE_INTEGRITY: Dict[str, float] = {
 }
 
 # Content markers that lower integrity (unverified / manipulable / fabricated).
+# Downward markers need no clamp: an attacker who lowers their own content's integrity
+# achieves nothing, so the asymmetry is safe.
 DEFAULT_LOW_INTEGRITY_MARKERS = (
     "gossip", "rumor", "rumour", "speculat", "unconfirmed", "draft", "tentative",
     "let's claim", "lets claim", "imply", "pretend", "fabricat", "off the record",
@@ -70,12 +72,33 @@ DEFAULT_LOW_INTEGRITY_MARKERS = (
 )
 
 # Content markers that raise integrity (authoritative artifacts).
+# "approved" and "final" are deliberately absent: they are the most trivially writable
+# words in the set, and an uplift marker on an author-controlled channel is an injection
+# vector. See design/weight-calibration.md §3.1.
 DEFAULT_HIGH_INTEGRITY_MARKERS = (
-    "signed", "executed contract", "audited", "official", "final", "approved",
+    "signed", "executed contract", "audited", "official",
     "board minutes", "resolution", "of record", "policy", "filing",
 )
 
 DEFAULT_INTEGRITY_PRIOR = 0.5   # when no signal fires (stated default; fixes Tian-Song gap)
+
+# Integrity is a property of PROVENANCE; content cannot vouch for its own provenance.
+# A high-integrity content marker may therefore raise I only by a bounded amount above
+# the source channel's base score, never to an absolute target.
+DEFAULT_MAX_CONTENT_UPLIFT = 0.25
+
+# Channels whose content is written by the party under review. No content marker can
+# raise these past the ceiling, because the author controls the marker too.
+DEFAULT_AUTHOR_CONTROLLED_SOURCES = (
+    "pr_description", "pr_body", "author_comment", "code_comment", "todo",
+    "commit_message", "self_report",
+)
+DEFAULT_AUTHOR_CONTROLLED_CEILING = 0.25
+
+# Confidentiality at or above this level is never eligible for the theta override,
+# regardless of how small its margin over the recipient's clearance is.
+# See design/weight-calibration.md §4.4.
+DEFAULT_HARD_DENY_FLOOR = 0.75
 
 
 @dataclass
@@ -90,6 +113,14 @@ class Policy:
     low_integrity_markers: tuple = DEFAULT_LOW_INTEGRITY_MARKERS
     high_integrity_markers: tuple = DEFAULT_HIGH_INTEGRITY_MARKERS
     integrity_prior: float = DEFAULT_INTEGRITY_PRIOR
+
+    # provenance-over-content clamps (design/weight-calibration.md §3.1)
+    max_content_uplift: float = DEFAULT_MAX_CONTENT_UPLIFT
+    author_controlled_sources: tuple = DEFAULT_AUTHOR_CONTROLLED_SOURCES
+    author_controlled_ceiling: float = DEFAULT_AUTHOR_CONTROLLED_CEILING
+
+    # regulated / high-C entries are never released by the risk threshold (§4.4)
+    hard_deny_floor: float = DEFAULT_HARD_DENY_FLOOR
 
     # slack terms (epsilons) so labels near a boundary are not over-blocked
     eps_C: float = 0.0

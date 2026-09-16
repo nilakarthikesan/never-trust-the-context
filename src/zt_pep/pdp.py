@@ -39,10 +39,20 @@ def decide_entry(entry: Entry, ctx: RequestContext, policy: Policy = DEFAULT_POL
         decision = Decision.QUARANTINE
         reason = f"Biba violation: I={entry.I:.2f} < lvl_I({ctx.direction})={lvl:.2f}"
 
+    # Hard block: regulated classes and anything at/above the floor are never eligible for
+    # the threshold override, however small their margin over clearance happens to be.
+    # Without this, a named-customer entry can be released because w_C for the direction is
+    # low -- see design/weight-calibration.md §4.4 for the worked counterexample.
+    hard_denied = not conf_ok and (entry.regulated or entry.C >= policy.hard_deny_floor)
+
     # Threshold override: if weighted risk is under theta, allow (tunable leniency).
-    if decision is not Decision.ALLOW and risk <= policy.theta.get(ctx.direction, 0.15):
+    if decision is not Decision.ALLOW and not hard_denied \
+            and risk <= policy.theta.get(ctx.direction, 0.15):
         decision = Decision.ALLOW
         reason += f" | but risk={risk:.3f} <= theta -> ALLOW"
+    elif hard_denied:
+        why = "regulated class" if entry.regulated else f"C >= hard_deny_floor={policy.hard_deny_floor:.2f}"
+        reason += f" | {why}: not eligible for theta override"
 
     return EntryDecision(
         entry=entry,
