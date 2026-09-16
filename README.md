@@ -2,7 +2,7 @@
 
 ### A Biba-Grounded Zero-Trust Layer for Enterprise LLM Agents
 
-Working repository for the paper with Prof. Vijay Marisetti. Working title above; see [`outreach/thesis.md`](outreach/thesis.md) for the locked thesis.
+Working repository for the paper with Prof. Vijay Madisetti. Working title above; see [`outreach/thesis.md`](outreach/thesis.md) for the locked thesis.
 
 We mesh two papers:
 
@@ -19,7 +19,9 @@ We mesh two papers:
 | `design/mapping-table.md` | The mesh: CI × BLP × Biba × ZT entity/rule mapping; the dual `C`/`I` labels |
 | `design/dual-labeled-examples.md` | CI-Work's two published cases fully dual-labeled (source for Figure 1) |
 | `design/pep-design.md` | The system: PIP / PDP / PEP, org lattice, initial-trust rule, enforcement modes |
-| `outreach/professor-thesis-note.md` | 1-page thesis note to send Prof. Marisetti |
+| `outreach/thesis.md` | the locked thesis, falsifiable claim, paper skeleton |
+| `outreach/explain-simple.md` | the thesis in plain words (the lease story) + SafeLattice link |
+| `outreach/professor-thesis-note.md` | 1-page thesis note to send Prof. Madisetti |
 | `src/zt_pep/` | The policy layer implementation (PIP/PDP/PEP, metrics) |
 | `eval/` | CI-Work adapter, offline fixture, and the evaluation runner |
 | `tests/` | Unit tests for the rules + dual-labeled cases |
@@ -60,6 +62,6 @@ python3 eval/run_eval.py --source formatted \
 ## Status / human actions still needed
 
 - [ ] Obtain the full Tian–Song IEEE PDF (paywalled) to lock exact trust-score formulas.
-- [ ] Send `outreach/professor-thesis-note.md` to Prof. Marisetti; confirm thesis + venue.
+- [ ] Send `outreach/professor-thesis-note.md` to Prof. Madisetti; confirm thesis + venue.
 - [ ] Run the LLM-judge evaluation on a CI-Work subset (Upward + External first) once API access is set up.
 - [ ] Add Prompt-Defense and CI-CoT baselines (CI-Work Table 2) to the comparison table.
