@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List
 
 import sys, os
@@ -29,13 +29,27 @@ class Case:
     essential: List[Entry]
     undefended_action: str
     outline: str = ""
+    # E_corr: low C, low I -- harmless to disclose, harmful to believe.
+    # Empty for CI-Work cases, which have no such class. See design/pr-review-benchmark.md §3.
+    corrupting: List[Entry] = field(default_factory=list)
+
+    def all_entries(self) -> List[Entry]:
+        return self.sensitive + self.essential + self.corrupting
 
 
 def _entry_from_ci(item: dict, idx: int, prefix: str, kind: str) -> Entry:
     content = item.get("Content") or item.get("Input Abstract") or item.get("content") or ""
     source = item.get("Source") or item.get("source") or ""
     category = item.get("category") or item.get("category_name") or None
-    return Entry(id=f"{prefix}_{idx}", content=content, source=source, kind=kind, category=category)
+    e = Entry(id=f"{prefix}_{idx}", content=content, source=source, kind=kind, category=category)
+    # Fixtures may pin C/I directly so a case reproduces a documented trace instead of
+    # depending on the labeler. Absent keys leave them None for the PIP to fill in.
+    if "C" in item:
+        e.C = float(item["C"])
+    if "I" in item:
+        e.I = float(item["I"])
+    e.regulated = bool(item.get("regulated", False))
+    return e
 
 
 def load_fixture(path: str) -> List[Case]:
@@ -48,17 +62,19 @@ def load_fixture(path: str) -> List[Case]:
             recipient=c.get("recipient", ""),
             direction=c.get("direction", "Lateral"),
             channel=c.get("channel", ""),
+            capability=c.get("agent_capability", ""),
         )
-        sensitive = [_entry_from_ci(e, i, "sens", "sensitive") for i, e in enumerate(c["sensitive"])]
-        essential = [_entry_from_ci(e, i, "ess", "essential") for i, e in enumerate(c["essential"])]
+        sensitive = [_entry_from_ci(e, i, "sens", "sensitive") for i, e in enumerate(c.get("sensitive", []))]
+        essential = [_entry_from_ci(e, i, "ess", "essential") for i, e in enumerate(c.get("essential", []))]
+        corrupting = [_entry_from_ci(e, i, "corr", "corrupting") for i, e in enumerate(c.get("corrupting", []))]
         # fixture provides explicit id / already-clean content
-        for e, src in zip(sensitive, c["sensitive"]):
-            e.id = src.get("id", e.id)
-        for e, src in zip(essential, c["essential"]):
-            e.id = src.get("id", e.id)
+        for group, key in ((sensitive, "sensitive"), (essential, "essential"), (corrupting, "corrupting")):
+            for e, src in zip(group, c.get(key, [])):
+                e.id = src.get("id", e.id)
         cases.append(Case(
             name=c["name"], ctx=ctx, sensitive=sensitive, essential=essential,
             undefended_action=c["undefended_action"], outline=c.get("outline", ""),
+            corrupting=corrupting,
         ))
     return cases
 

@@ -30,6 +30,17 @@ DEFAULT_REQUIRED_INTEGRITY: Dict[str, float] = {
     "External": 0.6,
 }
 
+# Integrity floor imposed by the agent's authorized action, independent of direction.
+# The effective requirement is max(direction floor, capability floor): an agent that can
+# merge needs strictly better evidence than one that can only comment, for the identical
+# task. See design/weight-calibration.md §2.2.
+DEFAULT_CAPABILITY_FLOOR: Dict[str, float] = {
+    "comment": 0.40,
+    "request_changes": 0.55,
+    "approve": 0.70,
+    "approve_automerge": 0.85,
+}
+
 # Per-direction confidentiality/integrity weights and risk threshold theta_d.
 DEFAULT_WC: Dict[str, float] = {d: 1.0 for d in DEFAULT_CLEARANCE}
 DEFAULT_WI: Dict[str, float] = {
@@ -108,6 +119,7 @@ class Policy:
     w_C: Dict[str, float] = field(default_factory=lambda: dict(DEFAULT_WC))
     w_I: Dict[str, float] = field(default_factory=lambda: dict(DEFAULT_WI))
     theta: Dict[str, float] = field(default_factory=lambda: dict(DEFAULT_THETA))
+    capability_floor: Dict[str, float] = field(default_factory=lambda: dict(DEFAULT_CAPABILITY_FLOOR))
 
     source_integrity: Dict[str, float] = field(default_factory=lambda: dict(DEFAULT_SOURCE_INTEGRITY))
     low_integrity_markers: tuple = DEFAULT_LOW_INTEGRITY_MARKERS
@@ -133,8 +145,14 @@ class Policy:
     def clr_C(self, direction: str) -> float:
         return self.clearance.get(direction, 0.2)
 
-    def lvl_I(self, direction: str) -> float:
-        return self.required_integrity.get(direction, 0.7)
+    def lvl_I(self, direction: str, capability: str = "") -> float:
+        """Biba high-water mark: max(direction floor, the agent's capability floor).
+
+        `capability` is empty for CI-Work cases, which have no notion of an authorized
+        action, so the direction floor applies alone and behavior is unchanged.
+        """
+        base = self.required_integrity.get(direction, 0.7)
+        return max(base, self.capability_floor.get(capability, 0.0))
 
     @classmethod
     def from_yaml(cls, path: str) -> "Policy":

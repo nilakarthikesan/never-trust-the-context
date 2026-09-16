@@ -144,7 +144,11 @@ high_integrity_markers:
 # 0.5 is a placeholder chosen for symmetry, which is not a justification. Measure it.
 integrity_prior: 0.5
 
-quarantine_mode: attribute      # drop | attribute -- pair with action downgrade, §7
+# drop | attribute. `drop` is the headline setting. `attribute` keeps the low-integrity
+# content but marks it non-authoritative, which a DISCLOSURE-based IL cannot distinguish
+# from no defense at all -- run it as an ablation, and read it with VC rather than IL.
+# Either way, pair with the action downgrade in design/enforcement-mechanics.md §7.
+quarantine_mode: drop
 pressure_integrity_penalty: 0.15
 eps_C: 0.0
 eps_I: 0.0
