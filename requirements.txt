@@ -1,0 +1,7 @@
+# Core package (zt_pep) runs offline with only the Python standard library.
+# The following are needed only for real (LLM-backed) evaluation runs and YAML configs.
+
+pyyaml>=6.0        # optional: Policy.from_yaml
+openai>=1.0        # real LLM-as-a-Judge / LLM redactor
+jinja2>=3.0        # render CI-Work identify_usage_*.j2 templates
+tqdm>=4.0

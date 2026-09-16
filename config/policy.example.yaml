@@ -1,0 +1,33 @@
+# Example zero-trust policy. Every number the paper reports should trace to a file like this.
+# Load with: zt_pep.policy.Policy.from_yaml("config/policy.example.yaml")
+
+# Recipient confidentiality clearance clr_C(r) by information-flow direction.
+clearance:
+  Downward: 0.7
+  Upward: 0.9
+  Lateral: 0.6
+  Diagonal: 0.4
+  External: 0.2
+
+# Required outbound integrity lvl_I(a_fin): the Biba high-water mark for the write.
+# Calibrated so casual chat (~0.4) fails but authoritative documents (~0.7+) pass.
+required_integrity:
+  Downward: 0.45
+  Upward: 0.55
+  Lateral: 0.45
+  Diagonal: 0.6
+  External: 0.6
+
+# Per-direction weights for the zero-trust risk score and its threshold.
+w_C: {Downward: 1.0, Upward: 1.0, Lateral: 1.0, Diagonal: 1.0, External: 1.0}
+w_I: {Downward: 0.8, Upward: 1.0, Lateral: 0.8, Diagonal: 1.0, External: 1.2}
+theta: {Downward: 0.15, Upward: 0.15, Lateral: 0.15, Diagonal: 0.15, External: 0.15}
+
+# Integrity prior when no provenance signal fires (fixes Tian-Song's missing initial-trust rule).
+integrity_prior: 0.5
+
+# Enforcement
+quarantine_mode: drop          # drop | attribute
+pressure_integrity_penalty: 0.15
+eps_C: 0.0
+eps_I: 0.0
