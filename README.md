@@ -1,6 +1,10 @@
-# Biba × CI-Work → Zero-Trust Defense for Enterprise LLM Agents
+# Never Trust the Context
 
-Working repository for the paper with Prof. Vijay Marisetti. We mesh two papers:
+### A Biba-Grounded Zero-Trust Layer for Enterprise LLM Agents
+
+Working repository for the paper with Prof. Vijay Marisetti. Working title above; see [`outreach/thesis.md`](outreach/thesis.md) for the locked thesis.
+
+We mesh two papers:
 
 - **CI-Work** (Fu et al., ACL 2026 Industry) — a benchmark showing enterprise LLM agents leak sensitive context (violation 15.8–50.9%), and that scaling/prompt defenses do not fix it. Repo cloned at `data/ACV/misc/CI-Work`.
 - **Tian & Song** (ISCID 2021) — a zero-trust access-control method combining Bell–LaPadula (confidentiality) and Biba (integrity) with per-component trust scores.

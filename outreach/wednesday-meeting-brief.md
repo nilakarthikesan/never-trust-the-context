@@ -131,7 +131,7 @@ Reuse CI-Work's harness and its three metrics; add two new ones:
 
 ## 5. The artifact (already prototyped — repo is live)
 
-**Repo:** `github.com/nilakarthikesan/biba-ci-work` (private)
+**Repo:** https://github.com/nilakarthikesan/never-trust-the-context (public)
 
 It's deliberately a **hybrid / neuro-symbolic** system: **deterministic access-control rules wrapped around a neural agent.** No fine-tuning — CI-Work already proved scaling and more reasoning don't fix this, so the contribution has to be the layer, not the model.
 
