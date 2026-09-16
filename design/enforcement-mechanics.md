@@ -1,0 +1,193 @@
+# Enforcement Mechanics: Making "Read But Never Emit" Real
+
+`design/pep-design.md` specifies *what* the PEP decides. This file is about *how* the decision is made to
+hold, which is a separate and harder problem. The read-only / non-quotable state is the whole value of the
+BLP read/write asymmetry — the agent reasons over an embargoed advisory and never mentions it — and it is
+worthless if the mechanism enforcing it is a sentence in a system prompt.
+
+## 1. The ladder
+
+Four mechanisms, ascending in strength. Each row states what an attacker or a careless model has to defeat.
+
+| | Mechanism | What enforces it | Residual attack surface | Cost |
+|---|---|---|---|---|
+| **L0** | Prompt instruction: "do not repeat sensitive context" | model compliance | everything — the model holds the text and chooses | ~0 |
+| **L1** | Post-hoc emission filter on the final action | a discloser detector over the draft | paraphrase, inference, partial reconstruction | 1 judge call per entry |
+| **L2** | Handle-mediated citation: writer holds handles + low-`C` abstracts | the writer never possesses the restricted text | abstract permits reconstruction | 1 abstraction per entry, cached |
+| **L3** | Privileged-context split: reasoner sees high-`C`, writer never does | two contexts with a constrained interface between them | the symbolic channel itself leaks | 2 model calls, plumbing |
+
+The repo currently implements **L1**. That is the right first step and it is publishable, but the ceiling on
+L1 is worth being explicit about before running numbers.
+
+## 2. L0 is a measured baseline, not a defense
+
+CI-Work already ran this experiment so we do not have to. Table 2, GPT-5:
+
+| | `LR` | `VR` | `CR` |
+|---|---|---|---|
+| No defense | 11.21 | 27.83 | 93.04 |
+| Prompt Defense | 8.96 | 21.31 | 81.01 |
+| CI-CoT | 8.95 | 22.13 | 84.90 |
+
+The best prompt-level intervention leaves violation above 22% and costs 8 points of conveyance. Anything we
+enforce by instruction inherits that floor. L0's role in our paper is as the baseline row.
+
+## 3. L1's ceiling is the discloser detector
+
+The PEP's filter is deterministic *given the labels* — that is its strength, and it is what makes the
+zero-trust decision auditable. But to remove a span it must first decide whether a candidate span discloses
+entry `e`, and that decision is `F_disc`, the LLM-as-a-Judge. CI-Work reports 83.0–91.0% agreement with
+human labels.
+
+So L1's achievable violation rate is bounded below by the judge's miss rate, and the misses are not random.
+They cluster exactly where it matters:
+
+- **Paraphrase.** "This caused a multi-week revenue impact for a major logistics customer" discloses
+  INC-2291 without any token overlap.
+- **Inference from admitted entries.** e1 and e3 are both admitted; together with a public incident
+  timeline they may identify the customer that e5 named. No single span discloses; the conjunction does.
+  A per-entry filter cannot see conjunctions by construction.
+- **Structural leakage.** Declining to comment on one specific file is itself a signal.
+
+The honest framing: **L1 bounds careless disclosure, not adversarial disclosure.** For a PR-review agent
+with no adversary that is often enough. For the `ext-01` case it is not, because the PR author is precisely
+the party with an incentive to probe.
+
+## 4. L2 — the writer never holds what it must not say
+
+The mechanism that dissolves the paraphrase problem rather than fighting it.
+
+At labeling time, every entry above the write ceiling gets a **handle** and a **low-`C` abstract**:
+
+```yaml
+e5:
+  handle: "@inc-2291"
+  C: 0.95
+  regulated: true
+  abstract:                       # itself label-checked to C <= ceiling
+    text: "A prior production incident in this component was caused by the same defect class."
+    C: 0.15
+    permits_reconstruction: false # adversarial check, see below
+```
+
+Retrieval hands the writer the **abstract**, never `content`. The writer can reason ("this defect has
+precedent here, raise severity"), can cite by handle, and cannot inline the restricted specifics because
+they were never in its context. The renderer resolves handles against policy and refuses to expand any
+handle whose entry is above the ceiling.
+
+Three consequences worth stating:
+
+**It makes no-write-down vacuous for the abstracted set.** You cannot emit what you do not have. This is
+what "context-centric architecture" should mean concretely — CI-Work's conclusion calls for the shift
+without specifying it.
+
+**It predicts the inverse-scaling result should disappear.** CI-Work found larger models leak *more*
+(`design/../notes/ci-work-reading-note.md`), attributed to better attention over long noisy windows plus
+sycophancy. Both mechanisms require the sensitive detail to be in the window. Remove it and the mechanism
+has nothing to act on. That gives a **falsifiable prediction**: under L2, the leakage-versus-model-size
+slope flattens toward zero, while under L0 and L1 it stays positive. This is a cheap experiment — the same
+three GPT-4.1 variants CI-Work used — and it is the strongest single result the paper could carry.
+
+**The trust boundary moves to the abstractor, and we must say so.** Something has to read e5's full text to
+write the abstract. Mitigations, all of which make it a smaller problem than the original:
+
+- Runs **offline at labeling time**, once per entry, not per request. Cost amortizes; more importantly, the
+  output is reviewable before any agent sees it.
+- Its output is **label-checked** by the same classifier: an abstract that scores above the ceiling is
+  rejected and regenerated.
+- It is a **fixed, small, auditable surface** rather than a per-request generation, so a human can spot-check
+  the whole abstract corpus. Per-request outputs cannot be reviewed this way.
+
+**Residual risk: reconstruction.** An abstract can be individually low-`C` and still permit recovery of the
+restricted specifics, especially combined with admitted entries. This needs an explicit adversarial check:
+prompt a model with the abstract plus all admitted entries and ask it to name the customer / the incident /
+the number. If it succeeds, the abstract is rejected. Record the check outcome in
+`permits_reconstruction`. Without this, L2 is an assumption rather than a mechanism.
+
+## 5. L3 — constrained interface between two contexts
+
+The strong form, for regulated entries where even an abstract is unacceptable.
+
+Two model contexts:
+
+- **Reasoner.** Sees high-`C` entries. Its output surface is not prose. It emits only a fixed schema:
+  a verdict enum, a severity level, a set of admitted-entry handles to cite, and optionally a
+  bounded-vocabulary reason code. It cannot emit free text.
+- **Writer.** Generates the review prose. Sees only entries at or below the ceiling, plus the reasoner's
+  schema output.
+
+Restricted content influences the *verdict* through a channel too narrow to carry it. The residual surface
+is the schema itself — a sufficiently expressive reason-code vocabulary becomes a covert channel, and
+severity levels leak a few bits. Bound the vocabulary and treat it as a declared channel capacity rather
+than pretending it is zero.
+
+Cost is real: two calls, and the writer sometimes produces vaguer prose because it does not know why
+severity is high. That is the trade, and it should be measured as a `CR` delta on the null seeds.
+
+## 6. Which level for which entry
+
+| Entry situation | Mechanism |
+|---|---|
+| `C ≤ ceiling` | none needed — admitted |
+| `C` slightly above ceiling, `need` high (e4) | **L2** abstract; paraphrase preserves the finding |
+| `C` far above ceiling, non-regulated (e7) | **L1** drop, or L2 if it carries task value |
+| Regulated, any margin (e5) | **L3**, or rule 1 and never retrieve it |
+| `need: none` (HR, vendor agreements) | never connected — rule 1 |
+| Low `I` (e8, e9) | §7 below — this is not a confidentiality mechanism at all |
+
+## 7. Biba enforcement: downgrade the action, not the text
+
+The mistake to avoid is treating integrity as a filtering problem. It is not. The harm from a low-integrity
+entry is not that the agent *repeats* it — e8 is harmless to quote — it is that the agent *relies* on it.
+Filtering text does nothing about reliance.
+
+`design/pep-design.md` offers `quarantine_mode = drop | attribute`. Attribution ("an unverified note in the
+PR description claims security approved this") is genuinely useful, but note precisely what it does: it
+lowers the **reader's** reliance. It does not lower the **agent's**. If the verdict already depends on e8,
+attributing e8 in the prose leaves the wrong verdict standing with a politer citation.
+
+The mechanism that actually enforces Biba for an agent is a capability constraint:
+
+```
+achievable_action(agent) = max { A : lvl_I(A) ≤ min{ I(e) : e ∈ evidence(verdict) } }
+```
+
+The integrity of the action the agent may take equals the integrity of the weakest evidence its verdict
+rests on. Concretely, in the `ext-01` trace:
+
+| Weakest evidence the verdict rests on | Highest permitted action |
+|---|---|
+| `I ≥ 0.85` | approve with auto-merge |
+| `I ≥ 0.70` | approve, human merges |
+| `I ≥ 0.55` | request changes (blocking) |
+| `I ≥ 0.40` | non-blocking comment |
+| below 0.40 | ask a question; assert nothing |
+
+Three properties make this the right primitive. It needs **no NLP** — it is a comparison over labels already
+computed. It **cannot be talked out of**, because it is enforced by the permission system rather than by the
+model's cooperation, which means it is immune to the 15.8–50.9% compliance failure CI-Work measured. And it
+**degrades gracefully**: weak evidence produces a weaker action rather than a refusal, so utility falls off
+smoothly instead of collapsing the way naive-deny does.
+
+This also reframes prompt injection usefully. An injected instruction is a low-`I` entry attempting to
+ground a high-`I` action. Under this rule the injection does not need to be *detected* — it needs to be
+*labelled*, and the ceiling on what it can cause follows arithmetically. Detection is a hard open problem;
+labelling a channel as author-controlled is not.
+
+Both mechanisms ship together: `attribute` for reader-facing honesty, action downgrade for correctness.
+
+## 8. Evaluation implications
+
+- **`GR` requires citation format.** The grounding-rate metric only exists if the agent emits per-claim
+  handles. That is a prompt-format constraint on our side, and it should be applied uniformly to the
+  undefended baseline too, or the comparison is confounded by output format.
+- **L2 needs a conveyance measurement, not an assumption.** Abstracts lose information. Report `CR` for
+  L1 versus L2 on the same seeds; if L2's `CR` is materially lower, the abstracts are too lossy and that is
+  a finding, not a failure.
+- **The inverse-scaling test is the headline experiment.** §4's prediction is the cleanest falsifiable claim
+  available: three model sizes × {L0, L1, L2}, leakage slope against size. It directly contradicts
+  CI-Work's "scaling makes it worse" if L2 works, and it is a small enough matrix to actually run.
+- **Null seeds gate everything.** Every mechanism above can be made to score perfectly on `VR` by
+  suppressing more. The false-suppression rate on null seeds
+  (`design/pr-review-benchmark.md` §6, `null-01`) is what separates a policy layer from a refusal, and no
+  result should be reported without it.
