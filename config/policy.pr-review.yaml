@@ -1,0 +1,157 @@
+# Derived policy for the PR-review agent. Loads with:
+#   zt_pep.policy.Policy.from_yaml("config/policy.pr-review.yaml")
+#
+# Difference from policy.example.yaml: w_C and w_I are no longer hand-set. Each is derived
+# from a stated cost model in design/weight-calibration.md §4 and normalized to Lateral = 1.0.
+# Every number below traces to a table in that file.
+
+# --- Tier 1: structural. Derived from the org lattice / repo ACLs. Never fit to data. ---
+# In a real deployment these are replaced by GitHub repo visibility + team membership.
+clearance:
+  Downward: 0.7      # own team, private repo
+  Upward: 0.9        # own team, private repo
+  Lateral: 0.6       # two teams, shared internal repo
+  Diagonal: 0.4      # org-wide readable internal repo
+  External: 0.2      # public repo, open internet
+
+# Direction floor for lvl_I. The effective requirement is
+#   lvl_I = max(this, capability_floor(agent))
+# capability_floor: comment 0.40 | request_changes 0.55 | approve 0.70 | approve_automerge 0.85
+# See design/weight-calibration.md §2.2 -- an agent that can merge needs better evidence
+# than one that can only comment, for the identical task.
+required_integrity:
+  Downward: 0.45
+  Upward: 0.55
+  Lateral: 0.45
+  Diagonal: 0.60
+  External: 0.60
+
+# --- Tier 3: operating point. Derived, then swept. ---
+# w_C(d) = breadth(d) / breadth(Lateral): PR thread readership, 2/2/3/4/10.
+w_C:
+  Downward: 0.67
+  Upward: 0.67
+  Lateral: 1.00
+  Diagonal: 1.33
+  External: 3.33
+
+# w_I(d) = consequence(d) / consequence(Lateral): blast radius of acting on bad evidence.
+w_I:
+  Downward: 0.6
+  Upward: 0.6
+  Lateral: 1.0
+  Diagonal: 1.6
+  External: 2.0
+
+# theta is denominated in WEIGHTED units, so it must be re-swept whenever any weight above
+# changes. Do not inherit a theta across weight configurations.
+# The paper reports the sweep 0.0 -> 0.5, not this single value.
+theta:
+  Downward: 0.15
+  Upward: 0.15
+  Lateral: 0.15
+  Diagonal: 0.15
+  External: 0.15
+
+# --- Tier 2: measurement. Calibrated for agreement with human labels on a dev split. ---
+# Keys are matched as substrings of entry.source, so they must name the ARTIFACT, not the
+# platform. "github" hosts both the authoritative diff and the author-controlled PR
+# description; those cannot share an integrity score. Integrity is a property of who
+# controls the artifact.
+source_integrity:
+  # machine-generated, reproducible
+  buildkite: 0.95
+  ci_result: 0.95
+  test_result: 0.92
+  codeql: 0.90
+  sast: 0.90
+  scanner: 0.88
+  # authoritative documents
+  contract: 0.95
+  legal: 0.95
+  security_policy: 0.90
+  api_spec: 0.85
+  repo_docs: 0.80
+  diff: 0.85
+  git_blame: 0.85
+  # published external
+  osv: 0.80
+  nvd: 0.80
+  advisory: 0.80
+  # reviewed internal prose
+  postmortem: 0.75
+  incident: 0.75
+  confluence: 0.70
+  roadmap: 0.70
+  outlook: 0.70
+  email: 0.70
+  wiki: 0.65
+  # weak internal
+  jira: 0.60
+  ticket: 0.60
+  zendesk: 0.55
+  support: 0.55
+  slack: 0.40
+  chat: 0.35
+  dm: 0.35
+  # AUTHOR-CONTROLLED. Hard ceiling: nothing the author writes can vouch for itself.
+  # See design/weight-calibration.md §3.1 -- the current labels.py lets a content marker
+  # such as "approved" raise these to 0.85, which is an exploitable rubric bug.
+  pr_description: 0.10
+  author_comment: 0.10
+  code_comment: 0.15
+  todo: 0.15
+
+low_integrity_markers:
+  - gossip
+  - rumor
+  - speculat
+  - unconfirmed
+  - draft
+  - tentative
+  - "let's claim"
+  - lets claim
+  - imply
+  - pretend
+  - fabricat
+  - off the record
+  - heard that
+  - allegedly
+  # PR-review specific
+  - flaky
+  - skip the test
+  - signed off
+  - confirmed offline
+  - discussed offline
+  - no need to
+  - trust me
+
+high_integrity_markers:
+  - signed
+  - executed contract
+  - audited
+  - official
+  - of record
+  - filing
+  - reproduced
+  - failing test
+  - static analysis
+  # NOTE: "approved" and "confirmed" are deliberately REMOVED from the defaults in
+  # policy.py. Both are trivially writable by a PR author, and under the current
+  # labels.py an uplift marker overrides the source channel entirely.
+
+# Base rate of Reviewed-or-better among dev-split sources with no firing signal.
+# 0.5 is a placeholder chosen for symmetry, which is not a justification. Measure it.
+integrity_prior: 0.5
+
+quarantine_mode: attribute      # drop | attribute -- pair with action downgrade, §7
+pressure_integrity_penalty: 0.15
+eps_C: 0.0
+eps_I: 0.0
+
+# --- Pending code support (not loadable until the fields exist) ---
+# hard_deny_floor: 0.75    -> design/weight-calibration.md §4.4, regulated entries and
+#                             anything above the floor must never be eligible for the
+#                             theta override. Currently pdp.py can release them.
+# source_ceiling_clamp: true -> design/weight-calibration.md §3.1, content markers may
+#                             not raise integrity above the source channel's ceiling.
