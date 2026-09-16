@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from zt_pep.policy import DEFAULT_POLICY, Policy
 from zt_pep.pep import PolicyEnforcementPoint, KeywordJudge
+from zt_pep.inline import InlinePEP
 from zt_pep.metrics import score_case, aggregate
 from zt_pep.labels import label_entry
 
@@ -42,13 +43,16 @@ def build_judge(kind: str):
     raise ValueError(kind)
 
 
-def eval_defense(cases, judge, policy: Policy, mode: str, apply_pep: bool):
+def eval_defense(cases, judge, policy: Policy, mode: str, apply_pep: bool, inline: bool = False):
     scores = []
     for c in cases:
         # ensure labels populated for metrics (integrity axis needs I(e))
         for e in c.all_entries():
             label_entry(e, c.ctx, policy)
-        if apply_pep:
+        if inline:
+            res = InlinePEP(policy=policy).generate(c.all_entries(), c.ctx, task=c.outline)
+            action = res.action
+        elif apply_pep:
             pep = PolicyEnforcementPoint(policy=policy, mode=mode)
             res = pep.enforce(c.undefended_action, c.all_entries(), c.ctx)
             action = res.sanitized_action
@@ -61,7 +65,8 @@ def eval_defense(cases, judge, policy: Policy, mode: str, apply_pep: bool):
 
 def fmt_row(name, agg):
     p = agg.as_percent()
-    return f"{name:<14} LR={p['LR%']:>6}  VR={p['VR%']:>6}  CR={p['CR%']:>6}  IL={p['IL%']:>6}  IVR={p['IVR%']:>6}"
+    return (f"{name:<22} LR={p['LR%']:>6}  VR={p['VR%']:>6}  CR={p['CR%']:>6}  "
+            f"IL={p['IL%']:>6}  IVR={p['IVR%']:>6}  PC={p['PC%']:>6}")
 
 
 def main():
@@ -85,11 +90,15 @@ def main():
 
     rows = [
         ("undefended", eval_defense(cases, judge, policy, mode="allow", apply_pep=False)),
-        ("zt_pep", eval_defense(cases, judge, policy, mode="redact", apply_pep=True)),
+        ("zt_pep_posthoc", eval_defense(cases, judge, policy, mode="redact", apply_pep=True)),
+        ("zt_pep_inline*", eval_defense(cases, judge, policy, mode="redact", apply_pep=True,
+                                        inline=True)),
         ("zt_pep_deny", eval_defense(cases, judge, policy, mode="deny_explain", apply_pep=True)),
     ]
     for name, agg in rows:
         print("  " + fmt_row(name, agg))
+    print("\n  * inline uses the deterministic TemplateWriter, so its row is the CEILING the")
+    print("    admission policy permits, not a model's achieved score. See src/zt_pep/inline.py.")
     print()
 
     if args.per_case:
@@ -97,9 +106,11 @@ def main():
             print(f"  --- {c.name}  ({c.ctx.direction}"
                   f"{'/' + c.ctx.capability if c.ctx.capability else ''})"
                   f"  ess={len(c.essential)} sens={len(c.sensitive)} corr={len(c.corrupting)}")
-            for label_, mode, apply_pep in (("undefended", "allow", False),
-                                            ("zt_pep", "redact", True)):
-                agg = eval_defense([c], judge, policy, mode=mode, apply_pep=apply_pep)
+            for label_, mode, apply_pep, inline in (("undefended", "allow", False, False),
+                                                    ("zt_pep_posthoc", "redact", True, False),
+                                                    ("zt_pep_inline*", "redact", True, True)):
+                agg = eval_defense([c], judge, policy, mode=mode, apply_pep=apply_pep,
+                                   inline=inline)
                 print("      " + fmt_row(label_, agg))
         print()
 
