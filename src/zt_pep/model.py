@@ -45,10 +45,11 @@ class Entry:
     id: str
     content: str
     source: str = ""                 # originating tool/channel, e.g. "Slack", "Notion", "Email"
-    kind: Optional[str] = None       # "sensitive" | "essential" ground truth (eval mode) or None
+    kind: Optional[str] = None       # "sensitive" | "essential" | "corrupting" ground truth, or None
     category: Optional[str] = None   # CI-Work 9-category label if known
     C: Optional[float] = None        # confidentiality label in [0,1]
     I: Optional[float] = None        # integrity label in [0,1]
+    regulated: bool = False          # PII / PCI / HIPAA / export-controlled: never theta-overridable
 
     def salient_keywords(self, max_k: int = 8) -> list[str]:
         """Cheap, deterministic keyword signature used by the offline judge/redactor.

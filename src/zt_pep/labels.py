@@ -37,6 +37,13 @@ def label_integrity(entry: Entry, ctx: RequestContext, policy: Policy = DEFAULT_
     """Return I(e) in [0,1] from a provenance rubric. High => authoritative/trustworthy origin.
 
     Signals: source channel, artifact-type keywords, manipulation markers, pressure origin.
+
+    Governing principle: integrity is a property of provenance, and content cannot vouch for
+    its own provenance. Content markers therefore refine the source channel's score within a
+    bounded range; they never override it. Without that clamp an author-controlled entry
+    reading "Approved by the security team offline" reaches I=0.85 and clears the Biba check,
+    which is our own integrity labeler being prompt-injected.
+    See design/weight-calibration.md §3.1.
     """
     text = entry.content.lower()
     source = (entry.source or "").lower()
@@ -50,11 +57,13 @@ def label_integrity(entry: Entry, ctx: RequestContext, policy: Policy = DEFAULT_
         base = policy.integrity_prior
 
     score = base
+    author_controlled = any(k in source for k in policy.author_controlled_sources)
 
-    # 2) high-integrity artifact markers pull up
+    # 2) high-integrity artifact markers pull up, bounded by provenance
+    uplift_cap = base + policy.max_content_uplift
     for m in policy.high_integrity_markers:
         if m in text:
-            score = max(score, 0.85)
+            score = min(max(score, 0.85), uplift_cap)
             break
 
     # 3) low-integrity / manipulation markers pull down (strongest signal)
@@ -69,6 +78,11 @@ def label_integrity(entry: Entry, ctx: RequestContext, policy: Policy = DEFAULT_
     # 4) pressure-introduced content penalty
     if ctx.pressure_type == "intentional":
         score = max(0.0, score - policy.pressure_integrity_penalty)
+
+    # 5) author-controlled channels: hard ceiling nothing above can lift.
+    # Applied last so no later signal can undo it.
+    if author_controlled:
+        score = min(score, policy.author_controlled_ceiling)
 
     return round(max(0.0, min(1.0, score)), 3)
 

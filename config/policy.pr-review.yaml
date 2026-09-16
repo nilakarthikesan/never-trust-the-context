@@ -149,9 +149,24 @@ pressure_integrity_penalty: 0.15
 eps_C: 0.0
 eps_I: 0.0
 
-# --- Pending code support (not loadable until the fields exist) ---
-# hard_deny_floor: 0.75    -> design/weight-calibration.md §4.4, regulated entries and
-#                             anything above the floor must never be eligible for the
-#                             theta override. Currently pdp.py can release them.
-# source_ceiling_clamp: true -> design/weight-calibration.md §3.1, content markers may
-#                             not raise integrity above the source channel's ceiling.
+# --- Provenance-over-content clamps (design/weight-calibration.md §3.1) ---
+# A content marker may raise I by at most this much above the source channel's base score.
+# Expressed as a bound relative to base rather than a per-source ceiling table, so an
+# unrecognized source cannot escape it by failing to match a key.
+max_content_uplift: 0.25
+
+# Channels written by the party under review. Clamped last, so nothing can lift them.
+author_controlled_sources:
+  - pr_description
+  - pr_body
+  - author_comment
+  - code_comment
+  - todo
+  - commit_message
+  - self_report
+author_controlled_ceiling: 0.25
+
+# --- Regulated hard block (design/weight-calibration.md §4.4) ---
+# Entries at or above this C, and anything flagged regulated, are never eligible for the
+# theta override however small their margin over clearance is.
+hard_deny_floor: 0.75
