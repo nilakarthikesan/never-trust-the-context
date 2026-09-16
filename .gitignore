@@ -1,0 +1,21 @@
+# Cloned upstream benchmark (microsoft/ACV -> misc/CI-Work). Not ours to vendor;
+# re-clone with: git clone --depth 1 --filter=blob:none --sparse https://github.com/microsoft/ACV.git
+data/ACV/
+
+# Generated trajectories / evaluation outputs (large, model-dependent)
+data/trajectory/
+*.jsonl
+!eval/fixtures/*.jsonl
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Secrets
+.env
+
+# OS
+.DS_Store
