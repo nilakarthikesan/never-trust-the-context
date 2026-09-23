@@ -4,39 +4,93 @@ LaTeX source for the conference submission. Sections are split so two people can
 
 ## Venue
 
-**Primary target: IEEE SaTML 2027.** Chosen because the topic list is a direct hit
-("novel defenses for machine learning", "machine learning system security", "privacy in
-machine learning", "secure and safe machine learning in practice") and because it has
-*mandatory artifact submission* — our artifact runs in under a second with no dependencies,
-which is a genuine advantage rather than a chore.
+**Primary target: IEEE S&P 2027, Cycle 2.**
 
-| | Date | Note |
-|---|---|---|
-| Abstract registration | **Tue Sep 22, 2026** | Mandatory. Tentative title, non-blank abstract, **fixed author list**, fixed topics. |
-| Paper submission | **Tue Sep 29, 2026** | |
-| Early reject notice | Wed Nov 4, 2026 | |
-| Discussion + revision | Nov 25 – Dec 9, 2026 | SaTML has an interactive revision phase, which favors a paper with a strong idea and a thin eval. |
-| Decision | Wed Dec 16, 2026 | |
-| Conference | Early May 2027, Reykjavik | |
+| | Date |
+|---|---|
+| Abstract registration | **Tue Nov 10, 2026** — mandatory |
+| Paper submission | **Tue Nov 17, 2026** |
+| Early reject notice | Mon Jan 18, 2027 |
+| Reviews released | Thu Feb 11, 2027 |
+| Rebuttal + interactive period | Feb 16–26, 2027 |
+| Notification | Fri Mar 5, 2027 |
+| Conference | May 17–20, 2027, Montreal |
 
-Submission is **anonymous**. `main.tex` keeps the author block commented out; do not uncomment
-it until camera-ready.
+**Fallback: USENIX Security '27 Cycle 2, Tue Jan 26, 2027.** Ten weeks later, notification
+May 6. If the LLM-judge experiment hasn't landed by ~Nov 1, roll to this rather than submit
+thin — reviewers rotate across all four big security venues, and a weak submission burns the
+cycle.
 
-**Fallback: USENIX Security '27 Cycle 2, Tue Jan 26, 2027.** Four extra months, which is
-roughly what the open experiments need. The writing carries over directly; only the class
-file and the page budget change. Registering the SaTML abstract on Sep 22 costs nothing and
-keeps both doors open, so do that regardless of which way the Sep 29 decision goes.
+**Register the Nov 10 abstract regardless.** It's free and reversible. A mandatory abstract
+gate is exactly what cost us SaTML 2027 (abstract was due Sep 22, unextended; the Sep 29 paper
+deadline was irrelevant once that passed). Track deadlines at https://sec-deadlines.github.io/.
 
-Other venues checked and closed: NDSS 2027 fall cycle (Aug 19), ACM AISec 2026 (Jul 24),
-AGENT-SEC 2026 (Jul 23), ACSAC 42 technical papers (May 26). ACSAC still has poster/WiP
-tracks open around Sep 19–22 if a low-cost feedback venue is wanted.
+Venues checked and closed: SaTML 2027 (abstract Sep 22), NDSS 2027 fall (Aug 19), ACM AISec
+2026 (Jul 24), AGENT-SEC 2026 (Jul 23), ACSAC 42 technical papers (May 26). ACM CCS 2027 CFP
+was not posted as of Sep 23, 2026; historically Cycle A lands in January.
+
+### S&P hard requirements — violating any is desk rejection
+
+These are stricter than most IEEE venues and differ from the SaTML setup this draft started in.
+
+- **`\documentclass[conference,compsoc]{IEEEtran}`.** The plain `[conference]` IEEE template
+  is *explicitly* named as grounds for rejection without review. Already set in `main.tex`.
+- IEEEtran.cls **v1.8b**, **US Letter** (not A4).
+- **Do not** modify margins, font, or line spacing; no "egregious space scrunching."
+- **Do not** `\usepackage{usenix}` — it silently overrides compsoc formatting.
+- **13 pages of text + 5 pages references/appendices = 18 max.** Everything past page 13 must
+  be clearly marked as appendix. Reviewers are not required to read appendices.
+- **Anonymous**, including the IEEE template's default fake names. Cite our own prior work in
+  the third person. `main.tex` keeps the author block commented — leave it that way.
+- **No full CVE identifiers** (they deanonymize). Verified absent.
+- **"Ethics Considerations" field is mandatory** on HotCRP at registration. If we believe there
+  are none we must still explain how we reached that conclusion. Our §8 content covers this.
+- An author may register at most 6 papers per cycle; the cap binds at abstract registration.
+
+### ⚠️ Open action item: the artifact repo is not anonymous
+
+S&P requires artifact repositories to be anonymized too, and explicitly warns that **account
+and repository names must not identify the authors**. Ours is
+`github.com/nilakarthikesan/never-trust-the-context`, which fails on the account name.
+
+Before Nov 17, mirror the artifact through **Anonymous GitHub** or **GitFront**, and scrub
+author-identifying comments and commit metadata. Note also that **artifact repos must not be
+updated after the paper deadline** — so freeze the mirror at submission.
 
 ## Building
 
-No LaTeX toolchain is installed locally. Two options:
+No LaTeX toolchain is installed locally.
 
-**Overleaf (recommended for collaboration).** Upload the `paper/` directory as a new project.
-It compiles as-is; `IEEEtran` is in Overleaf's standard distribution.
+**Overleaf.** Two upload bundles are generated at the repo root (gitignored; regenerate with
+the commands below):
+
+- `overleaf-SINGLEFILE.zip` — flat, two files, no subfolders. Use this if an upload has ever
+  failed with `File 'sections/01-intro.tex' not found`, which happens when the `sections/`
+  folder doesn't survive the upload.
+- `overleaf-MODULAR.zip` — `main.tex` + `refs.bib` + `sections/`. Better for collaboration.
+
+In Overleaf: **New Project → Upload Project → drop the zip.** Set the main document to
+`main.tex` if it isn't detected.
+
+**Regenerating the bundles** (run from the repo root):
+
+```bash
+# refresh the single-file build after editing ANY section
+cd paper && python3 -c "
+import re, pathlib
+m = pathlib.Path('main.tex').read_text()
+m = re.sub(r'\\\\input\{([^}]+)\}', lambda x: pathlib.Path(x.group(1)+'.tex').read_text(), m)
+pathlib.Path('main-standalone.tex').write_text(m)"
+
+# rebuild both zips
+mkdir -p /tmp/ovflat && cp paper/main-standalone.tex /tmp/ovflat/main.tex \
+  && cp paper/refs.bib /tmp/ovflat/ \
+  && (cd /tmp/ovflat && zip -qr "$OLDPWD/overleaf-SINGLEFILE.zip" .) && rm -rf /tmp/ovflat
+(cd paper && zip -qr ../overleaf-MODULAR.zip main.tex refs.bib sections/)
+```
+
+`main-standalone.tex` is **generated** — never edit it directly. Edit `sections/*.tex` and
+regenerate, or the two will diverge.
 
 **Locally**, install MacTeX (`brew install --cask mactex-no-gui`), then:
 
