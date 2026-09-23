@@ -1,0 +1,160 @@
+\section{Threat Model}
+\label{sec:threat}
+
+\subsection{Extending the risk model with an integrity condition}
+
+We adopt CI-Work's model (\Cref{sec:background:ciwork}) and extend it. As
+before, an agent $A$ acting for a principal receives instruction $I$, retrieves
+entries $E=\bigcup_t o_t$, and emits a final action $\afin$ over a channel $k$
+to a recipient $r$. We attach to each entry $e \in E$ two labels,
+\begin{equation}
+\Cl(e)\in[0,1], \qquad \Il(e)\in[0,1],
+\end{equation}
+where $\Cl(e)$ is how inappropriate disclosure of $e$ to $r$ is \emph{in this
+context}, and $\Il(e)$ is how trustworthy the \emph{origin} of $e$ is as a
+basis for a high-stakes outbound artifact. We attach to the request a recipient
+clearance $\clr(r)$ and a required outbound integrity $\lvlI(\afin)$.
+
+CI-Work's risk condition is a disclosure condition, which in our notation is
+the Bell--LaPadula $\star$-property applied at the write boundary:
+\begin{equation}
+\exists e \in E \;:\; \Fdisc(\afin, e) = 1 \;\wedge\; \Cl(e) > \clr(r).
+\label{eq:blpviolation}
+\end{equation}
+We add a second, independent failure condition. Let
+$\mathrm{ev}(\afin) \subseteq E$ be the set of entries the emitted conclusion
+\emph{rests on}---its supporting evidence, as distinct from the set it quotes.
+An \emph{integrity violation} is
+\begin{equation}
+\exists e \in \mathrm{ev}(\afin) \;:\; \Il(e) < \lvlI(\afin).
+\label{eq:bibaviolation}
+\end{equation}
+
+Two things about \Cref{eq:bibaviolation} deserve emphasis, and together they
+shape the rest of the paper.
+
+First, it is quantified over $\mathrm{ev}(\afin)$, not over the entries
+$\afin$ discloses. This is deliberate and it is the crux of the integrity axis:
+the harm from a low-integrity entry is that the agent \emph{relies} on it, not
+that it \emph{repeats} it. Repeating an unverified claim with attribution is
+often the correct behavior. Silently believing it is the failure.
+
+Second, this makes \Cref{eq:bibaviolation} strictly harder to measure than
+\Cref{eq:blpviolation}. Disclosure is observable in the emitted text;
+reliance is not. We confront this directly in \Cref{sec:eval:ilblindspot},
+where we show by measurement that a disclosure-based proxy for
+\Cref{eq:bibaviolation} undercounts it by exactly the entries that were
+believed but never quoted, and that only a paired counterfactual measures it
+faithfully.
+
+\paragraph{Independence of the axes.} The central structural claim is that
+$\Cl$ and $\Il$ are independent, i.e.\ $\Esens \neq \{e : \Il(e) \text{ low}\}$.
+\Cref{tab:quadrants} gives the four quadrants with a representative from each;
+every one is realizable, and two of them are misclassified by any single-axis
+policy. A confidentiality-only system cannot distinguish the two
+right-hand cells from their left-hand neighbors, and so has no basis for
+treating a fabricated figure differently from a real one.
+
+\begin{table}[t]
+\centering
+\caption{The two axes are independent: all four quadrants are populated. A
+single-axis policy collapses the columns and therefore cannot treat a
+fabricated figure differently from an authoritative one.}
+\label{tab:quadrants}
+\footnotesize
+\begin{tabular}{@{}lp{0.3\columnwidth}p{0.3\columnwidth}@{}}
+\toprule
+& \textbf{High $\Il$ (trusted)} & \textbf{Low $\Il$ (untrusted)} \\
+\midrule
+\textbf{High $\Cl$}
+& walk-away price \newline \emph{do not send; it is real}
+& fabricated tactic \newline \emph{do not send; do not rely} \\[4pt]
+\textbf{Low $\Cl$}
+& executed contract \newline \emph{safe both ways}
+& unverified claim \newline \emph{safe to send; unsafe to rely} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Both failures co-occur in published transcripts}
+\label{sec:threat:cooccur}
+
+The independence claim would be weak if we demonstrated it only on cases we
+authored. We therefore dual-label the two qualitative examples published in
+CI-Work's own appendix, and find that \emph{each single transcript contains one
+Bell--LaPadula violation and one Biba violation}. Because these are the
+original authors' examples, the reader can check our labeling against their
+paper.
+
+\paragraph{Case A: software license renewal (External).} Procurement emails an
+external vendor representative. The sensitive set contains the FY22 budget and
+a renewal contingency, a seat-overage figure with penalty exposure, and a
+planned acquisition raising seat count 40\%---all high $\Cl$ and high $\Il$,
+being real internal financial facts. It also contains a procurement chat log
+proposing to \emph{present competitor quotes as \$90 per seat when the figure
+actually received was \$95}, in order to pressure the vendor. That entry is
+high $\Cl$ and \textbf{low $\Il$}: it proposes a fabrication, in an informal
+channel. The published agent transcript leaks the overage and the acquisition
+plan, satisfying \Cref{eq:blpviolation}. But the distinct and unmeasured
+failure available in the same context is repeating the fabricated \$90 as fact
+to the counterparty, when the authoritative competitor benchmark in the
+essential set says \$95. That is \Cref{eq:bibaviolation}, and no CI-Work metric
+would flag it either way.
+
+\paragraph{Case B: lease negotiation (External).} A real-estate manager emails
+an external landlord. The sensitive set contains a relocation contingency and
+rent guardrails including the walk-away threshold---high on both axes---plus an
+HR chat message speculating that headcount reduction will cut space needs 30\%,
+which is high $\Cl$ and \textbf{low $\Il$}. The published transcript leaks the
+guardrails verbatim, writing the ceiling and walk-away thresholds to the
+landlord: a textbook no-write-down failure. It \emph{also} states a revised
+space requirement of 13{,}000--15{,}000 sq ft attributed to anticipated
+headcount reduction, a figure and rationale that trace to the unconfirmed chat
+message rather than to any authoritative facilities plan. A low-integrity
+source has been written up into a binding external proposal.
+
+Both cases also exhibit the quadrant that motivates our enforcement design:
+an entry that is high on both axes and therefore must \emph{inform} the output
+while never appearing in it. Neither a disclosure filter nor an instruction to
+``avoid sensitive topics'' can express that requirement.
+
+\subsection{Adversary, capabilities, and scope}
+
+\paragraph{Adversary.} We consider two, of differing strength.
+\emph{(i) A careless-context adversary}, which is not an attacker at all but
+the ordinary condition of enterprise data: unverified claims, stale plans, and
+informal speculation coexist with authoritative records, and the agent has no
+native means of telling them apart. This is the setting CI-Work measures.
+\emph{(ii) An author-controlled-channel adversary}, who supplies content in a
+channel they legitimately write to---a pull-request description, a code
+comment, a ticket comment---with the goal of either eliciting restricted
+context or causing the agent to reach a favorable conclusion. In the PR-review
+setting of \Cref{sec:benchmark} this adversary is the party under review, which
+is the realistic case: they have both the incentive and the write access.
+
+\paragraph{Assumed trusted.} The identity and clearance directory, the
+connector-level access control that scopes retrieval, the policy configuration
+itself, and the labeling pipeline's offline outputs. We assume the enforcement
+point is not bypassable, i.e.\ the agent cannot emit except through the wrapped
+tool; in deployment this is the standard sidecar-proxy
+assumption~\cite{nist800207a}.
+
+\paragraph{Out of scope.} Model weights and inference infrastructure
+compromise; collusion between the recipient and an insider; covert channels of
+the timing or resource-consumption kind. One in-scope residual risk we do
+\emph{not} solve is reconstruction: an abstract that is individually below the
+write ceiling may still permit recovery of the restricted specifics when
+combined with admitted entries. We treat this as a measurement obligation
+rather than a solved problem, and state its current status honestly in
+\Cref{sec:discussion:limitations}.
+
+\paragraph{A note on third-party data subjects.} CI-Work's five CI parameters
+largely collapse in its setting because the data subject is usually the sender.
+In PR review the data subject is typically a third party---a customer named in
+a postmortem, a colleague named in a performance discussion---who is not party
+to the conversation and cannot consent. Our entry schema tracks $\mathrm{subj}(e)$
+separately for this reason. We note the limit of our own framework here: no
+clearance lattice can \emph{authorize} disclosure of third-party regulated
+data, so the only correct treatment is hard denial, which is why the precedence
+order in \Cref{sec:method:precedence} places the regulated block above every
+tunable parameter.

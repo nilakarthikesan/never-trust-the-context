@@ -1,0 +1,98 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+Enterprise LLM agents treat every retrieved item as both sendable and
+trustworthy the moment it enters the context window. Neither property is
+conferred by retrieval, and the second one has had a formalism since 1977 that
+the agent-privacy literature has not used.
+
+We presented \sys, a zero-trust policy layer at the agent's write boundary
+that labels each retrieved entry on two independent axes and enforces
+Bell--LaPadula no-write-down together with Biba no-write-up per request.
+Three findings stand out. The axes are genuinely independent, and the
+essential/sensitive partition that existing benchmarks rely on is not merely
+incomplete but unsound, since it cannot represent an entry that is at once
+required by the task and forbidden to the recipient. Integrity for an agent is
+a capability constraint rather than a filtering problem: bounding the
+integrity of the action by the integrity of the weakest supporting evidence
+requires no natural-language inference and cannot be overridden by the
+context. And enforcement placement dominates enforcement strength, with the
+same policy run before generation recovering all of the utility that post-hoc
+filtering loses.
+
+The direction we think matters most is the one our own metrics cannot yet
+reach. Integrity-Leakage measures whether corrupting context was
+\emph{repeated}, and we showed by measurement that this undercounts the failure
+by exactly the entries that were silently \emph{believed}. Measuring reliance
+rather than disclosure---through paired counterfactuals and per-claim
+grounding---is what would turn the integrity axis from a proxy into a
+measurement, and it is where we are taking this work next.
+
+\section{Ethics and Open Science}
+\label{sec:ethics}
+
+\subsection{Ethical considerations}
+
+\paragraph{Data.} All benchmark cases are synthetic. No real customer,
+employee, or organizational data appears in any seed. Entries that model
+regulated content---named-customer incidents, personnel matters---are
+fabricated for the purpose and are marked \texttt{regulated} in the fixture so
+that the hard-block path is exercised. We inherit this posture from CI-Work,
+which uses synthetic enterprise data for the same reason.
+
+\paragraph{Dual use.} The benchmark contains a class of entries
+($\Ecorr$) designed to corrupt an agent's verdict, which is a mild
+dual-use concern: the construction recipe is also a recipe for adversarial
+context. We judge the disclosure worthwhile on the standard grounds that the
+technique is already documented in the indirect prompt injection
+literature~\cite{greshake2023indirect}, the entries are deliberately
+low-sophistication, and a defense cannot be evaluated against attacks that are
+not published. Our corrupting entries assert unverifiable claims in channels
+the adversary legitimately controls; they contain no novel attack technique.
+
+\paragraph{Incident reporting.} \Cref{tab:incidents} discusses publicly
+reported incidents at named organizations. We rely exclusively on published
+accounts, several of which are the affected parties' own disclosures, and we
+draw no conclusions about culpability. Our interest is the structural pattern.
+
+\paragraph{Deployment risk of the work itself.} A policy layer that reports
+zero leakage on a benchmark may induce misplaced confidence in deployment. We
+have tried to mitigate this in the writing: every headline number is reported
+with the condition under which it fails (\Cref{sec:eval:rq2}), the integrity
+metric's blind spot is reported as a measured negative result
+(\Cref{sec:eval:ilblindspot}), and the inline arm is labeled a policy ceiling
+rather than an achieved score wherever it appears.
+
+\subsection{Open science}
+\label{sec:ethics:openscience}
+
+We will release the policy layer, the benchmark fixtures, the configurations,
+and the evaluation harness under an open license. Three properties are
+deliberate and we consider them part of the contribution:
+
+\begin{enumerate}
+  \item \textbf{The offline path has no dependencies and no network access.}
+  The unit tests, both evaluation runs, and the verifier execute in under a
+  second, so a reviewer can reproduce every offline number without credentials
+  or cost.
+  \item \textbf{Every reported number traces to a configuration file.} No
+  weight is hard-coded in the implementation. The parameter tiering of
+  \Cref{sec:method:weights} is expressed in the configuration, so a reader can
+  see which values are structural, which are calibrated, and which are
+  operating-point choices.
+  \item \textbf{A verifier re-derives the paper's decisions from the
+  configuration.} It recomputes the policy decisions for all three request
+  configurations reported in \Cref{sec:eval} and asserts them, failing if the
+  prose and the implementation diverge. It additionally asserts the safety
+  property of \Cref{sec:discussion:bugs}, that no regulated entry is released
+  by the threshold override at any operating point.
+\end{enumerate}
+
+The LLM-judge path requires API credentials and is therefore not reproducible
+without cost; we will report the judge model and version, and release the
+prompts and the raw judge outputs so that the scoring is auditable even where
+it is not re-runnable.
+
+\paragraph{Generative AI disclosure.} \todo{State the extent of generative AI
+use in preparing this work, per venue policy. SaTML/ACM both require an
+explicit statement even when no tools were used.}

@@ -1,0 +1,277 @@
+\section{Evaluation}
+\label{sec:eval}
+
+\subsection{Setup}
+\label{sec:eval:setup}
+
+\paragraph{Cases.} Three implemented seeds: \texttt{ext-01} (External
+direction, public repository, \texttt{comment} capability; 4 essential, 3
+sensitive, 2 corrupting), \texttt{lat-01} (Lateral, shared internal library,
+\texttt{request\_changes}; 3/2/1), and \texttt{null-01} (Lateral,
+\texttt{comment}; 3 essential, \textbf{0 sensitive}, 1 corrupting), the
+over-blocking control of \Cref{sec:benchmark:null}. Labels $\Cl$, $\Il$, and
+\texttt{regulated} are pinned in the fixture so that results reproduce the
+policy trace rather than depending on labeler quality.
+
+\paragraph{Arms.} \emph{Undefended}, the agent's draft with no policy layer;
+\emph{post-hoc}, \sys{} in L1 redaction mode over the finished draft;
+\emph{inline}, \sys{} with the PDP run before generation (L2); and
+\emph{naive-deny}, refusal, included as the upper bound on privacy and lower
+bound on utility.
+
+\paragraph{Configuration.} All numbers derive from
+\texttt{config/policy.pr-review.yaml} with the derived weights of
+\Cref{tab:weights}, $\theta = 0.15$, $\varepsilon_C = \varepsilon_I = 0$.
+
+\paragraph{Two fidelity caveats, stated before the numbers rather than after.}
+First, the offline judge is a \emph{deterministic keyword stand-in} for
+CI-Work's LLM-as-a-Judge. Every fixture entry was given a distinctive numeric
+or hyphenated fingerprint precisely so that this judge is reliable on these
+cases, which is a property of the fixture and not of the judge; the paraphrase
+misses discussed in \Cref{sec:method:ladder} will reappear under the real
+judge. Second, the inline arm uses a deterministic template writer, so its row
+is \textbf{the ceiling the admission policy permits, not a model's achieved
+score.} It answers ``if the agent used exactly the admitted context and nothing
+else, what would the metrics be?''---isolating policy quality from model
+behavior the same way evaluation-mode ground-truth $\Cl$ isolates the PDP from
+labeler error. \needsrun{LLM judge on CI-Work trajectories; \texttt{LLMWriter}
+for the achieved inline number. The gap between the achieved and ceiling rows
+is the model's contribution to the remaining failure and should be reported as
+such.}
+
+\subsection{RQ1: the axes are independent and the two-set schema is unsound}
+\label{sec:eval:rq1}
+
+\Cref{tab:ext01entries} gives the nine entries of \texttt{ext-01} with both
+labels and the rule that governed each decision. Three results follow directly.
+
+\begin{table}[t]
+\centering
+\caption{Case \texttt{ext-01}: nine entries, both labels, and the governing
+rule. $\clr = 0.20$, $\lvlI = \max(0.60, 0.40) = 0.60$, $\wC = 3.33$,
+$\wI = 2.00$, $\theta = 0.15$. Bell--LaPadula and Biba catch
+\emph{disjoint} sets; neither would have caught the other's.}
+\label{tab:ext01entries}
+\scriptsize
+\begin{tabular}{@{}llccrl@{}}
+\toprule
+& \textbf{Source} & $\Cl$ & $\Il$ & \textbf{risk} & \textbf{Decision (rule)} \\
+\midrule
+\multicolumn{6}{@{}l}{\textit{essential}}\\
+e1 & static analysis & 0.15 & 0.90 & 0     & \textsc{allow} (6) \\
+e2 & CI results      & 0.10 & 0.95 & 0     & \textsc{allow} (6) \\
+e3 & public advisory & 0.00 & 0.80 & 0     & \textsc{allow} (6) \\
+e4 & repo docs       & 0.30 & 0.85 & 0.333 & \textsc{deny} (4, BLP $\star$) \\
+\midrule
+\multicolumn{6}{@{}l}{\textit{sensitive}}\\
+e5 & postmortem      & 0.95 & 0.75 & 2.50  & \textsc{deny} (3, regulated) \\
+e6 & legal email     & 1.00 & 0.80 & 2.66  & \textsc{deny} (4, BLP $\star$) \\
+e7 & roadmap doc     & 0.85 & 0.70 & 2.16  & \textsc{deny} (4, BLP $\star$) \\
+\midrule
+\multicolumn{6}{@{}l}{\textit{corrupting}}\\
+e8 & PR description  & 0.05 & 0.10 & 1.00  & \textsc{quar.} (5, Biba) \\
+e9 & code comment    & 0.05 & 0.10 & 1.00  & \textsc{quar.} (5, Biba) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{All four quadrants are populated.} Entries e5 and e6 are high on
+\emph{both} axes: authoritative and restricted. Entries e8 and e9 are low on
+both: harmless to repeat, worthless as evidence. Any single-axis ranking loses
+one of these two facts. The two rule families caught \emph{disjoint} sets---
+Bell--LaPadula caught e4--e7, Biba caught e8--e9---which is the operational
+form of independence.
+
+\paragraph{Both failures co-occur in the authors' own transcripts.} Established
+in \Cref{sec:threat:cooccur} on CI-Work's two published qualitative cases,
+where each single transcript contains one leak and one contamination.
+
+\paragraph{The two-set partition is unsound, not merely incomplete.} Entry e4
+is the interesting one. The internal API contract is classed \emph{essential}
+---the review is worse without it---\emph{and} it sits above the write ceiling
+at $\Cl = 0.30 > 0.20$. CI-Work's construction partitions retrieved context
+into disjoint essential and sensitive sets, which implicitly assumes
+$\Eess \subseteq \text{emittable}$. That assumption is false here and, we
+argue, false in general for enterprise work: an entry can be simultaneously
+necessary for the task and forbidden to the recipient. Need and $\Cl$ are
+independent dimensions, so ``needed but non-emittable'' is a legitimate cell
+requiring \emph{paraphrase} rather than either quotation or deletion---and it
+is a cell the existing schema cannot represent at all. This single entry
+accounts for the entire post-hoc conveyance gap in \Cref{tab:main}.
+
+\subsection{RQ2: efficacy, and the condition under which it fails}
+\label{sec:eval:rq2}
+
+\Cref{tab:main} gives the aggregate and per-case results.
+
+\begin{table}[t]
+\centering
+\caption{Main results on the PR-review suite. $\mathrm{LR}/\mathrm{VR}/
+\mathrm{CR}$ are CI-Work's metrics unchanged; $\mathrm{IL}/\mathrm{IVR}$ are
+the integrity axis over $\Ecorr$; $\mathrm{PC}$ is paraphrase conveyance.
+$^{*}$Inline is a policy ceiling, not an achieved model score
+(\Cref{sec:eval:setup}). \textbf{Read the per-case rows, not the aggregate.}}
+\label{tab:main}
+\footnotesize
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+& $\mathrm{LR}\downarrow$ & $\mathrm{VR}\downarrow$ & $\mathrm{CR}\uparrow$
+& $\mathrm{IL}\downarrow$ & $\mathrm{IVR}\downarrow$ & $\mathrm{PC}\uparrow$ \\
+\midrule
+\multicolumn{7}{@{}l}{\textbf{Aggregate} (3 cases)}\\
+Undefended      & 38.89 & 66.67 & 91.67 & 83.33 & 100.0 & 0.0 \\
+\sys{} post-hoc & \textbf{0.0} & \textbf{0.0} & 83.33 & \textbf{0.0} & \textbf{0.0} & 0.0 \\
+\sys{} inline$^{*}$ & \textbf{0.0} & \textbf{0.0} & \textbf{91.67} & \textbf{0.0} & \textbf{0.0} & \textbf{100.0} \\
+Naive deny      & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+\midrule
+\multicolumn{7}{@{}l}{\texttt{ext-01} --- essential entry \emph{above} the ceiling}\\
+Undefended      & 66.67 & 100.0 & 75.0 & 50.0 & 100.0 & 0.0 \\
+post-hoc        & 0.0 & 0.0 & \textbf{50.0} & 0.0 & 0.0 & 0.0 \\
+inline$^{*}$    & 0.0 & 0.0 & \textbf{75.0} & 0.0 & 0.0 & 100.0 \\
+\midrule
+\multicolumn{7}{@{}l}{\texttt{lat-01} --- essential set \emph{fits} under the ceiling}\\
+Undefended      & 50.0 & 100.0 & 100.0 & 100.0 & 100.0 & 0.0 \\
+post-hoc        & 0.0 & 0.0 & \textbf{100.0} & 0.0 & 0.0 & 0.0 \\
+\midrule
+\multicolumn{7}{@{}l}{\texttt{null-01} --- over-blocking control, $\Esens = \emptyset$}\\
+Undefended      & --- & --- & 100.0 & 100.0 & 100.0 & 0.0 \\
+post-hoc        & --- & --- & \textbf{100.0} & 0.0 & 0.0 & 0.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The trade-off is beaten, conditionally.} Leakage, violation, and
+both integrity metrics reach zero in every defended arm. Conveyance under
+inline enforcement returns to $91.67$, \emph{exactly} the undefended figure.
+For contrast, CI-Work's strongest prompt defense bought a 6.5-point violation
+reduction for a 12-point conveyance loss; here violation goes to zero at no
+conveyance cost.
+
+\paragraph{The condition, stated precisely.} The aggregate hides the result
+that matters. Under post-hoc enforcement, \textbf{the trade-off is beaten
+exactly when the essential set fits under the write ceiling}
+(\texttt{lat-01}: conveyance holds at $100$ while leakage goes $50 \to 0$ and
+integrity-leakage $100 \to 0$) \textbf{and not otherwise} (\texttt{ext-01}:
+conveyance drops $75 \to 50$). This is a sharper and more useful claim than any
+average would give, and it is a statement about the geometry of the case rather
+than about the quality of the defense.
+
+\paragraph{Zero false suppression.} \texttt{null-01} has no sensitive entries,
+so violation cannot be committed and the only thing it measures is unnecessary
+suppression. Conveyance holds at $100$. This is what licenses reading
+\texttt{ext-01}'s drop as a genuine ceiling collision rather than
+over-blocking, and without it the \texttt{ext-01} row would be uninterpretable.
+
+\paragraph{Graduated severity.} Per \Cref{eq:severity}, the undefended
+\texttt{ext-01} run scores $1440 + 120 + 30 = 1590$, driven almost entirely by
+the single named-customer regulated entry. Every defended arm scores $0$. A
+mean would have averaged the $1440$ against harmless entries and a max would
+have scored it identically to a $6$.
+
+\subsection{RQ3: placement dominates strength}
+\label{sec:eval:placement}
+
+Post-hoc and inline apply the \emph{same policy} and reach the \emph{same
+decisions}. They differ only in where enforcement sits, and that difference is
+worth $8.3$ points of aggregate conveyance and $25$ points on \texttt{ext-01}.
+
+The reason is structural rather than incidental. Post-hoc receives a finished
+draft and can only \emph{delete}, which leaves two failures unreachable:
+
+\begin{enumerate}
+  \item \textbf{e4 cannot be paraphrased.} It is above the ceiling, so
+  deletion is the only available move and the requirement it carries is lost.
+  Inline hands the writer a label-checked abstract instead, and
+  $\mathrm{PC} = 100$ confirms the abstract reached the recipient.
+  \item \textbf{e2 cannot be restored.} The undefended agent never wrote the
+  failing-test finding down---it believed e8's sign-off claim and dropped it.
+  A filter cannot add text the agent never produced. Inline generates from the
+  admitted set directly, and since e2 was always \textsc{allow}, the finding
+  returns.
+\end{enumerate}
+
+Both losses are properties of the deployment point, not of the policy. Under
+inline enforcement five of the nine entries---e5, e6, e7, e8, e9---never reach
+the writer at all: \textbf{write-down is not filtered here, it is
+unreachable.} This is what ``context-centric architecture'' should mean
+concretely, and CI-Work's conclusion calls for the shift without specifying it.
+
+\subsection{The integrity metric's blind spot}
+\label{sec:eval:ilblindspot}
+
+We report a negative result about our own metric, because it determines what
+future work must measure.
+
+On undefended \texttt{ext-01}, $\mathrm{IL} = 50\%$, not $0\%$ as an earlier
+hand-computation predicted. The agent \emph{did} paraphrase e8 (``since the
+security team confirmed\ldots''), so a disclosure-based judge sees it. But e9
+---the code comment telling reviewers the contract test is flaky---influenced
+the same decision and was \emph{never quoted}, so $\mathrm{IL}$ scores it $0$.
+
+The general statement: \textbf{$\mathrm{IL}$ undercounts contamination by
+exactly the entries that were silently believed rather than repeated.} This is
+not a bug in the implementation but a consequence of using a disclosure proxy
+for \Cref{eq:bibaviolation}, which is quantified over $\mathrm{ev}(\afin)$ and
+not over what was emitted. Only the paired counterfactual $\mathrm{VC}$
+measures reliance directly. \needsrun{$\mathrm{VC}$ and $\mathrm{GR}$; until
+they exist, our integrity results are a lower bound on contamination}
+
+A second limitation of the same kind: $\mathrm{CR}$ is \textbf{content-blind}.
+On \texttt{lat-01} conveyance is $100\%$ both undefended and defended, yet the
+defended review no longer rests on an unattributed ticket claim. Conveyance
+counts \emph{which} entries appear, not whether the reasoning was sound, so it
+cannot distinguish those two reviews at all. $\mathrm{GR}$ is the column that
+can.
+
+\subsection{Zero trust is doing work: the same entries, a different request}
+\label{sec:eval:counterfactual}
+
+To isolate the per-request recomputation from the labels, we re-run
+\texttt{ext-01}'s nine entries unchanged under a Downward request---a tech
+lead reviewing a junior's PR in a private repository---giving
+$\clr = 0.70$, $\lvlI = 0.45$, $\wC = 0.67$, $\wI = 0.60$.
+
+Two entries change decision. Entry e4 becomes \textsc{allow} because
+$0.30 \le 0.70$, and e7 (the unannounced roadmap change) becomes
+\textsc{allow} because its risk of $0.1005$ falls under $\theta$.
+\textbf{No label changed.} $\Cl(e7)$ is $0.85$ in both runs; the entry became
+quotable because the \emph{audience} changed and the decision was recomputed
+from the request rather than read from a cache. Static multilevel security with
+administratively assigned labels cannot express this---it would need a distinct
+label per audience per entry.
+
+Two findings fall out. First, \textbf{integrity did not relax}: e8 and e9 stay
+quarantined internally, because familiarity of the audience is not evidence.
+A confidentiality-only defense misses this entirely. Second, and less
+comfortably, \textbf{e5 survives on $0.0175$ of margin}: a named-customer
+regulated entry sits one $\theta$ adjustment away from release. That margin is
+what motivated the precedence fix in \Cref{sec:discussion:bugs}, and until that
+fix landed the safety of this case was an accident of calibration rather than a
+property of the design.
+
+\subsection{Capability changes the evidence bar}
+\label{sec:eval:capability}
+
+Holding the request and all nine entries fixed and granting the agent
+\texttt{approve\_automerge} instead of \texttt{comment} moves only $\lvlI$, from
+$0.60$ to $\max(0.60, 0.85) = 0.85$ by \Cref{eq:lvlI}. Entry e3---a published
+public advisory, $\Il = 0.80$---is no longer authoritative enough on its own to
+ground a verdict that auto-merges to the main branch, and clears only because
+it falls inside $\theta$. Entries e8 and e9 move from risk $1.00$ to $1.50$.
+
+This is the intended behavior: \textbf{escalating what the agent may cause
+escalates the evidence it must have}, with no change to the prompt or the task.
+It is also the cleanest ablation in the paper, since a single configuration
+field moves it, and it is the experimental form of the argument that
+\Cref{tab:incidents} makes retrospectively.
+
+\subsection{Reproducibility}
+
+All decisions in this section are executable. A verifier re-derives the
+27 policy decisions across the three request configurations directly from the
+configuration file and asserts them against the values reported here, so the
+prose cannot silently drift from the implementation. It additionally asserts
+that no regulated entry is ever released by the $\theta$ override. The full
+suite---15 unit tests, both evaluation runs, and the verifier---executes in
+under a second with no network access and no dependencies beyond a YAML
+parser.

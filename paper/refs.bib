@@ -1,0 +1,449 @@
+%=======================================================================
+% refs.bib -- Never Trust the Context
+%
+% Grouped by role in the argument. Entries marked VERIFY need a check
+% against the canonical record before submission.
+%=======================================================================
+
+% ---------------------------------------------------------------------
+% 1. THE TWO PAPERS WE MESH
+% ---------------------------------------------------------------------
+
+@inproceedings{ciwork2026,
+  title     = {{CI-Work}: Benchmarking Contextual Integrity in Enterprise
+               {LLM} Agents},
+  author    = {Fu, Yu and Qin, Lizhen and Zhang, Wei and Lin, Hao and
+               Wutschitz, Lukas and Sim, Robert and Rajmohan, Saravan and
+               Zhang, Dongmei},
+  booktitle = {Proceedings of the 64th Annual Meeting of the Association for
+               Computational Linguistics (Industry Track)},
+  year      = {2026},
+  note      = {arXiv:2604.21308. Code and data: \url{https://aka.ms/ci-work-code}.
+               VERIFY full author list and page numbers against the ACL
+               Anthology entry once available.}
+}
+
+@inproceedings{tiansong2021,
+  title     = {A Zero Trust Method Based on {BLP} and {BIBA} Model},
+  author    = {Tian, Xiaopeng and Song, Haohao},
+  booktitle = {14th International Symposium on Computational Intelligence and
+               Design (ISCID)},
+  pages     = {96--100},
+  year      = {2021},
+  address   = {Hangzhou, China},
+  publisher = {IEEE},
+  doi       = {10.1109/ISCID52796.2021.00031},
+  note      = {IEEE Xplore document 9679285.}
+}
+
+% ---------------------------------------------------------------------
+% 2. CLASSICAL MULTILEVEL SECURITY -- the formal foundation
+% ---------------------------------------------------------------------
+
+@techreport{belllapadula1976,
+  title       = {Secure Computer System: Unified Exposition and {Multics}
+                 Interpretation},
+  author      = {Bell, D. Elliott and LaPadula, Leonard J.},
+  institution = {MITRE Corporation},
+  number      = {ESD-TR-75-306, MTR-2997 Rev.~1},
+  year        = {1976}
+}
+
+@techreport{biba1977,
+  title       = {Integrity Considerations for Secure Computer Systems},
+  author      = {Biba, Kenneth J.},
+  institution = {MITRE Corporation},
+  number      = {ESD-TR-76-372, MTR-3153},
+  year        = {1977}
+}
+
+@techreport{nistir7316,
+  title       = {Assessment of Access Control Systems},
+  author      = {Hu, Vincent C. and Ferraiolo, David F. and Kuhn, D. Rick},
+  institution = {National Institute of Standards and Technology},
+  number      = {NISTIR 7316},
+  year        = {2006},
+  doi         = {10.6028/NIST.IR.7316}
+}
+
+@inproceedings{clarkwilson1987,
+  title     = {A Comparison of Commercial and Military Computer Security
+               Policies},
+  author    = {Clark, David D. and Wilson, David R.},
+  booktitle = {IEEE Symposium on Security and Privacy},
+  pages     = {184--194},
+  year      = {1987},
+  note      = {Cited as the commercial-integrity alternative to Biba;
+               relevant to the Discussion on why we chose Biba's lattice
+               formulation over well-formed transactions.}
+}
+
+@inproceedings{denning1976,
+  title     = {A Lattice Model of Secure Information Flow},
+  author    = {Denning, Dorothy E.},
+  journal   = {Communications of the ACM},
+  volume    = {19},
+  number    = {5},
+  pages     = {236--243},
+  year      = {1976}
+}
+
+% ---------------------------------------------------------------------
+% 3. ZERO TRUST ARCHITECTURE
+% ---------------------------------------------------------------------
+
+@techreport{nist800207,
+  title       = {Zero Trust Architecture},
+  author      = {Rose, Scott and Borchert, Oliver and Mitchell, Stu and
+                 Connelly, Sean},
+  institution = {National Institute of Standards and Technology},
+  number      = {NIST SP 800-207},
+  year        = {2020},
+  doi         = {10.6028/NIST.SP.800-207}
+}
+
+@techreport{nist800207a,
+  title       = {A Zero Trust Architecture Model for Access Control in
+                 Cloud-Native Applications in Multi-Location Environments},
+  author      = {Chandramouli, Ramaswamy and Butcher, Zack},
+  institution = {National Institute of Standards and Technology},
+  number      = {NIST SP 800-207A},
+  year        = {2023},
+  doi         = {10.6028/NIST.SP.800-207A}
+}
+
+@article{he2022zerotrust,
+  title   = {A Survey on Zero Trust Architecture: Challenges and Future Trends},
+  author  = {He, Yuanhang and Huang, Daochao and Chen, Lei and Ni, Yi and
+             Ma, Xiangjie},
+  journal = {Wireless Communications and Mobile Computing},
+  year    = {2022},
+  doi     = {10.1155/2022/6476274},
+  note    = {Source for the published critique of \cite{tiansong2021}:
+             no principled initial-trust assignment, ad-hoc weights.}
+}
+
+@article{sultana2024zerotrust,
+  title   = {Zero Trust Architecture: A Systematic Literature Review},
+  author  = {Sultana, Madeena and others},
+  journal = {(review article)},
+  year    = {2024},
+  note    = {PMC10892953. Second source for the weight/initial-trust critique.
+             VERIFY exact title, authors, and journal.}
+}
+
+@article{zerotrustscore2024,
+  title   = {Zero Trust Score-based Network-level Access Control in Enterprise
+             Networks},
+  author  = {Bhattacharjee, Leonard and others},
+  journal = {arXiv preprint arXiv:2402.08299},
+  year    = {2024},
+  note    = {Cites the Tian--Song entity set (user, terminal, file, channel).
+             VERIFY authors.}
+}
+
+% ---------------------------------------------------------------------
+% 4. CONTEXTUAL INTEGRITY
+% ---------------------------------------------------------------------
+
+@article{nissenbaum2004,
+  title   = {Privacy as Contextual Integrity},
+  author  = {Nissenbaum, Helen},
+  journal = {Washington Law Review},
+  volume  = {79},
+  number  = {1},
+  pages   = {119--157},
+  year    = {2004}
+}
+
+@book{nissenbaum2009,
+  title     = {Privacy in Context: Technology, Policy, and the Integrity of
+               Social Life},
+  author    = {Nissenbaum, Helen},
+  publisher = {Stanford University Press},
+  year      = {2009}
+}
+
+% ---------------------------------------------------------------------
+% 5. PRIOR CI / PRIVACY BENCHMARKS -- what CI-Work supersedes
+% ---------------------------------------------------------------------
+
+@inproceedings{confaide2024,
+  title     = {Can {LLMs} Keep a Secret? Testing Privacy Implications of
+               Language Models via Contextual Integrity Theory},
+  author    = {Mireshghallah, Niloofar and Kim, Hyunwoo and Zhou, Xuhui and
+               Tsvetkov, Yulia and Sap, Maarten and Shokri, Reza and
+               Choi, Yejin},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024}
+}
+
+@inproceedings{privacylens2024,
+  title     = {{PrivacyLens}: Evaluating Privacy Norm Awareness of Language
+               Models in Action},
+  author    = {Shao, Yijia and Li, Tianshi and Shi, Weiyan and Liu, Yanchen and
+               Yang, Diyi},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2024}
+}
+
+@article{cibench2024,
+  title   = {{CI-Bench}: Benchmarking Contextual Integrity of {AI} Assistants},
+  author  = {Cheng, Zhao and others},
+  journal = {arXiv preprint},
+  year    = {2024},
+  note    = {VERIFY authors and arXiv id.}
+}
+
+@article{cimemories2025,
+  title   = {{CIMemories}: Contextual Integrity of Memories in Personalized
+             Agents},
+  author  = {Anonymous},
+  journal = {arXiv preprint},
+  year    = {2025},
+  note    = {Cited by \cite{ciwork2026} as prior single-flow work. VERIFY.}
+}
+
+@article{privacibench2025,
+  title   = {{PrivaCI-Bench}: Evaluating Privacy with Contextual Integrity and
+             Legal Compliance},
+  author  = {Anonymous},
+  journal = {arXiv preprint},
+  year    = {2025},
+  note    = {Cited by \cite{ciwork2026}. VERIFY.}
+}
+
+% ---------------------------------------------------------------------
+% 6. AGENT SANDBOXES AND EVALUATION HARNESSES
+% ---------------------------------------------------------------------
+
+@inproceedings{toolemu2024,
+  title     = {Identifying the Risks of {LM} Agents with an {LM}-Emulated
+               Sandbox},
+  author    = {Ruan, Yangjun and Dong, Honghua and Wang, Andrew and
+               Pitis, Silviu and Zhou, Yongchao and Ba, Jimmy and
+               Dubois, Yann and Maddison, Chris J. and Hashimoto, Tatsunori},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {ToolEmu; the sandbox CI-Work's trajectory simulation builds on.}
+}
+
+@inproceedings{agentbench2024,
+  title     = {{AgentBench}: Evaluating {LLMs} as Agents},
+  author    = {Liu, Xiao and Yu, Hao and Zhang, Hanchen and Xu, Yifan and
+               Lei, Xuanyu and Lai, Hanyu and Gu, Yu and others},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024}
+}
+
+% ---------------------------------------------------------------------
+% 7. PROMPT INJECTION -- the integrity failure under another name.
+%    Related work MUST engage this literature directly or a reviewer
+%    will say we renamed it. See sections/07-discussion.tex.
+% ---------------------------------------------------------------------
+
+@inproceedings{greshake2023indirect,
+  title     = {Not What You've Signed Up For: Compromising Real-World
+               {LLM}-Integrated Applications with Indirect Prompt Injection},
+  author    = {Greshake, Kai and Abdelnabi, Sahar and Mishra, Shailesh and
+               Endres, Christoph and Holz, Thorsten and Fritz, Mario},
+  booktitle = {Proceedings of the 16th ACM Workshop on Artificial Intelligence
+               and Security (AISec)},
+  pages     = {79--90},
+  year      = {2023},
+  doi       = {10.1145/3605764.3623985}
+}
+
+@inproceedings{willison2023dual,
+  title  = {The Dual {LLM} Pattern for Building {AI} Assistants That Can
+            Resist Prompt Injection},
+  author = {Willison, Simon},
+  year   = {2023},
+  note   = {Blog post, \url{https://simonwillison.net/2023/Apr/25/dual-llm-pattern/}.
+            The closest existing analogue to our L3 privileged-context split;
+            we owe it an explicit comparison.}
+}
+
+@article{debenedetti2024agentdojo,
+  title   = {{AgentDojo}: A Dynamic Environment to Evaluate Prompt Injection
+             Attacks and Defenses for {LLM} Agents},
+  author  = {Debenedetti, Edoardo and Zhang, Jie and Balunovi{\'c}, Mislav and
+             Beurer-Kellner, Luca and Fischer, Marc and
+             Tram{\`e}r, Florian},
+  journal = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year    = {2024}
+}
+
+@article{wu2024system,
+  title   = {System-Level Defense against Indirect Prompt Injection Attacks:
+             An Information Flow Control Perspective},
+  author  = {Wu, Fangzhou and Cecchetti, Ethan and Xiao, Chaowei},
+  journal = {arXiv preprint arXiv:2409.19091},
+  year    = {2024},
+  note    = {Closest related work on the defense side: IFC for injection.
+             Our differentiator is the dual-axis labeling and the action
+             downgrade. VERIFY venue if published.}
+}
+
+@article{camel2025,
+  title   = {Defeating Prompt Injections by Design},
+  author  = {Debenedetti, Edoardo and Shumailov, Ilia and Fan, Tianqi and
+             Hayes, Jamie and Carlini, Nicholas and Fabian, Daniel and
+             Kern, Christoph and Shi, Chongyang and Terzis, Andreas and
+             Tram{\`e}r, Florian},
+  journal = {arXiv preprint arXiv:2503.18813},
+  year    = {2025},
+  note    = {CaMeL. Capability-based; the nearest neighbor to our
+             action-downgrade mechanism and must be distinguished carefully.}
+}
+
+@inproceedings{perez2022ignore,
+  title     = {Ignore Previous Prompt: Attack Techniques for Language Models},
+  author    = {Perez, F{\'a}bio and Ribeiro, Ian},
+  booktitle = {NeurIPS ML Safety Workshop},
+  year      = {2022}
+}
+
+% ---------------------------------------------------------------------
+% 8. INFORMATION FLOW CONTROL IN SYSTEMS -- the lineage we claim
+% ---------------------------------------------------------------------
+
+@inproceedings{myers1997decentralized,
+  title     = {A Decentralized Model for Information Flow Control},
+  author    = {Myers, Andrew C. and Liskov, Barbara},
+  booktitle = {Proceedings of the 16th ACM Symposium on Operating Systems
+               Principles (SOSP)},
+  pages     = {129--142},
+  year      = {1997}
+}
+
+@inproceedings{zeldovich2006histar,
+  title     = {Making Information Flow Explicit in {HiStar}},
+  author    = {Zeldovich, Nickolai and Boyd-Wickizer, Silas and Kohler, Eddie
+               and Mazi{\`e}res, David},
+  booktitle = {USENIX Symposium on Operating Systems Design and Implementation
+               (OSDI)},
+  year      = {2006}
+}
+
+@inproceedings{krohn2007flume,
+  title     = {Information Flow Control for Standard {OS} Abstractions},
+  author    = {Krohn, Maxwell and Yip, Alexander and Brodsky, Micah and
+               Cliffer, Natan and Kaashoek, M. Frans and Kohler, Eddie and
+               Morris, Robert},
+  booktitle = {Proceedings of the 21st ACM Symposium on Operating Systems
+               Principles (SOSP)},
+  pages     = {321--334},
+  year      = {2007}
+}
+
+% ---------------------------------------------------------------------
+% 9. LLM-AS-A-JUDGE -- our F_disc inherits its error profile
+% ---------------------------------------------------------------------
+
+@inproceedings{zheng2023judging,
+  title     = {Judging {LLM}-as-a-Judge with {MT-Bench} and {Chatbot Arena}},
+  author    = {Zheng, Lianmin and Chiang, Wei-Lin and Sheng, Ying and
+               Zhuang, Siyuan and Wu, Zhanghao and Zhuang, Yonghao and
+               Lin, Zi and Li, Zhuohan and Li, Dacheng and Xing, Eric P. and
+               Zhang, Hao and Gonzalez, Joseph E. and Stoica, Ion},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2023}
+}
+
+% ---------------------------------------------------------------------
+% 10. DOCUMENTED PRODUCTION INCIDENTS
+%     Used in Sec. 1 (motivation) and Sec. 7 (design validation).
+%     These are trade-press and practitioner reports, not peer-reviewed.
+%     We cite them as *existence proofs of a failure mode*, never as
+%     measurements. Keep that framing in the prose.
+% ---------------------------------------------------------------------
+
+@techreport{mandiant2026,
+  title       = {Enterprise {AI} Security Risks},
+  author      = {{Google Threat Intelligence Group / Mandiant}},
+  institution = {Google},
+  year        = {2026},
+  note        = {Reported Sept.~2026. Source of the runaway accounting-agent
+                 case study: 15{,}000+ high-cost API calls in under an hour,
+                 $\approx$\$50{,}000 in charges, active business transactions
+                 disrupted. Also documents UNC6780/TeamPCP using prompt
+                 injection against AI coding assistants and LLM-based security
+                 scanners. VERIFY exact report title and obtain the primary
+                 PDF; currently sourced via Help Net Security coverage,
+                 \url{https://www.helpnetsecurity.com/2026/09/16/google-mandiant-enterprise-ai-security-risks-report/}}
+}
+
+@misc{pocketos2026,
+  title  = {Post-Mortem: A Nine-Second Agentic Database Deletion at {PocketOS}},
+  author = {{NeuralTrust}},
+  year   = {2026},
+  note   = {Apr.~2026. A Cursor-hosted coding agent hit a credential mismatch,
+            located an unrelated API token in another file, and issued a
+            Railway volume-deletion mutation that destroyed the production
+            database and all co-located backups in nine seconds. The canonical
+            example for our action-downgrade argument: ambient credentials plus
+            an inferred plan grounding an irreversible action.
+            \url{https://neuraltrust.ai/blog/pocketos-railway-agent}}
+}
+
+@misc{replit2025,
+  title  = {Replit Coding Agent Deletes a Production Database During a Code
+            Freeze},
+  author = {{AI Agent Incident Register}},
+  year   = {2025},
+  note   = {AIR-2026-001. July 2025; records for 1{,}206 executives and
+            1{,}196+ companies destroyed despite an explicit freeze directive.
+            Cited as the canonical L0 failure: enforcement by instruction.
+            Remediation announced by the vendor (dev/prod separation,
+            planning-only mode) is a capability constraint, which is our
+            point. \url{https://companyscope.io/register/air-2026-001}}
+}
+
+@misc{gcp82k2026,
+  title  = {Postmortem: An \$82{,}000 {Google Cloud} Bill from a Coding Agent},
+  author = {{HASP}},
+  year   = {2026},
+  note   = {A service-account key left in a project root was picked up by a
+            coding agent, which retried Terraform applies for 56 hours. Same
+            ambient-credential pattern as \cite{pocketos2026}.
+            \url{https://gethasp.com/guides/82000-google-cloud-bill-ai-agent-postmortem/}}
+}
+
+@misc{infoq2026billing,
+  title  = {{AI} Agents with Cloud Credentials Are Outrunning Billing
+            Guardrails Built for Human-Speed Mistakes},
+  author = {{InfoQ}},
+  year   = {2026},
+  note   = {Documents a \$14{,}000 single-day Bedrock charge and the structural
+            mismatch between autonomous spend velocity and human-speed
+            guardrails. We cite this for the limitation we do NOT address:
+            rate, as opposed to authority.
+            \url{https://www.infoq.com/news/2026/07/ai-agents-billing-guardrails/}}
+}
+
+@misc{moffatt2024,
+  title  = {Moffatt v. Air Canada},
+  author = {{British Columbia Civil Resolution Tribunal}},
+  year   = {2024},
+  note   = {2024 BCCRT 149. The tribunal held Air Canada liable for a false
+            bereavement-fare policy stated by its chatbot, awarding
+            CAD~812.02. Legally establishes that an agent's customer-facing
+            assertion is a binding high-integrity artifact, which is the
+            premise our $\mathrm{lvl}_I$ formalizes. VERIFY citation format
+            against the tribunal record.}
+}
+
+% ---------------------------------------------------------------------
+% 11. SIBLING PROJECT -- the BLP half, for the Discussion
+% ---------------------------------------------------------------------
+
+@misc{safelattice2026,
+  title  = {{SafeLattice}: Lattice-Based Confidentiality Scoring for Agent
+            Trajectory Evaluation},
+  author = {Anonymous},
+  year   = {2026},
+  note   = {Companion project applying the Bell--LaPadula half to agent
+            evaluation. Anonymized for submission; cite properly at
+            camera-ready.}
+}
