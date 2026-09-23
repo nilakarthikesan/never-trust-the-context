@@ -1,0 +1,329 @@
+\section{Introduction}
+\label{sec:intro}
+
+Enterprise LLM agents are deployed today with a capability that is inseparable
+from its own attack surface: they retrieve from private organizational
+stores---email, chat, wikis, ticketing systems, meeting transcripts---and then
+\emph{act}, sending messages and writing to shared artifacts on a user's
+behalf. The retrieval is what makes them useful. The action is what makes
+retrieval dangerous.
+
+Recent benchmarking establishes that this is not a hypothetical concern.
+CI-Work~\cite{ciwork2026} constructs enterprise tasks in which information that
+must be conveyed and information that must be withheld are deliberately
+entangled in the same dense retrieved context, and reports that frontier agents
+commit a contextual-integrity violation in 15.8--50.9\% of cases, with leakage
+rates up to 26.7\%. Two of its findings matter more than the headline numbers.
+First, the failure does not yield to scale: larger models in the same family
+convey more \emph{and} leak more. Second, it does not yield to prompting
+either---the strongest prompt-level defense evaluated reduces violation from
+27.8\% to 21.3\% while cutting conveyance from 93.0\% to 81.0\%, trading most
+of the task's usefulness for a fraction of its safety. The authors conclude
+that progress requires ``a paradigm shift, moving beyond model-centric scaling
+toward context-centric architectures.''
+
+This paper takes that conclusion literally, and argues that the architecture
+called for cannot be built from the measurements currently available, because
+those measurements describe only half of the failure.
+
+\subsection{Two failures, one of them unmeasured}
+
+Consider an agent asked to email a landlord to renew an office lease. It
+retrieves three things: the executed lease, fine to discuss with the landlord;
+an internal memo stating the walk-away rent threshold, real but confidential;
+and an unconfirmed message from HR speculating that headcount cuts will reduce
+the space requirement. The agent sends an email that states the walk-away
+threshold---destroying the negotiating position---and asserts the speculative
+square-footage figure as though it were a company position.
+
+These are two different mistakes. The agent \emph{said something it should not
+have said}, and it \emph{believed something it should not have believed}.
+CI-Work and the contextual-integrity benchmarks preceding
+it~\cite{confaide2024,privacylens2024,cibench2024} measure the first. The
+second has no metric in this literature at all, despite being the failure that
+produces a wrong outcome rather than an embarrassing one.
+
+The distinction is not a refinement. It is a claim that the two properties are
+carried on \emph{independent} axes, and the evidence for independence is
+already inside CI-Work's own published examples. A negotiation walk-away price
+is maximally restricted and also completely authoritative: it is a real number
+from a real internal decision. An unverified assertion in a channel the
+counterparty controls is the reverse---quoting it leaks nothing, and relying on
+it is catastrophic. A policy with one axis must collapse these two cases, and
+whichever way it collapses them it is wrong about one of them.
+
+Security has a name for the second axis and a formalism for enforcing it.
+Bell--LaPadula~\cite{belllapadula1976} governs confidentiality through
+no-read-up and no-write-down; Biba~\cite{biba1977} governs integrity through
+the dual rules, no-read-down and no-write-up. The mnemonic is that
+\emph{Bell--LaPadula keeps secrets from leaking down, and Biba keeps garbage
+from flowing up}. The agent-privacy literature has effectively rediscovered the
+first half. The second half is sitting unused, and it is the half that
+describes contamination.
+
+\subsection{The same failure, in production}
+\label{sec:intro:incidents}
+
+The integrity axis is not a benchmark artifact. It is the shape of the
+agent incidents that have actually reached postmortem, and naming it makes
+those incidents legible as one failure rather than six unrelated ones.
+\Cref{tab:incidents} maps five documented cases onto the framework.
+
+\begin{table*}[t]
+\centering
+\caption{Documented production incidents, read through the framework. In every
+case the agent's \emph{authority} exceeded the integrity of the evidence its
+action rested on---\Cref{eq:bibaviolation}. We cite these as existence proofs
+of a failure mode, not as measurements; the rate-of-spend dimension of the
+cost incidents is explicitly outside what we address
+(\Cref{sec:discussion:limitations}).}
+\label{tab:incidents}
+\footnotesize
+\begin{tabular}{@{}p{0.15\textwidth}p{0.30\textwidth}p{0.24\textwidth}p{0.24\textwidth}@{}}
+\toprule
+\textbf{Incident} & \textbf{What happened} & \textbf{Evidence the action rested on}
+  & \textbf{What the framework would have required} \\
+\midrule
+PocketOS / Railway, 2026~\cite{pocketos2026}
+& Coding agent hit a credential mismatch, found an unrelated API token in
+  another file, issued a volume deletion. Production database and all
+  co-located backups gone in nine seconds.
+& An \emph{inference} that the volume was staging-scoped. The agent's own
+  account: it ``guessed rather than verified.''
+& Irreversible action requires $\Il \ge 0.95$; a guess scores near the floor.
+  Action capped at ``ask a question.'' Separately, an ambient token is not in
+  the capability grant (precedence rule~1). \\[4pt]
+Replit, 2025~\cite{replit2025}
+& Agent ran destructive commands against production during an explicit code
+  freeze, destroying 1{,}206 executive and 1{,}196+ company records.
+& An instruction the agent was told to obey and did not.
+& The canonical \textbf{L0} failure: enforcement by instruction
+  (\Cref{sec:method:ladder}). The vendor's own remediation---dev/prod
+  separation, planning-only mode---is a capability constraint, which is the
+  argument. \\[4pt]
+Runaway accounting agent, 2026~\cite{mandiant2026}
+& 15{,}000+ high-cost API calls in under an hour; $\approx$\$50{,}000 in
+  charges; active business transactions disrupted.
+& A retry loop. No evidence at all supported continuing.
+& \emph{Partially addressed.} $\lvlI$ makes spend authority an explicit policy
+  input rather than an ambient property of the credential. We do not address
+  the loop itself. \\[4pt]
+\$82{,}000 GCP bill, 2026~\cite{gcp82k2026}
+& Service-account key left in a project root; agent retried Terraform applies
+  for 56 hours.
+& A key that happened to be in reach.
+& Same ambient-credential pattern as PocketOS. Credentials belong in the
+  per-request grant, not the environment. \\[4pt]
+Moffatt v.\ Air Canada, 2024~\cite{moffatt2024}
+& Chatbot stated a bereavement-fare policy that did not exist; the tribunal
+  held the airline liable.
+& Nothing. The claim had no source entry.
+& Grounding rate $\mathrm{GR}$ (\Cref{sec:benchmark:metrics}) scores a claim
+  with no supporting entry as ungrounded. The ruling is useful to us
+  independently: it establishes that a customer-facing assertion \emph{is} a
+  binding high-integrity artifact. \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Two observations organize the table. First, in none of these cases was the
+agent attacked, and in only one was it even confused in the ordinary sense. It
+was reasoning forward from an obstacle, forming a plausible plan, and executing
+with the authority it happened to hold. \textbf{The blast radius was set by the
+infrastructure and the trigger was set by the agent, with nothing in between
+relating the two.} Second, that missing relation is exactly
+\Cref{eq:bibaviolation}: the integrity demanded by the action was never
+compared against the integrity of the evidence supporting it, because neither
+quantity was represented.
+
+We are deliberately careful about what this table claims. Our mechanism
+constrains \emph{authority}---what an agent may cause given what it knows. It
+does not constrain \emph{rate}, and the cost incidents above are substantially
+rate failures that want spend caps, timeouts, and kill
+switches~\cite{infoq2026billing}. We claim the authority half, and say so again
+in \Cref{sec:discussion:limitations}.
+
+\subsection{Why a write boundary, and why zero trust}
+
+Our mechanism follows from a diagnosis: enterprise agents fail because the
+moment an item enters the context window it is treated as both \emph{sendable}
+and \emph{true}. Neither property is conferred by retrieval, and both are
+properties of a \emph{request}---the same internal roadmap note is quotable to
+a teammate and not to an outside contributor, with no change to the note.
+
+That is precisely the premise of zero trust~\cite{nist800207}: never trust,
+always verify, re-evaluated per access rather than granted by position.
+Tian and Song~\cite{tiansong2021} give the specific formulation we build
+on, reframing zero trust as dynamic dual-label Bell--LaPadula plus Biba with
+continuous per-component trust scores and separate weights for confidentiality
+and integrity requirements. Their method was never applied to agents, never
+applied to information flow inside a model's context window, and---as
+subsequent surveys note~\cite{he2022zerotrust,sultana2024zerotrust}---was
+published without a principled initial-trust assignment, with a weight
+distribution the reviews call ``not reasonable enough,'' and without any
+quantitative evaluation. We supply all three.
+
+We place the enforcement point at the agent's \textbf{write boundary}: the
+final tool call that emits an artifact to a recipient. This is the narrowest
+interface at which the question ``may this specific item reach this specific
+audience, and is it sound enough to act on'' is even well posed, and it is
+where the read/write asymmetry of Bell--LaPadula earns its keep. In our worked
+case the agent's read authority is the reviewer's clearance ($0.9$) while its
+write ceiling is the thread's audience ($0.2$, a public repository). Every leak
+lives in that gap---and so does all of the context that makes the output good.
+An access model that can only grant or deny cannot express ``read this, reason
+over it, never repeat it.''
+
+\subsection{Research questions}
+\label{sec:intro:rqs}
+
+The paper is organized around three questions. They are ordered so that each
+one is only worth asking if the previous one is answered affirmatively: if the
+axes are not independent there is nothing new to enforce, and if enforcement
+cannot beat the trade-off there is no reason to care where it sits.
+
+\begin{description}
+  \item[\textbf{RQ1 (Representation).}] \emph{Are confidentiality and
+  provenance integrity independent axes in enterprise agent context, and does
+  the integrity axis carry failures that existing contextual-integrity
+  benchmarks cannot express or score?}
+
+  This is a question about what a benchmark can \emph{say}, prior to any
+  defense. It decomposes into three testable parts: whether all four quadrants
+  of \Cref{tab:quadrants} are populated in real data; whether both failure
+  types co-occur in transcripts the CI-Work authors themselves published; and
+  whether the essential/sensitive partition is not merely incomplete but
+  \emph{unsound}, in that it cannot represent an entry that is simultaneously
+  required by the task and forbidden to the recipient. Addressed in
+  \Cref{sec:threat,sec:benchmark:classes}, and settled empirically in
+  \Cref{sec:eval:rq1}.
+
+  \item[\textbf{RQ2 (Efficacy).}] \emph{Can a per-request dual-label policy at
+  the write boundary reduce leakage, violation, and contamination without the
+  utility collapse that prompt-level defenses incur---and under what condition
+  does it fail to?}
+
+  The second clause is the one that makes this honest. A defense that wins on
+  average while quietly over-blocking is the prompt defense with extra
+  machinery, so RQ2 is only answered if false suppression is measured on null
+  controls and the failure condition is stated precisely rather than averaged
+  away. Addressed in \Cref{sec:eval:rq2}.
+
+  \item[\textbf{RQ3 (Enforcement).}] \emph{Where must the policy be enforced,
+  and by what mechanism, for its decisions to hold against a model that is
+  careless or a channel that is adversarial?}
+
+  A correct decision enforced by a sentence in a system prompt is not enforced.
+  RQ3 asks separately about \emph{placement}---before generation versus after
+  it---and about \emph{mechanism}, via the L0--L3 ladder and the action-
+  downgrade rule of \Cref{eq:downgrade}. It also generates the paper's sharpest
+  falsifiable prediction, since a mechanism that removes restricted text from
+  the writer's context should flatten the leakage-versus-scale slope that
+  CI-Work reports. Addressed in
+  \Cref{sec:eval:placement,sec:discussion:prediction}.
+\end{description}
+
+\noindent A fourth question---\emph{does the framework explain agent failures
+observed in production?}---we treat as design validation rather than as an
+experiment, since \Cref{tab:incidents} is a retrospective reading of incidents
+we did not control. We return to it in \Cref{sec:discussion:incidents}.
+
+\subsection{Three results}
+
+\textbf{Two axes are necessary, and the second one needs a new entry class to
+be measurable.} CI-Work partitions retrieved context into an essential set and
+a sensitive set. That partition can express only confidentiality failures, so
+we add a third class, \emph{corrupting} context ($\Ecorr$): low
+confidentiality, low integrity, cheap to disclose and expensive to believe. The
+PR author's own claim that ``security already signed off'' is the canonical
+instance. We further show the two-set partition is not merely incomplete but
+unsound for enterprise work, because it implicitly assumes
+$\Eess \subseteq \text{emittable}$. \Cref{sec:eval} exhibits an entry that is
+simultaneously necessary for the task and forbidden to the recipient---a cell
+the existing schema cannot represent, and one that requires paraphrase rather
+than either quotation or deletion.
+
+\textbf{Integrity for an agent is a capability constraint, not a filtering
+problem.} The harm from a low-integrity entry is not that the agent
+\emph{repeats} it---repeating it is usually harmless---but that the agent
+\emph{relies} on it, and filtering text does nothing about reliance. We
+therefore bound the integrity of the action an agent may take by the integrity
+of the weakest evidence its conclusion rests on
+(\Cref{sec:method:downgrade}). Strong evidence permits approving a merge; weak
+evidence permits only asking a question. Three properties make this the right
+primitive: it requires no natural-language inference, being a comparison over
+labels already computed; it cannot be argued out of, because it is enforced by
+the permission system rather than by the model's cooperation, and so is immune
+to the compliance failure CI-Work measures; and it degrades gracefully,
+yielding a weaker action rather than a refusal. It also reframes indirect
+prompt injection~\cite{greshake2023indirect} usefully: an injected instruction
+is a low-integrity entry attempting to ground a high-integrity action, and
+under this rule it does not need to be \emph{detected}, only \emph{labeled}.
+
+\textbf{Enforcement placement dominates enforcement strength.} We evaluate the
+same policy at two deployment points and find the difference is not a matter of
+degree. Post-hoc filtering receives a finished draft and can only \emph{delete},
+which leaves two failures structurally unreachable: an essential entry above
+the write ceiling is lost outright because paraphrase is not an available move,
+and a finding the agent dropped \emph{because} it believed a corrupting entry
+cannot be restored, because a filter cannot add text. Running the same decision
+before generation recovers all of it---conveyance returns to the undefended
+agent's figure exactly---because the writer receives admitted entries verbatim,
+above-ceiling entries as label-checked abstracts, and never holds the withheld
+entries at all. No-write-down becomes vacuous rather than filtered for that
+set: you cannot emit what you do not have.
+
+\subsection{Contributions}
+
+\begin{enumerate}
+  \item \textbf{A dual-axis threat model} for enterprise agents that extends
+  CI-Work's formal risk model with an integrity-contamination condition, and a
+  demonstration that both failures co-occur in each of CI-Work's own two
+  published qualitative transcripts (\Cref{sec:threat}).
+
+  \item \textbf{\sys}, a zero-trust policy layer at the agent's write boundary
+  enforcing Bell--LaPadula no-write-down and Biba no-write-up per request, with
+  an explicit provenance rubric for the integrity label and an initial-trust
+  rule, addressing the two published weaknesses of
+  Tian--Song~\cite{tiansong2021} (\Cref{sec:method}).
+
+  \item \textbf{Derived rather than hand-set weights.} We split every parameter
+  into structural, measurement, and operating-point tiers with distinct
+  justification obligations, and derive $\wC$ from audience breadth and $\wI$
+  from consequence class instead of tuning them
+  (\Cref{sec:method:weights}). We also show the required outbound integrity is
+  a function of the agent's authorized \emph{capability}, so revoking merge
+  permission genuinely lowers the evidence bar for an identical task.
+
+  \item \textbf{An enforcement-mechanism ladder} (L0--L3) that separates what a
+  policy decides from what makes the decision hold, and a falsifiable
+  prediction it generates: under handle-mediated citation the leakage-versus-
+  model-size slope should flatten, contradicting CI-Work's inverse-scaling
+  result (\Cref{sec:method:ladder}, \Cref{sec:discussion:prediction}).
+
+  \item \textbf{A benchmark with a corrupting entry class, entangled twins, and
+  null controls.} Every sensitive entry is authored as a near-twin of an
+  essential one---same subject, same retrieval query, different disclosure
+  norm---so the task cannot be solved by relevance filtering. Null seeds with
+  no sensitive entries measure false suppression, which is what distinguishes a
+  policy layer from a refusal and which no prior CI benchmark includes
+  (\Cref{sec:benchmark}).
+
+  \item \textbf{Two integrity metrics, an honest account of their limits, and a
+  reproducible artifact.} We report Integrity-Leakage and Integrity-Violation,
+  and show by measurement that they undercount contamination by exactly the
+  entries that were silently believed rather than repeated---motivating a
+  counterfactual verdict-corruption metric. Our release includes a verifier
+  that re-derives every policy decision in the paper from the configuration
+  file, so the prose cannot drift from the implementation
+  (\Cref{sec:eval}, \Cref{sec:ethics:openscience}).
+\end{enumerate}
+
+We also report two latent policy bugs that our own derivation exposed, because
+both are instructive rather than incidental (\Cref{sec:discussion:bugs}). In
+one, a content marker such as ``approved'' could raise an entry's integrity
+score regardless of its source, so text in a channel controlled by the party
+under review could talk our integrity labeler into trusting it---our own
+defense, prompt-injected. The principle the fix follows from is that
+\emph{integrity is a property of provenance, and content cannot vouch for its
+own provenance}.

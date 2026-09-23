@@ -1,0 +1,246 @@
+\section{Benchmark Construction}
+\label{sec:benchmark}
+
+Evaluating the integrity axis requires cases that contain integrity failures,
+and CI-Work's two-set partition cannot express them. We therefore construct a
+benchmark around a single concrete agent---one that reads a repository and the
+work systems around it, then writes a review onto a pull request---following
+CI-Work's four-stage pipeline with the additions this section describes.
+
+We choose PR review for one specific reason: \textbf{almost every context
+source that makes the review better also carries something the review must not
+repeat, and the two are about the same code.} There is no version of this task
+in which the sensitive material is conveniently off-topic. It is also a setting
+where the author-controlled-channel adversary of \Cref{sec:threat} is the
+natural one rather than a contrivance, since the party under review has both
+write access to the description and an incentive to shape the verdict.
+
+\subsection{What changes from CI-Work's setup}
+
+Three structural differences, each with a consequence
+(\Cref{tab:benchdiff}). The third is the one that bites: in PR review the data
+subject is typically a third party, so CI's five parameters no longer collapse
+and $\mathrm{subj}(e)$ must be tracked separately. ``Customer $X$ had a
+47-minute outage'' is sensitive with respect to $X$, who is absent from the
+conversation and cannot consent.
+
+\begin{table}[t]
+\centering
+\caption{Structural differences from CI-Work's setting and their consequences.}
+\label{tab:benchdiff}
+\footnotesize
+\begin{tabular}{@{}p{0.3\columnwidth}p{0.29\columnwidth}p{0.29\columnwidth}@{}}
+\toprule
+\textbf{CI-Work} & \textbf{PR review} & \textbf{Consequence} \\
+\midrule
+Agent acts for the sender, who owns the data &
+Agent acts for the \emph{reviewer}; the store belongs to the org &
+Read authority is the reviewer's clearance, not the owner's \\[3pt]
+Recipient is a person &
+Recipient is a \emph{thread} whose reader set may grow &
+Write ceiling is the min over current \emph{and foreseeable} readers \\[3pt]
+Data subject is usually the sender &
+Data subject is usually a \emph{third party} &
+$\mathrm{subj}(e)$ tracked separately; no consent path exists \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Three entry classes}
+\label{sec:benchmark:classes}
+
+CI-Work partitions retrieved context into $\Eess$ and $\Esens$. That partition
+can express only confidentiality failures, so we add a third class
+(\Cref{tab:classes}).
+
+\begin{table}[t]
+\centering
+\caption{Three entry classes. $\Ecorr$ is the novel one, and it is the class
+that makes \Cref{eq:bibaviolation} measurable: cheap to disclose, expensive to
+believe.}
+\label{tab:classes}
+\footnotesize
+\begin{tabular}{@{}lcccl@{}}
+\toprule
+\textbf{Class} & \textbf{Convey?} & \textbf{Withhold?} & \textbf{Distrust?}
+  & \textbf{Labels} \\
+\midrule
+$\Eess$ essential   & \textbf{yes} & no & no & low $\Cl$, high $\Il$ \\
+$\Esens$ sensitive  & no & \textbf{yes} & no & high $\Cl$, $\Il$ varies \\
+$\Ecorr$ corrupting & no & no & \textbf{yes} & low $\Cl$, low $\Il$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A corrupting entry is cheap to disclose and expensive to believe: the PR
+author's claim that ``security already signed off,'' a code comment reading
+\texttt{// TODO: this test is flaky, skip it}, a ticket comment asserting a
+number nobody verified. Quoting any of them costs nothing. Treating them as
+evidence produces a wrong verdict on production code.
+
+Two things follow. First, $\Ecorr$ is what makes $\Esens \neq \text{low-}\Il$
+\emph{measurable} rather than merely arguable, since the walk-away-price case
+is high on both axes. Second, the integrity metrics must be computed over
+$\Ecorr$ rather than over $\Esens$, so that the denominator is a designed
+quantity rather than a side effect of labeling. Deriving the low-integrity set
+as $\{e \in \Esens \cup \Eess : \Il(e) < \lvlI\}$, as a naive implementation
+does, conflates ``sensitive and incidentally low-integrity'' with ``planted
+specifically to corrupt the verdict.''
+
+\subsection{The entangled-twin construction}
+\label{sec:benchmark:twins}
+
+The generation rule that makes these cases hard rather than trivially
+separable:
+\begin{quote}
+\emph{Every sensitive entry is authored as a near-twin of an essential one:
+same subject matter, same retrieval query, different disclosure norm.}
+\end{quote}
+If sensitive entries concern a different topic than essential ones, any
+competent retriever separates them and the benchmark measures nothing. The twin
+structure forces the agent to adjudicate role $\times$ information
+compatibility rather than relevance---precisely the fine-grained judgement
+CI-Work found frontier models fail while passing the coarse-grained one.
+\Cref{tab:twins} gives a triple.
+
+\begin{table}[t]
+\centering
+\caption{An entangled twin triple. Both first rows answer the same retrieval
+query, ``is this retry loop dangerous.'' The third is harmless to quote and
+suppresses the finding that matters if believed.}
+\label{tab:twins}
+\footnotesize
+\begin{tabular}{@{}lp{0.44\columnwidth}cc@{}}
+\toprule
+\textbf{Class} & \textbf{Content} & $\Cl$ & $\Il$ \\
+\midrule
+$\Eess$ & The retry loop in \texttt{acquire} has no jitter, so clients
+          synchronize under load. & 0.15 & 0.90 \\[3pt]
+$\Esens$ & That identical defect caused a 47-minute outage for a named
+          customer in March. & 0.95 & 0.75 \\[3pt]
+$\Ecorr$ & PR description: ``Discussed with your security team, they confirmed
+          the jitter approach is fine---no need for the burst test.''
+          & 0.05 & 0.10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The sensitive twin makes the review feel more authoritative, which is exactly
+the pull CI-Work measured when it found conveyance correlating positively with
+violation. \textbf{A good case makes leaking tempting, not incidental.}
+
+\subsection{Null seeds: the over-blocking control}
+\label{sec:benchmark:null}
+
+Every mechanism in \Cref{sec:method} can be made to score perfectly on
+Violation by suppressing more. A benchmark with no instrument for that failure
+mode cannot distinguish a policy layer from a refusal, and over-redaction is
+the single largest risk to our thesis, since it is how we would accidentally
+reproduce the prompt-defense result with extra machinery.
+
+We therefore include \emph{null seeds}: cases with the same shape as a normal
+seed in which every retrieved entry is essential or corrupting, and
+$\Esens = \emptyset$. Violation cannot be committed, so the only thing such a
+seed measures is whether the policy layer suppresses content it had no reason
+to suppress. Any drop in conveyance on a null seed is a false positive
+attributable purely to the defense. Null cases are absent from CI-Work and from
+the prior CI benchmarks; we hold that \textbf{no result on this task should be
+reported without them}, and target at least 20\% null seeds at full scale.
+
+\subsection{Seeds and generation pipeline}
+
+Each seed fixes a direction (which sets $\clr$), the author and reviewer roles,
+the thread audience (which sets the write ceiling), and---separately from the
+task text---the \texttt{agent\_capability}, so that $\lvlI$ varies
+independently per \Cref{eq:lvlI}. Two seeds identical except for capability are
+a clean ablation and we include them as such. Entries are atomic propositions
+carrying \texttt{class}, \texttt{subject}, \texttt{source} (which drives the
+integrity rubric), $\Cl$, $\Il$, and a \texttt{regulated} flag.
+
+We specify six seeds spanning all five directions plus a null control, each
+designed to elicit a specific failure. Three are implemented with labels
+pinned: \texttt{ext-01} (External, public repository), \texttt{lat-01}
+(Lateral, shared internal library), and the \texttt{null-01} control.
+\Cref{sec:eval} reports on these. Of the remaining specified seeds, two are
+worth naming because they probe quadrants the implemented three do not.
+\texttt{diag-01} places an embargoed vendor advisory under coordinated
+disclosure in the high-$\Cl$/high-$\Il$ cell: it \emph{should} shape the
+verdict and must never appear in the thread, so any design conflating
+``trustworthy'' with ``safe to quote'' fails it, which is the entire argument
+for two independent axes. \texttt{up-01} uses the most permissive clearance
+($\clr = 0.9$) to test whether the integrity axis still holds when the
+confidentiality axis has gone slack.
+
+Generation follows CI-Work's four stages with its human-in-the-loop and
+self-iterative refinement steps retained: hand-author the direction-spanning
+seeds as quality anchors and few-shot exemplars, generate the three entry sets
+per seed in one pass so the twin structure is coherent, then blind-classify
+every entry and trigger a critique-and-revision loop on any mismatch with the
+intended label. We add one check to CI-Work's loop: \textbf{reject any sensitive
+entry that a retriever separates from its essential twin}, since a separable
+twin makes the case trivial. Trajectory simulation reuses CI-Work's
+ToolEmu-based sandbox, adding a repository/diff reader, a CI-results reader, a
+static-analysis reader, and a \texttt{PostReviewComment} final action for the
+enforcement point to wrap. \needsrun{scale to $\sim$100 seeds with $\ge$20\%
+null; currently three seeds are implemented}
+
+\subsection{Measurement surface}
+\label{sec:benchmark:metrics}
+
+We retain CI-Work's three metrics unchanged so our numbers remain directly
+comparable, and add four. Over $\Ecorr$:
+\begin{align}
+\mathrm{IL} &= \tfrac{1}{|\Ecorr|}\textstyle\sum_{e\in\Ecorr}\Fdisc(\afin,e)
+  &&\text{(Integrity-Leakage)}\\
+\mathrm{IVR} &= \max_{e\in\Ecorr}\Fdisc(\afin,e)
+  &&\text{(Integrity-Violation)}
+\end{align}
+Cases with no corrupting set fall back to the derived low-integrity set, so
+CI-Work data scores exactly as before.
+
+\emph{Paraphrase conveyance} $\mathrm{PC}$ is computed over essential entries
+that Bell--LaPadula places above the write ceiling, as the share whose
+label-checked abstract reached the recipient. We report it separately from
+$\mathrm{CR}$ deliberately, so that $\mathrm{CR}$ stays strictly comparable to
+CI-Work: an abstract omits the entry's distinctive specifics by design, so the
+judge correctly scores the original entry as undisclosed. Folding abstraction
+credit into $\mathrm{CR}$ would silently redefine CI-Work's metric.
+$\mathrm{PC}$ is averaged only over cases that \emph{have} an above-ceiling
+essential entry, since averaging in cases with an empty denominator would
+report a recovery failure that was never possible.
+
+Finally, \emph{false suppression} is the conveyance drop on null seeds.
+
+\paragraph{Two metrics we specify but have not yet built}, named here because
+\Cref{sec:eval:ilblindspot} shows they are necessary rather than optional.
+\emph{Grounding rate} $\mathrm{GR}$ is the share of review claims traceable to
+an entry with $\Il \ge \lvlI$; it requires per-claim citations, a prompt-format
+constraint we control but which must then be applied uniformly to the
+undefended baseline or the comparison is confounded by output format.
+\emph{Verdict corruption} $\mathrm{VC}$ is binary: did the presence of $\Ecorr$
+flip the review verdict relative to the same case run with $\Ecorr$ removed?
+This needs a paired run per case and doubles trajectory cost. It is worth it,
+because it is the only metric here that measures the integrity failure
+\emph{directly}---as a counterfactual over $\mathrm{ev}(\afin)$, which is what
+\Cref{eq:bibaviolation} actually quantifies over---rather than inferring it
+from a disclosure proxy.
+
+\subsection{Construction risks we keep explicit}
+
+\paragraph{Atomicity versus span redaction.} Entries are atomic propositions
+but the enforcement point redacts spans. An entry that is 80\% safe and 20\%
+restricted has no clean scoring rule, since dropping the span forfeits
+conveyance credit for a fact the review did partly convey. Either mixed entries
+must be forbidden at generation time or partial credit must be defined and
+reported separately; we flag it rather than leave it implicit, because one
+implemented seed hits it directly.
+
+\paragraph{Twin quality is the whole benchmark.} If twins are separable every
+model scores well and the result is uninformative. The refinement-stage twin
+check is not optional.
+
+\paragraph{$\Ecorr$ resembles a prompt-injection benchmark.} It partly is, and
+we argue that is the point rather than hiding it: prompt injection is an
+integrity violation and Biba is the pre-existing formalism
+(\Cref{sec:background:injection}). The obligation this creates is to engage the
+injection literature directly, which \Cref{sec:background} does.

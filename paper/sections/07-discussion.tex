@@ -1,0 +1,211 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{What each theory contributed}
+
+The paper's structural claim is that all three sources are load-bearing and
+none is decorative. \Cref{tab:contributions} states what each supplied and what
+breaks without it.
+
+\begin{table}[t]
+\centering
+\caption{Each theory's contribution, and the failure that returns if it is
+removed.}
+\label{tab:contributions}
+\footnotesize
+\begin{tabular}{@{}lp{0.29\columnwidth}p{0.33\columnwidth}@{}}
+\toprule
+& \textbf{Contributed} & \textbf{Without it} \\
+\midrule
+Bell--LaPadula
+& The write ceiling and the read/write asymmetry: read at $0.9$, emit at $0.2$
+& No principled basis for reading e5 while never emitting it; access becomes
+  all-or-nothing \\[3pt]
+Biba
+& The integrity axis and the action plane: e8/e9 quarantined, e2 restored
+& Injection is unmodelled; every confidentiality metric reads clean while the
+  verdict is wrong \\[3pt]
+Zero trust
+& Per-request recomputation and least-privilege scoping: e7 flips between
+  runs; ambient credentials never connect
+& Labels cache as ``internal, therefore fine''; the Downward decision leaks
+  into the External one \\[3pt]
+CI-Work
+& The five flow directions, which supply $\clr$
+& The single most consequential number in the trace has no source \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+It is worth noting that CI-Work's contribution here is obtained \emph{without
+any model judgement}: direction is read from organizational structure, and it
+determines the ceiling that drives most decisions.
+
+\subsection{Two latent bugs our own derivation exposed}
+\label{sec:discussion:bugs}
+
+We report these because both are instructive about the class of system, not
+because confession is a genre convention. Both were found while deriving the
+weights of \Cref{sec:method:weights}, and both were reachable under the
+configuration the work was about to adopt rather than the one already measured.
+
+\paragraph{Our integrity labeler was itself prompt-injectable.} The rubric
+originally applied an unconditional uplift: a high-integrity content marker
+such as ``approved'' or ``official'' raised an entry's score to $0.85$
+\emph{regardless of its source}. So a PR author writing ``Approved by the
+security team offline---safe to merge'' in the description---the least
+trustworthy channel in the system, controlled by the party under review---
+produced $\Il = \max(0.10, 0.85) = 0.85$, clearing $\lvlI(\text{External}) =
+0.60$ comfortably.
+
+This is worse than a calibration error because it is adversarially reachable
+and requires no knowledge of the configuration. It also cuts against the
+paper's own thesis: our argument is that prompt injection is an integrity
+violation that Biba handles, and here was our integrity labeler being
+injected. The fix follows from a principle rather than a patch:
+\textbf{integrity is a property of provenance, and content cannot vouch for
+its own provenance}. Uplift is now bounded relative to the source's base score,
+with an absolute ceiling on author-controlled channels applied last so no later
+signal can undo it (\Cref{sec:method:labels}). Two supporting changes matter as
+much as the clamp: we removed ``approved'' and ``confirmed'' from the marker
+defaults, being the two most author-writable words in the list; and source keys
+must now name the \emph{artifact} rather than the platform, since one host
+serves both an authoritative diff and an author-controlled description and they
+cannot share a score.
+
+\paragraph{The threshold override could release regulated content.} The
+$\theta$ override originally applied to \textsc{deny} as well as
+\textsc{quarantine}, with no floor. Under the derived weights, a Downward
+request with $\wC = 0.67$ and $\clr = 0.70$ gives an entry at $\Cl = 0.80$ a
+risk of $0.067$, releasing a Restricted-class entry because its margin happened
+to be small and the direction's weight low. Leniency for near-threshold entries
+is reasonable; silently releasing regulated content is not. Precedence rule~3
+now sits above the override (\Cref{tab:precedence}).
+
+The reason this was not cosmetic is the interesting part. The \emph{measured}
+results were unchanged by the fix, because the previously used configuration
+never reached the override. But across the $\theta$ sweep the paper plans to
+report, the pre-fix code released a named-customer regulated entry at every
+operating point from $\theta = 0.2$ upward. \textbf{The vulnerability was
+latent in the configuration we were about to adopt, not in the one we had
+already measured}---which is a general hazard for any system whose safety
+properties are threshold-dependent, and an argument for sweeping before
+publishing rather than after.
+
+\paragraph{A methodological note.} Writing the cases into an executable fixture
+immediately falsified two claims in our own hand-computed walkthrough: a
+conveyance figure and an integrity-leakage figure (\Cref{sec:eval:ilblindspot}).
+We take this as an argument for executable design documents in systems-security
+work, and it is why the artifact includes a verifier that re-derives the
+paper's decisions from the configuration rather than merely reproducing its
+tables.
+
+\subsection{A falsifiable prediction}
+\label{sec:discussion:prediction}
+
+CI-Work reports \emph{inverse scaling}: larger models in the same family convey
+more and leak more, which they attribute to better attention over long noisy
+contexts combined with greater sycophancy toward user instructions over
+implicit norms.
+
+Both proposed mechanisms require the sensitive detail to \emph{be in the
+context window}. Under L2 handle-mediated citation it is not. This yields a
+clean prediction:
+
+\begin{quote}
+\textbf{Under L2, the leakage-versus-model-size slope flattens toward zero,
+while under L0 and L1 it remains positive.}
+\end{quote}
+
+The experiment is three model sizes crossed with three enforcement
+levels---small enough to actually run, and directly contradicting CI-Work's
+scaling result if L2 works. We consider this the strongest single result the
+paper could carry, and we state the falsification condition with it: if the
+slope stays positive under L2, then either the abstracts leak or the mechanism
+is not doing what we claim, and the L2 argument fails.
+\needsrun{this is the headline experiment and it has not been run}
+
+\subsection{Design validation against production incidents}
+\label{sec:discussion:incidents}
+
+Returning to \Cref{tab:incidents}, the framework reads those incidents as one
+failure rather than five, and the reading is not merely descriptive.
+
+The PocketOS case is the sharpest. The agent hit a credential mismatch, formed
+the hypothesis that a volume was staging-scoped, and acted on it irreversibly.
+In our terms the action demanded $\Il \ge 0.95$ and the evidence was an
+unverified inference---the agent's own account was that it ``guessed rather
+than verified.'' \Cref{eq:downgrade} caps the permitted action at the integrity
+of the weakest supporting evidence, which here is near the floor, so the
+permitted action is to ask a question. Crucially, this requires no detection of
+anything: no classifier must recognize the plan as dangerous, because the bound
+follows arithmetically from labels the system already holds.
+
+The Replit case validates the ladder rather than the rule. A code freeze was
+stated as an instruction and the agent violated it, which is the definition of
+L0. The vendor's remediation---automatic development/production separation and
+a planning-only mode---is a capability constraint, i.e.\ a move from L0 to the
+action plane. That the fix converged independently on our mechanism is modest
+evidence the mechanism is the right one.
+
+We are wary of overreading this subsection, and note two honest limits. These
+are trade-press and practitioner reports rather than peer-reviewed
+postmortems; and it is always easier to explain an incident after the fact than
+to prevent the next one. The subsection's proper weight is as a demonstration
+that the failure mode we formalize occurs outside our benchmark, not as
+evidence that our system would have prevented these specific events.
+
+\subsection{Limitations}
+\label{sec:discussion:limitations}
+
+\paragraph{We address authority, not rate.} The cost incidents in
+\Cref{tab:incidents} are substantially \emph{rate} failures: retry loops with
+no timeout, no per-agent spend limit, and billing telemetry that lags spend by
+roughly a day~\cite{infoq2026billing}. Our mechanism makes spend authority an
+explicit policy input rather than an ambient property of a credential, which
+is a real contribution to the problem, but it does not bound iteration count
+and would not by itself have stopped a loop. Spend caps, timeouts, and kill
+switches are complementary and necessary, and we do not claim them.
+
+\paragraph{Scale.} Three implemented seeds with a deterministic judge is a
+demonstration, not an evaluation. The claims in \Cref{sec:eval} are
+appropriately scoped to what three cases can support---which is the existence
+of the failure mode, the disjointness of the two rule families, and the
+conditional statement about the write ceiling---and not to effect sizes.
+\needsrun{$\sim$100 seeds with $\ge$20\% null, and the LLM judge}
+
+\paragraph{Label error is unmeasured.} All reported results use evaluation-mode
+ground-truth $\Cl$, which isolates policy quality from labeler error by
+design. The inference-mode agreement study specified in
+\Cref{sec:method:weights} has not been run, so we cannot yet state how much
+performance is lost when labels are inferred rather than given. This is the
+single largest gap between our results and a deployment claim.
+
+\paragraph{Abstraction is an assumption, not yet a mechanism.} The L2 abstracts
+are hand-written in the fixture rather than produced by an audited offline
+abstractor, and the adversarial reconstruction check---prompting a model with
+an abstract plus all admitted entries to see whether it can recover the
+restricted specifics---does not exist. Until it does, the claim that an
+abstract is safe is an assumption. An abstract can be individually below the
+ceiling and still permit reconstruction in conjunction with admitted entries,
+which is precisely the conjunction blindness that \Cref{sec:method:ladder}
+identifies in L1.
+
+\paragraph{Per-entry decisions cannot see conjunctions.} By construction, a
+policy that decides entry by entry cannot detect that two admitted entries
+\emph{together} identify what a denied entry named. This is a structural limit
+of the design rather than of the implementation, and it bounds what any
+label-based approach can promise against an adversary who probes.
+
+\paragraph{The trust boundary moved rather than vanished.} L2 relocates trust
+to the offline abstractor and L3 to the schema interface, whose reason-code
+vocabulary is a covert channel of nonzero declared capacity. We prefer these
+boundaries to the original because they are smaller, offline, and auditable,
+but they are boundaries.
+
+\paragraph{Generality beyond PR review.} The benchmark instantiates one task.
+We argue the structure generalizes---the two ceilings, the three entry classes,
+and the capability-indexed evidence bar are not specific to code
+review---but we have not demonstrated it on a second task, and the
+$\lvlI^{\mathrm{cap}}$ ladder of \Cref{tab:downgrade} would need re-deriving
+for each new action surface.

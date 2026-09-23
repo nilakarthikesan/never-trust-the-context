@@ -1,0 +1,186 @@
+\section{Background and Related Work}
+\label{sec:background}
+
+\subsection{Contextual integrity and its benchmarks}
+
+Contextual integrity~\cite{nissenbaum2004,nissenbaum2009} holds that an
+information flow is appropriate or not relative to the norms of the context it
+occurs in, described by five parameters: data subject, sender, recipient, data
+type, and transmission principle. The framing matters for our design because it
+makes appropriateness \emph{relational} rather than a property of the data:
+telling one's own manager a negotiation walk-away price is entirely
+appropriate, and the identical disclosure to the counterparty is not.
+
+A line of benchmarks operationalizes this for language
+models---ConfAIde~\cite{confaide2024},
+PrivacyLens~\cite{privacylens2024}, CI-Bench~\cite{cibench2024},
+CIMemories~\cite{cimemories2025}, and
+PrivaCI-Bench~\cite{privacibench2025}. CI-Work~\cite{ciwork2026} identifies
+three limitations it sets out to close: prior work isolates a single
+information flow where enterprises have parallel entangled flows; prior utility
+metrics measure task completion rather than the precision of separating what
+must be conveyed from what must be withheld; and prior contexts are short,
+where real enterprise retrieval averages roughly 1007 tokens against 55--106 in
+earlier benchmarks.
+
+\subsection{CI-Work: the harness we adopt and the gap we close}
+\label{sec:background:ciwork}
+
+Because we reuse CI-Work's metrics verbatim, we state its model precisely. A
+user $u$ owns a private unstructured store $D$. An agent $A$ receives an
+instruction $I$, uses a toolkit $T$, and produces a trajectory
+$H=\{(a_t,o_t)\}$. The cumulative retrieved entries $E=\bigcup_t o_t$ are
+partitioned into an \emph{essential} set $\Eess$ needed to fulfill $I$ and a
+\emph{sensitive} set $\Esens$ whose disclosure to the recipient violates a
+privacy norm. Risk is that the final action $\afin$ discloses any member of
+$\Esens$ while conveying $\Eess$. A binary judge
+$\Fdisc(\afin,e)\in\{0,1\}$ decides disclosure, implemented as
+LLM-as-a-Judge~\cite{zheng2023judging} with 83--91\% agreement with human
+labels. Three metrics follow:
+\begin{align}
+\mathrm{LR} &= \tfrac{1}{|\Esens|}\textstyle\sum_{e\in\Esens}\Fdisc(\afin,e)
+  &&\text{(Leakage)}\\
+\mathrm{VR} &= \max_{e\in\Esens}\Fdisc(\afin,e)
+  &&\text{(Violation)}\\
+\mathrm{CR} &= \tfrac{1}{|\Eess|}\textstyle\sum_{e\in\Eess}\Fdisc(\afin,e)
+  &&\text{(Conveyance)}
+\end{align}
+with the goal $\mathrm{LR}\downarrow$, $\mathrm{VR}\downarrow$,
+$\mathrm{CR}\uparrow$. Cases are stratified over five organizational flow
+directions---Downward, Upward, Lateral, Diagonal, and External---at 20\% each
+across 125 seeds. Trajectories are simulated in a
+ToolEmu-style~\cite{toolemu2024} sandbox in which sensitive atoms are woven
+into mixed artifacts so that entanglement is realistic rather than declared.
+
+The results we treat as the problem statement are: violation between 15.8\% and
+50.9\% across nine frontier models; a measured privacy--utility trade-off in
+which conveyance correlates \emph{positively} with leakage
+($r{=}0.40$, $p{=}0.006$) and violation ($r{=}0.39$, $p{=}0.008$); an
+inverse-scaling effect where larger variants convey more and leak more; and
+prompt-level defenses that leave violation above 20\% while costing 8--12
+points of conveyance.
+
+\paragraph{The gap.} Every one of these metrics is defined over $\Esens$ or
+$\Eess$, and both sets are defined by \emph{appropriateness of disclosure}. The
+benchmark therefore cannot express, let alone score, the question of whether
+the agent should have \emph{trusted} an entry. CI-Work's own qualitative
+examples contain the unmeasured failure. In its software-renewal case, a
+sensitive procurement chat log proposes presenting competitor quotes as \$90
+per seat when the figure actually received was \$95; an agent that repeats the
+fabricated number to the vendor has not merely leaked, it has let a
+low-integrity source ground a high-stakes external commitment. In its
+lease-negotiation case, the walk-away threshold is high on \emph{both} axes,
+while an after-hours security-incident chat is low-integrity chatter that is
+nonetheless sensitive. We develop both cases fully in \Cref{sec:threat}.
+
+\subsection{Multilevel security: Bell--LaPadula and Biba}
+
+Bell--LaPadula~\cite{belllapadula1976} enforces confidentiality with the
+simple security property (no read up) and the $\star$-property (no write
+down). Biba~\cite{biba1977} is its dual for integrity, with the simple
+integrity axiom (no read down) and the $\star$-integrity axiom (no write up).
+Both are lattice models in Denning's sense~\cite{denning1976} and together form
+the canonical multilevel pair~\cite{nistir7316}. Enforcing both simultaneously
+is known to be restrictive, a tension we inherit and manage explicitly through
+the threshold and the abstraction path rather than pretend away.
+
+We use Biba rather than Clark--Wilson~\cite{clarkwilson1987}, the other
+classical integrity model, for a specific reason: Clark--Wilson's
+well-formed-transaction framing presumes a bounded set of certified programs
+operating on constrained data items, whereas our objects are natural-language
+propositions of heterogeneous provenance arriving at request time. Biba's
+lattice comparison over labels is the formulation that survives that setting,
+and it composes directly with the confidentiality lattice we already need. We
+return to this choice in \Cref{sec:discussion}.
+
+\subsection{Zero trust architecture}
+
+NIST SP 800-207~\cite{nist800207} defines a zero-trust architecture as a Policy
+Engine and Policy Administrator producing decisions enforced at a Policy
+Enforcement Point, with no implicit trust conferred by network location;
+SP 800-207A~\cite{nist800207a} develops the cloud-native form in which sidecar
+proxies act as distributed enforcement points. We adopt the PIP/PDP/PEP
+decomposition directly, because it names exactly the three jobs our system
+does. Notably, SP 800-207 already warns that software agents authenticating to
+zero-trust management components may be \emph{coerced into acting on an
+attacker's behalf}---which is CI-Work's user-pressure result seen from the
+access-control side, a decade earlier and in a different vocabulary.
+
+Tian and Song~\cite{tiansong2021} supply the specific synthesis we build on:
+zero trust as dynamic dual-label Bell--LaPadula plus Biba, with continuous
+trust scores assigned to users, terminals, channels, files, and applications,
+and with \emph{different weights} for confidentiality and integrity
+requirements so that decisions balance both per object. \Cref{tab:tiansong}
+states what we take and what we change. The three changes in the right column
+correspond to the three weaknesses the survey
+literature~\cite{he2022zerotrust,sultana2024zerotrust} already identifies in
+their method, which is why we treat addressing them as a contribution rather
+than as housekeeping.
+
+\begin{table}[t]
+\centering
+\caption{What we inherit from Tian--Song~\cite{tiansong2021} and what we
+change. The right column addresses weaknesses the survey
+literature~\cite{he2022zerotrust,sultana2024zerotrust} already identifies.}
+\label{tab:tiansong}
+\footnotesize
+\begin{tabular}{@{}p{0.46\columnwidth}p{0.46\columnwidth}@{}}
+\toprule
+\textbf{Inherited} & \textbf{Changed or added} \\
+\midrule
+Dual Bell--LaPadula + Biba labels on every object &
+Objects are \emph{retrieved context entries}, not files on disk \\[2pt]
+Continuous trust scores per component &
+Components are user, agent, tool/channel, entry, recipient \\[2pt]
+Weighted confidentiality/integrity decision &
+$\wC$, $\wI$ \emph{derived} from breadth and consequence, not hand-set \\[2pt]
+``Never trust, always verify'' per request &
+Verification at the agent's \emph{write boundary} \\[2pt]
+--- &
+An explicit initial-trust rule \\[2pt]
+--- &
+Quantitative evaluation on a benchmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Prompt injection is the same failure}
+\label{sec:background:injection}
+
+We state this connection early and directly, because a reader who suspects we
+have renamed indirect prompt injection~\cite{greshake2023indirect,perez2022ignore}
+is entitled to an answer. Our position is that prompt injection \emph{is} an
+integrity violation, and Biba is the pre-existing formalism for it: an injected
+instruction is a low-integrity input attempting to influence a high-integrity
+action. The reframing is useful rather than cosmetic, because it converts an
+open detection problem into a labeling problem. Detecting whether a span is
+adversarial is hard; labeling a channel as author-controlled is not, and under
+the rule in \Cref{sec:method:downgrade} the ceiling on what an author-controlled
+entry can cause follows arithmetically from that label.
+
+Three defense lines are the nearest neighbors to ours and we distinguish them
+explicitly. AgentDojo~\cite{debenedetti2024agentdojo} evaluates injection
+attacks and defenses for agents but scores task utility and attack success
+rather than an information-flow property, and has no confidentiality axis.
+Wu et al.~\cite{wu2024system} apply information flow control to indirect
+injection, which is the closest work on the defense side; our differentiators
+are the dual independent axes---their formulation is integrity-only, so it
+cannot express the read-but-never-emit case that motivates our write
+boundary---and the action-downgrade primitive.
+CaMeL~\cite{camel2025} enforces capability-based constraints derived from a
+trusted plan, and is the nearest neighbor to our action downgrade; the
+distinction is that CaMeL derives capabilities from the control flow of a
+planner, whereas we derive the permitted action from the \emph{integrity labels
+of the evidence the conclusion rests on}, which is a data-dependent rather than
+plan-dependent bound. The dual-LLM pattern~\cite{willison2023dual} anticipates
+our L3 privileged-context split informally; we owe it the comparison and make
+it in \Cref{sec:method:ladder}.
+
+Our lineage on the systems side is decentralized information flow
+control~\cite{myers1997decentralized} and the operating systems that
+made it practical~\cite{zeldovich2006histar,krohn2007flume}. The label
+propagation problem we face is theirs, with two differences: our objects are
+natural-language propositions rather than typed data, so labels must be
+\emph{inferred} and carry inference error; and our declassification step is
+paraphrase rather than a trusted declassifier, which is why abstraction quality
+becomes a measurable property in \Cref{sec:eval} rather than an assumption.

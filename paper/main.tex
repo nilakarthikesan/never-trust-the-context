@@ -1,0 +1,138 @@
+%=======================================================================
+% Never Trust the Context
+% A Biba-Grounded Zero-Trust Write Boundary for Enterprise LLM Agents
+%
+% Target venue : IEEE SaTML 2027  (abstract Sep 22 2026, paper Sep 29 2026)
+% Format       : IEEEtran, conference option (IEEE two-column)
+% Fallback     : USENIX Security '27 Cycle 2 (Jan 26 2027) -- see paper/README.md
+%
+% SUBMISSION IS ANONYMOUS. Keep \authorblock commented until camera-ready.
+%=======================================================================
+\documentclass[conference]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{balance}
+\usepackage[hidelinks]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+% ---- draft-only helpers; delete before submission -------------------
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{[TODO: #1]}}}
+\newcommand{\needsrun}[1]{\textcolor{orange}{\textbf{[NEEDS RUN: #1]}}}
+% ---------------------------------------------------------------------
+
+% ---- notation macros: use these everywhere, never hardcode ----------
+\newcommand{\Cl}{\ensuremath{C}}                 % confidentiality label
+\newcommand{\Il}{\ensuremath{I}}                 % integrity label
+\newcommand{\clr}{\ensuremath{\mathrm{clr}_C}}   % recipient clearance
+\newcommand{\lvlI}{\ensuremath{\mathrm{lvl}_I}}  % required outbound integrity
+\newcommand{\wC}{\ensuremath{w_C}}
+\newcommand{\wI}{\ensuremath{w_I}}
+\newcommand{\Eess}{\ensuremath{E_{\mathrm{ess}}}}
+\newcommand{\Esens}{\ensuremath{E_{\mathrm{sens}}}}
+\newcommand{\Ecorr}{\ensuremath{E_{\mathrm{corr}}}}
+\newcommand{\afin}{\ensuremath{a_{\mathrm{fin}}}}
+\newcommand{\Fdisc}{\ensuremath{F_{\mathrm{disc}}}}
+\newcommand{\sys}{ZT-PEP}                        % our system's name
+% ---------------------------------------------------------------------
+
+\lstdefinestyle{cfg}{
+  basicstyle=\ttfamily\scriptsize,
+  breaklines=true,
+  frame=single,
+  showstringspaces=false,
+  columns=fullflexible,
+}
+
+\begin{document}
+
+\title{Never Trust the Context: A Biba-Grounded Zero-Trust\\
+Write Boundary for Enterprise LLM Agents}
+
+% ---- ANONYMOUS for submission ----
+\author{\IEEEauthorblockN{Anonymous Submission}}
+
+% ---- camera-ready version; do not uncomment for submission ----
+% \author{
+% \IEEEauthorblockN{Nila Karthikesan}
+% \IEEEauthorblockA{Georgia Institute of Technology\\
+% Atlanta, GA, USA}
+% \and
+% \IEEEauthorblockN{Vijay Madisetti}
+% \IEEEauthorblockA{Georgia Institute of Technology\\
+% Atlanta, GA, USA}
+% }
+
+\maketitle
+
+\begin{abstract}
+Enterprise LLM agents retrieve from private organizational stores and then act,
+sending email, posting to chat, and writing to shared documents. Recent
+benchmarking shows this is unsafe in practice: frontier agents disclose
+sensitive retrieved context in 15.8--50.9\% of enterprise tasks, and neither
+model scaling nor prompt-level defenses close the gap---the best prompt defense
+reduces violation from 27.8\% to 21.3\% while cutting task conveyance from
+93.0\% to 81.0\%. We argue this line of work measures only half of the failure.
+Existing contextual-integrity benchmarks ask whether information was
+\emph{disclosed inappropriately}, a confidentiality question. They never ask
+whether the agent \emph{relied on} context it should have distrusted, an
+integrity question for which Biba's no-write-up rule is the pre-existing
+formalism.
+
+We present \sys, a zero-trust policy layer at the agent's write boundary that
+labels every retrieved entry on two independent axes---confidentiality
+$\Cl(e)$ and provenance integrity $\Il(e)$---and enforces Bell--LaPadula
+no-write-down together with Biba no-write-up per request. Three design results
+follow. First, secrecy and trustworthiness are genuinely independent: a
+negotiation walk-away price is highly restricted \emph{and} fully
+authoritative, while an unverified claim in an author-controlled channel is
+harmless to quote \emph{and} worthless as evidence, so a single-axis policy
+necessarily loses one of these facts. Second, integrity for an agent is not a
+text-filtering problem but a capability constraint: we bound the integrity of
+the action an agent may take by the integrity of its weakest supporting
+evidence, which requires no natural-language inference and cannot be overridden
+by instructions in the context. Third, enforcement placement dominates
+enforcement strength: running the policy decision \emph{before} generation
+rather than filtering the produced draft recovers all of the task utility that
+post-hoc redaction loses, because the writer never holds the restricted text at
+all.
+
+\needsrun{final headline numbers pending the LLM-judge run on CI-Work
+trajectories; the figures below are from the PR-review suite with a
+deterministic judge} On a purpose-built PR-review benchmark carrying a third
+entry class for corrupting context, \sys{} drives leakage, violation, and both
+integrity metrics to zero while conveyance returns to the undefended agent's
+91.67\%, and a null control confirms zero false suppression. We release the
+policy layer, the benchmark, and a verifier that re-derives every reported
+decision from the configuration file.
+\end{abstract}
+
+\begin{IEEEkeywords}
+LLM agents, zero trust, contextual integrity, Biba integrity model,
+Bell--LaPadula, prompt injection, information flow control, agent security
+\end{IEEEkeywords}
+
+\input{sections/01-intro}
+\input{sections/02-background}
+\input{sections/03-threat}
+\input{sections/04-method}
+\input{sections/05-benchmark}
+\input{sections/06-eval}
+\input{sections/07-discussion}
+\input{sections/08-ethics}
+
+\balance
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\appendices
+\input{sections/09-appendix}
+
+\end{document}

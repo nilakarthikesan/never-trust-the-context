@@ -1,0 +1,489 @@
+\section{\sys: A Zero-Trust Write Boundary}
+\label{sec:method}
+
+\sys{} decomposes into the three roles NIST SP 800-207~\cite{nist800207} names.
+A Policy Information Point assigns labels and resolves request context; a
+Policy Decision Point applies Bell--LaPadula, Biba, and a weighted risk score;
+a Policy Enforcement Point acts on the write.
+
+The invariant that names the system: \textbf{labels are recomputed per request
+and never cached because data is ``internal'' or ``already in the context
+window.''}
+
+\subsection{Architecture}
+\label{sec:method:arch}
+
+\subsubsection{Two enforcement planes}
+\label{sec:method:planes}
+
+The single most consequential structural decision is that the architecture has
+\emph{two} enforcement planes, not one, and they are enforced by different
+mechanisms against different objects:
+
+\begin{itemize}
+  \item The \textbf{content plane} governs \emph{what text may be emitted}. It
+  is the Bell--LaPadula plane, its object is a span, and it is enforced by
+  admission, redaction, and abstraction.
+  \item The \textbf{action plane} governs \emph{what the agent may cause}. It
+  is the Biba plane, its object is a capability, and it is enforced by
+  \Cref{eq:downgrade} against the permission system.
+\end{itemize}
+
+The separation is forced by the data rather than chosen for symmetry.
+\Cref{tab:incidents} contains incidents in which \textbf{no text was emitted at
+all}: the PocketOS agent deleted a volume and the Replit agent dropped tables.
+A defense that operates only on the content plane---which is every emission
+filter, every output guardrail, and every ``do not reveal sensitive
+information'' instruction---would have been a no-op in both cases, because
+there was no output to filter. Conversely, a purely capability-based defense
+cannot express the read-but-never-emit requirement that the high-$\Cl$,
+high-$\Il$ quadrant demands, since the issue there is not what the agent may
+\emph{do} but what it may \emph{say} while doing it.
+
+This is also why we resist the natural simplification of folding $\Il$ into
+$\Cl$ as a single ``risk'' scalar. The two labels feed different planes; a
+scalar would have to pick one.
+
+\subsubsection{The request pipeline}
+\label{sec:method:pipeline}
+
+A single request traverses six stages. \Cref{tab:stages} states, for each, the
+object it operates on, what enforces it, and---the column that matters for a
+zero-trust argument---whether a model is in the loop. \todo{Figure 2: render
+this pipeline as a block diagram with the two ceilings ($\clr$ and $\lvlI$)
+marked and the two planes as parallel tracks. Source in design/pep-design.md.}
+
+\begin{table}[t]
+\centering
+\caption{The request pipeline. Note the third column: the two stages that do
+the most security work involve no model at all, which is what makes them
+immune to the compliance failure CI-Work measures.}
+\label{tab:stages}
+\footnotesize
+\begin{tabular}{@{}llcl@{}}
+\toprule
+\textbf{Stage} & \textbf{Operates on} & \textbf{Model?} & \textbf{Enforced by} \\
+\midrule
+0. Admission   & connectors, credentials & no  & capability grant, ACL \\
+1. PIP context & the request             & no  & directory lookup \\
+2. Label       & each entry              & opt & provenance rubric \\
+3. PDP         & entry $\times$ request  & no  & \Cref{eq:risk}, precedence \\
+4. PEP         & spans and capabilities  & no  & redact / abstract / cap \\
+5. Emit        & the artifact            & yes & handle-resolving renderer \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Stage 0, admission.} Before anything is retrieved, the capability
+grant scopes connectors to this one task and the reviewer's clearance bounds
+what is readable (precedence rules 1--2, \Cref{sec:method:precedence}). This
+stage is cheap, deterministic, and it is where the ambient-credential
+incidents would have been stopped: a token that is not in the grant is not
+reachable, as opposed to being reachable and later regretted.
+
+\paragraph{Stage 1, context resolution.} The PIP resolves direction, recipient
+clearance $\clr(r)$, and required outbound integrity $\lvlI(\afin)$ via
+\Cref{eq:lvlI}. \textbf{The two ceilings established here are the whole
+design.} In the worked case of \Cref{sec:eval} the agent may \emph{read} at
+$0.9$ and may \emph{write} at $0.2$. Every leak lives in that gap, and so does
+all of the context that makes the output good.
+
+\paragraph{Stages 2--3, labeling and decision.} Each retrieved entry receives
+$\Cl$ and $\Il$; the PDP then applies both rules and the risk score. The
+decision is deterministic \emph{given the labels}, which is what makes it
+auditable: every reported number traces to a configuration file and a labeled
+entry, not to a model's judgement in the moment.
+
+\paragraph{Stages 4--5, enforcement and emission.} The enforcement point acts
+on both planes---redacting or abstracting on the content plane, capping the
+permitted action on the action plane---and the renderer resolves citation
+handles against policy, refusing to expand any handle above the ceiling.
+
+\subsubsection{Where the trust actually sits}
+
+A zero-trust design is only as good as its honesty about residual trust, so we
+state it plainly. \sys{} trusts the identity directory, the connector ACL, the
+policy configuration, and the offline abstractor's reviewed output. It does
+\emph{not} trust the agent, the retrieved context, the recipient, or---and this
+is the part that distinguishes it from prompt-level defenses---its own
+labeler's content signals over provenance. \Cref{sec:discussion:bugs} describes
+what happened the one time we let content override provenance.
+
+\subsection{PIP: the two labels}
+\label{sec:method:labels}
+
+\paragraph{Confidentiality $\Cl(e)$.} In \emph{evaluation mode} we take
+CI-Work's ground truth ($\text{sensitive}\mapsto 1$,
+$\text{essential}\mapsto 0$) so that policy quality is separable from labeler
+error---a separation we preserve in every reported result. In \emph{inference
+mode} a classifier reusing CI-Work's own nine-category tagging scheme maps to a
+$\Cl$ level conditioned on $(\text{sender}, r, d)$.
+
+The recipient clearance $\clr(r)$ is \emph{not} a hyperparameter. It is the
+maximum confidentiality the write's audience may receive, which for our setting
+is a property of the thread's reader set and is obtained by lookup rather than
+judgement. One subtlety carries real weight in deployment: because a thread's
+reader set may grow after the write, the correct ceiling is the minimum
+clearance over current \emph{and foreseeable} readers, not the current
+minimum.
+
+\paragraph{Integrity $\Il(e)$.} This is the new axis, and it must not be a
+matter of taste or Tian--Song's critique applies to us as well. We compute it
+from a deterministic, auditable provenance rubric over four observable signals:
+the source channel (a signed document store outranks official email, which
+outranks a chat message, which outranks an author-controlled description);
+artifact-type markers (contract, board minute, ledger, audit raise it;
+draft, speculation, rumor lower it); author authority; and manipulation
+markers, where content proposing deception is forced low.
+
+The governing principle, which \Cref{sec:discussion:bugs} explains we learned
+the hard way:
+\begin{quote}
+\emph{Integrity is a property of provenance, and content cannot vouch for its
+own provenance.}
+\end{quote}
+Concretely, a content marker may \emph{refine} the channel's base score within
+a bounded range but may never override it, and author-controlled channels
+receive an absolute ceiling applied last so that no later signal can undo it:
+\begin{align}
+\text{base}   &= \textstyle\max\{\sigma(k) : k \text{ matches } \mathrm{src}(e)\}
+                 \;\;\text{or}\;\; \pi_I \text{ if none}\\
+\text{score}  &\leftarrow \min\!\big(\max(\text{base}, 0.85),\;
+                 \text{base} + \mu\big) \quad \text{[high markers]}\\
+\text{score}  &\leftarrow \min(\text{score}, 0.35) \quad \text{[low markers]}\\
+\text{score}  &\leftarrow \min(\text{score}, 0.15) \quad \text{[fabrication]}\\
+\Il(e)        &= \min(\text{score}, \kappa) \;\;\text{if author-controlled}
+\end{align}
+with content-uplift bound $\mu = 0.25$, author-controlled ceiling
+$\kappa = 0.25$, and prior $\pi_I$. Expressing the bound \emph{relative to the
+source's base score} rather than as a per-source ceiling table is what prevents
+an unrecognized source from escaping the clamp by failing to match any key.
+The asymmetry is intentional and safe: downward markers need no clamp, because
+an adversary who lowers the integrity of their own content achieves nothing.
+
+\paragraph{Required outbound integrity $\lvlI(\afin)$.} This composes a floor
+from the flow direction with a floor from the agent's authorized capability:
+\begin{equation}
+\lvlI(\afin) = \max\big(\lvlI^{\mathrm{dir}}(d),\;
+                        \lvlI^{\mathrm{cap}}(\mathrm{cap}(A))\big).
+\label{eq:lvlI}
+\end{equation}
+\Cref{eq:lvlI} is where the answer to ``is this task-specific?'' lives, and the
+answer is that it is \emph{capability}-specific and only that. The evidence bar
+scales with what the write is authorized to \emph{cause}, never with what the
+user asked for. Two deployments of the same model reviewing the same pull
+request with the same prompt get different integrity requirements if one may
+merge and the other may only comment. Nothing about the instruction changes
+this; revoking the permission does.
+
+\subsection{PDP: two rules and a weighted score}
+\label{sec:method:pdp}
+
+For each candidate entry the two classical rules are evaluated directly:
+\begin{align}
+\mathrm{ok}_C(e) &:= \Cl(e) \le \clr(r) + \varepsilon_C
+  &&\text{(BLP $\star$: no write down)}\\
+\mathrm{ok}_I(e) &:= \Il(e) \ge \lvlI(\afin) - \varepsilon_I
+  &&\text{(Biba $\star$: no write up)}
+\end{align}
+yielding a three-valued decision
+\begin{equation}
+\mathrm{dec}(e) =
+\begin{cases}
+\textsc{allow} & \mathrm{ok}_C \wedge \mathrm{ok}_I\\
+\textsc{deny} & \neg\,\mathrm{ok}_C\\
+\textsc{quarantine} & \mathrm{ok}_C \wedge \neg\,\mathrm{ok}_I
+\end{cases}
+\end{equation}
+Confidentiality dominates: dropping an entry protects against leakage
+regardless of its integrity, so $\neg\,\mathrm{ok}_C$ short-circuits.
+\textsc{quarantine} is the cell that a binary allow/deny policy cannot
+represent---an entry safe to mention but not to rely on.
+
+Following Tian--Song, a weighted risk score supplies graduated leniency near
+the boundary:
+\begin{equation}
+\mathrm{risk}(e) = \wC(d)\max\big(0, \Cl(e)-\clr(r)\big)
+                 + \wI(d)\max\big(0, \lvlI(\afin)-\Il(e)\big).
+\label{eq:risk}
+\end{equation}
+An entry whose decision is not already \textsc{allow} is released if
+$\mathrm{risk}(e) \le \theta_d$ \emph{and} it is not hard-denied.
+
+\paragraph{The initial-trust rule}, which Tian--Song omit and the surveys
+criticize them for: every entity starts at a stated prior. Recipient clearance
+comes from the lattice; entry integrity comes from the provenance rubric with a
+documented default $\pi_I$ when no signal fires; and the agent itself starts at
+zero trust, earning nothing by virtue of being the agent. No weight is set
+without a stated source.
+
+\subsection{Rule precedence}
+\label{sec:method:precedence}
+
+The order of checks is load-bearing rather than cosmetic, and one ordering
+constraint is a safety property. \Cref{tab:precedence} gives the six checks.
+
+\begin{table}[t]
+\centering
+\caption{Admission precedence. Rules 1--3 are enforced before retrieval or
+outside the tunable parameters entirely; rule 3 must sit \emph{above} the
+$\theta$ override, or regulated content becomes releasable at some operating
+point (\Cref{sec:discussion:bugs}).}
+\label{tab:precedence}
+\footnotesize
+\begin{tabular}{@{}clp{0.42\columnwidth}@{}}
+\toprule
+\# & \textbf{Check} & \textbf{Outcome} \\
+\midrule
+1 & Need-to-know & Never connected; capability grant excludes the source \\
+2 & BLP no-read-up & Not retrievable at this reviewer's clearance \\
+3 & Regulated hard block & Denied; \textbf{not eligible for the $\theta$ override} \\
+4 & BLP $\star$-property & Read-only: informs reasoning, never emitted \\
+5 & Biba no-read-down & Advisory: may raise a hypothesis, never cited as evidence \\
+6 & Admitted & Quotable \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Rules 1 and 2 matter more than their brevity suggests, because they are
+enforced with no model in the loop. Under rule 1 the capability grant scopes
+connectors to the specific task, so sources with no need---HR systems, vendor
+agreements---are not filtered later, they are \emph{never reachable}. This is
+least privilege per request, and it is the difference between a scoped grant
+and standing OAuth access.
+
+\subsection{PEP: enforcement modes and deployment points}
+\label{sec:method:pep}
+
+The enforcement point wraps the final-action tool. It supports pass-through;
+\textsc{redact}, removing spans tied to denied entries while keeping the rest;
+\textsc{quarantine}, either dropping a low-integrity entry or downgrading it to
+attributed form so it is never asserted as fact; and \textsc{deny-and-explain},
+a strict mode that upper-bounds privacy and lower-bounds utility.
+
+The \emph{deployment point} turns out to matter more than the mode.
+\textbf{Post-hoc} enforcement operates on a finished draft and can therefore
+only delete. \textbf{Inline} enforcement runs the PDP \emph{before} generation
+and hands the writer a context that already satisfies both rules. We
+expected this to be a difference of convenience. \Cref{sec:eval:placement}
+shows it is worth all of the conveyance that post-hoc loses, for a structural
+reason: two failures are unreachable by deletion. An essential entry above the
+write ceiling cannot be paraphrased into an emittable form by a filter, and a
+finding the agent dropped because it believed a corrupting entry cannot be
+restored, because a filter cannot add text.
+
+\subsection{The enforcement ladder: what makes a decision hold}
+\label{sec:method:ladder}
+
+A policy that decides correctly is worthless if the mechanism enforcing it is a
+sentence in a system prompt. We therefore separate \emph{what is decided} from
+\emph{what makes it hold}, and order the available mechanisms by what an
+adversary or a careless model must defeat.
+
+\begin{itemize}
+  \item \textbf{L0, prompt instruction.} Enforced by model compliance. The
+  model holds the restricted text and chooses. CI-Work has already measured
+  this configuration, so it is our baseline row rather than a candidate
+  defense: the best prompt intervention leaves violation above 22\% and costs
+  8 points of conveyance. Anything enforced by instruction inherits that floor.
+
+  \item \textbf{L1, post-hoc emission filter.} Enforced by a discloser
+  detector over the draft. Its achievable violation rate is bounded below by
+  the judge's miss rate, and the misses are not random: they cluster on
+  paraphrase, on inference from conjunctions of admitted entries (which a
+  per-entry filter cannot see by construction), and on structural signals such
+  as conspicuously declining to comment on one file. The honest framing is that
+  \textbf{L1 bounds careless disclosure, not adversarial disclosure.}
+
+  \item \textbf{L2, handle-mediated citation.} Enforced by the writer not
+  possessing the text. At labeling time each above-ceiling entry receives a
+  handle and a low-$\Cl$ abstract, itself label-checked against the ceiling.
+  Retrieval hands the writer the abstract; the renderer resolves handles
+  against policy and refuses to expand any handle above the ceiling. The writer
+  can reason (``this defect has precedent here, raise severity''), can cite by
+  handle, and cannot inline the specifics because they were never in its
+  context. \textbf{This makes no-write-down vacuous rather than filtered for
+  the abstracted set.}
+
+  \item \textbf{L3, privileged-context split.} A reasoner sees high-$\Cl$
+  entries but can emit only a fixed schema---a verdict enum, a severity level,
+  a set of admitted handles to cite, and optionally a bounded reason code---and
+  a writer generates prose from admitted entries plus that schema. Restricted
+  content influences the verdict through a channel too narrow to carry it. This
+  is the strong form, for regulated entries where even an abstract is
+  unacceptable, and it is where our design meets the dual-LLM
+  pattern~\cite{willison2023dual}; the difference is that the interface
+  capacity is declared and bounded rather than left as free text. The residual
+  surface is the schema itself: a sufficiently expressive reason-code
+  vocabulary becomes a covert channel, and severity levels leak a few bits. We
+  treat that as a declared channel capacity rather than pretending it is zero.
+\end{itemize}
+
+We implement L1 and a first cut of L2, and report the measured effect of moving
+between them in \Cref{sec:eval:placement}.
+
+\paragraph{The trust boundary moves to the abstractor, and we say so.}
+Something must read the restricted text to write its abstract. Three properties
+make this a smaller problem than the original rather than a relocation of it:
+the abstractor runs \emph{offline at labeling time}, once per entry rather than
+per request, so its output is reviewable before any agent sees it; its output
+is \emph{label-checked} by the same classifier, and an abstract scoring above
+the ceiling is rejected and regenerated; and it is a \emph{fixed, small,
+auditable corpus} that a human can spot-check in full, which per-request
+generations cannot be.
+
+\subsection{Biba as action downgrade, not text filtering}
+\label{sec:method:downgrade}
+
+This is the mechanism we consider the paper's most useful single idea, and it
+follows from \Cref{eq:bibaviolation} being quantified over evidence rather than
+disclosure.
+
+The mistake to avoid is treating integrity as a filtering problem. Attribution
+(``an unverified note in the description claims security approved this'') is
+genuinely useful, but note precisely what it does: it lowers the \emph{reader's}
+reliance. It does not lower the \emph{agent's}. If the verdict already rests on
+that entry, attributing it in the prose leaves the wrong verdict standing with
+a politer citation.
+
+What enforces Biba for an agent is a capability constraint:
+\begin{equation}
+\mathrm{act}(A) = \max\Big\{ a \;:\;
+  \lvlI(a) \le \min_{e \in \mathrm{ev}(\afin)} \Il(e) \Big\}.
+\label{eq:downgrade}
+\end{equation}
+The integrity of the action the agent may take equals the integrity of the
+weakest evidence its conclusion rests on. \Cref{tab:downgrade} instantiates the
+ladder for a PR-review agent.
+
+\begin{table}[t]
+\centering
+\caption{Action downgrade (\Cref{eq:downgrade}): the permitted action follows
+from the weakest evidence the verdict rests on. Requires no
+natural-language inference and cannot be overridden by context.}
+\label{tab:downgrade}
+\footnotesize
+\begin{tabular}{@{}lp{0.46\columnwidth}@{}}
+\toprule
+\textbf{Weakest evidence} & \textbf{Highest permitted action} \\
+\midrule
+$\Il \ge 0.85$ & approve with auto-merge \\
+$\Il \ge 0.70$ & approve, human merges \\
+$\Il \ge 0.55$ & request changes (blocking) \\
+$\Il \ge 0.40$ & non-blocking comment \\
+below $0.40$   & ask a question; assert nothing \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three properties make this the right primitive. It needs \textbf{no NLP}, being
+a comparison over labels already computed. It \textbf{cannot be talked out of},
+because it is enforced by the permission system rather than by the model's
+cooperation---which makes it immune to the 15.8--50.9\% compliance failure
+CI-Work measures. And it \textbf{degrades gracefully}: weak evidence yields a
+weaker action rather than a refusal, so utility falls off smoothly instead of
+collapsing the way naive denial does.
+
+Both mechanisms ship together: attribution for reader-facing honesty, action
+downgrade for correctness.
+
+\subsection{Deriving the weights}
+\label{sec:method:weights}
+
+A reviewer who accepts our critique of Tian--Song's ad-hoc weights will
+immediately ask where ours come from. We answer by splitting every parameter
+into three tiers with \emph{different justification obligations}, under one
+governing principle:
+\begin{quote}
+\emph{Anything encoding a norm must be derived from outside the benchmark.
+Anything derived from the benchmark is a measurement parameter and must be
+reported with a held-out estimate.}
+\end{quote}
+Fitting recipient clearance to the benchmark would define away the thing being
+measured, since ``sensitive'' would become whatever the policy blocks.
+
+\paragraph{Tier 1, structural: never fit.} $\clr(r)$, $\lvlI$, and the
+regulated-class set come from the deployment's existing access control and the
+agent's authorized action surface. In deployment $\clr(r)$ is replaced by a
+query against repository visibility and team membership; that substitution is
+what makes the design deployable and is the reason this tier must not be
+tuned. We note explicitly that $\clr$ is \emph{not} $\wC$: the Upward
+direction has the highest clearance, because a superior may receive almost
+anything, while also being the direction CI-Work found leaks most. Clearance is
+what is \emph{permitted}; the observed leak rate is how often models
+\emph{fail}. Conflating them would be a category error.
+
+\paragraph{Tier 2, measurement: calibrate and report error.} The provenance
+rubric's weights are fit for agreement with human integrity labels on a
+development split and then frozen, following CI-Work's own annotation protocol
+so the numbers are comparable: two annotators label a dev sample on a four-point
+scale blind to the rubric, weights are fit on dev only, and agreement is
+reported on a held-out split. CI-Work reports 82.5--95.0\% for entry labels and
+83.0--91.0\% for its judge; materially below that band is not publishable as a
+labeler. \needsrun{this protocol has not been executed; $\pi_I = 0.5$ is
+currently a placeholder chosen for symmetry, which is not a justification}
+
+\paragraph{Tier 3, operating point: derive, then report a curve.} The insight
+that removes the hand-tuning is that $\wC$ and $\wI$ are not free parameters.
+They are the relative cost of a unit breach on each axis, and cost is something
+a deployment can state. We derive $\wC$ from audience breadth and $\wI$ from
+consequence class, each normalized to the Lateral reference
+(\Cref{tab:weights}):
+\begin{equation}
+\wC(d) = \frac{\mathrm{breadth}(d)}{\mathrm{breadth}(\text{Lateral})},
+\qquad
+\wI(d) = \frac{\mathrm{consequence}(d)}{\mathrm{consequence}(\text{Lateral})}.
+\end{equation}
+
+\begin{table}[t]
+\centering
+\caption{Derived operating-point weights. $\clr$ is Tier 1 (an ACL lookup);
+$\wC$ and $\wI$ are Tier 3, derived from audience breadth and consequence class
+rather than tuned. Note $\clr$ and $\wC$ move in \emph{opposite} directions:
+Upward permits the most and costs the least per breach.}
+\label{tab:weights}
+\footnotesize
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Direction} & \textbf{Audience} & $\mathrm{breadth}$ & $\wC$ & $\wI$ & $\clr$ \\
+\midrule
+Downward & own team      & 2  & 0.67 & 0.6 & 0.7 \\
+Upward   & own team      & 2  & 0.67 & 0.6 & 0.9 \\
+Lateral  & two teams     & 3  & 1.00 & 1.0 & 0.6 \\
+Diagonal & org-wide      & 4  & 1.33 & 1.6 & 0.4 \\
+External & public        & 10 & 3.33 & 2.0 & 0.2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{A calibration hazard we must flag.} Because \Cref{eq:risk} is
+denominated in weighted units, rescaling any weight silently changes what
+$\theta$ means. Moving $\wC(\text{External})$ from $1.0$ to $3.33$ makes the
+same $\theta=0.15$ more than three times stricter on the confidentiality axis.
+Two consequences are mandatory rather than optional: $\theta$ must be re-swept
+whenever any weight changes and must never be inherited across weight
+configurations, and results must report the \emph{curve} over $\theta$ together
+with the chosen operating point and its cost justification. A single $\theta$
+with no curve is not defensible. \needsrun{the $\theta$ sweep}
+
+\subsection{Graduated severity}
+\label{sec:method:severity}
+
+CI-Work's Leakage is a mean and its Violation is a max, so neither can
+represent the difference between disclosing an internal ticket identifier and
+disclosing a named customer from a postmortem. We add a multiplicative
+per-entry severity:
+\begin{equation}
+\mathrm{sev}(e,d,k) = \mathrm{base}_C(e)\cdot \mathrm{breadth}(d)
+  \cdot \mathrm{persist}(k) \cdot \mathrm{reg}(e)
+\label{eq:severity}
+\end{equation}
+with $\mathrm{base}_C \in \{0,1,4,16\}$ over Public/Internal/Confidential/
+Restricted, $\mathrm{breadth} \in \{1,2,4,10\}$, $\mathrm{persist} \in \{1,3\}$
+for ephemeral chat versus an indexed thread, and
+$\mathrm{reg} \in \{1,3,5,8\}$ for none/PII/PCI-HIPAA/export-controlled.
+$\mathrm{base}_C$ is geometric deliberately: on a linear scale a dozen Internal
+disclosures would outweigh one Restricted disclosure, inverting the ordering
+any real organization wants. The resulting spread between the cheapest and
+costliest disclosure in a single thread is $240\times$, which a mean averages
+away and a max cannot see.
