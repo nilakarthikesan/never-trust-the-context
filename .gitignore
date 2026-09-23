@@ -19,3 +19,6 @@ venv/
 
 # OS
 .DS_Store
+
+# Overleaf upload bundles (regenerated on demand)
+overleaf-*.zip

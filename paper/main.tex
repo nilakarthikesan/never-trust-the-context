@@ -2,13 +2,28 @@
 % Never Trust the Context
 % A Biba-Grounded Zero-Trust Write Boundary for Enterprise LLM Agents
 %
-% Target venue : IEEE SaTML 2027  (abstract Sep 22 2026, paper Sep 29 2026)
-% Format       : IEEEtran, conference option (IEEE two-column)
+% Target venue : IEEE S&P 2027, Cycle 2
+%                  abstract registration  Tue Nov 10 2026  (MANDATORY)
+%                  paper submission       Tue Nov 17 2026
+%                  notification           Mar 5 2027
+%                  conference             May 17-20 2027, Montreal
 % Fallback     : USENIX Security '27 Cycle 2 (Jan 26 2027) -- see paper/README.md
 %
-% SUBMISSION IS ANONYMOUS. Keep \authorblock commented until camera-ready.
+% S&P HARD REQUIREMENTS -- violating any of these is desk rejection:
+%   * MUST use [conference,compsoc]. The plain [conference] IEEE template is
+%     explicitly called out as grounds for rejection without review.
+%   * IEEEtran.cls v1.8b, US Letter (not A4).
+%   * Do NOT modify margins, font, or line spacing. No space scrunching.
+%   * Do NOT \usepackage{usenix} -- it overrides compsoc formatting.
+%   * 13 pages of text + 5 pages refs/appendices = 18 max. Everything past
+%     page 13 must be clearly marked as appendix.
+%   * ANONYMOUS. No author names or affiliations, including the IEEE template's
+%     default fake names. Cite our own prior work in the third person.
+%   * No full CVE identifiers (they deanonymize). Verified absent.
+%   * Artifact repo must ALSO be anonymized -- see paper/README.md, this is
+%     an open action item since our GitHub account name identifies us.
 %=======================================================================
-\documentclass[conference]{IEEEtran}
+\documentclass[conference,compsoc]{IEEEtran}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
