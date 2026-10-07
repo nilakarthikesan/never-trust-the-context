@@ -1,6 +1,6 @@
 # The Mesh: CI × BLP × Biba × Zero Trust
 
-This is the intellectual core of the paper (plan §"The mesh"). It formalizes how CI-Work's information-flow model maps onto Tian–Song's dual-label zero-trust control, and defines the two independent labels that make the integrity axis new.
+This design maps CI-Work's information-flow setting to separate confidentiality and integrity labels, using Bell–LaPadula, Biba, and zero-trust access-control vocabulary. Comparisons with Tian and Song's complete method remain provisional until the full paper is reviewed.
 
 ## 0. Notation
 
@@ -23,9 +23,9 @@ Key claim: **C and I are independent axes.** A walk-away price is high-C (do not
         low C (shareable)
 ```
 
-## 1. Entity mapping (CI-Work ⟷ Tian–Song ⟷ NIST ZT)
+## 1. Proposed entity mapping
 
-| CI-Work entity | CI parameter | Tian–Song component | NIST ZT role | Trust-score inputs |
+| CI-Work entity | CI parameter | Proposed access-control component | NIST ZT role | Trust-score inputs |
 |---|---|---|---|---|
 | User `u` (data sender) | Sender | user (subject) | subject/requester | role in org lattice, seniority, authN strength |
 | LLM agent `A` | (the actor) | application (subject) | subject (software agent) | never implicitly trusted; agent identity, session risk |
@@ -42,14 +42,14 @@ Enforced at the **final write action** `a_fin` (and optionally at retrieve). Let
 |---|---|---|---|
 | **BLP ⋆-property: no write down** | confidentiality | Do not place `e` with `C(e) > clr_C(r)` into a message to `r`. | **Leakage / Violation** (this is what CI-Work already scores) |
 | **BLP simple: no read up** | confidentiality | Agent acting for `u` should not *retrieve* `e` with `C(e)` above `u`'s clearance. | (retrieval-time guard; not in CI-Work metrics) |
-| **Biba ⋆-axiom: no write up** | **integrity** | Do not inject `e` with `I(e) < lvl_I(a_fin)` into a high-integrity artifact (board email, external negotiation, HR record). | **NEW: Integrity-Violation / Contamination** |
-| **Biba simple: no read down** | **integrity** | A high-integrity task should not *consume* low-`I` sources unless they are sandboxed / quarantined / excluded from the write. | **NEW: Integrity-Leakage** |
+| **Biba ⋆-axiom: no write up** | **integrity** | Do not inject `e` with `I(e) < lvl_I(a_fin)` into a high-integrity artifact (board email, external negotiation, HR record). | **Integrity-Violation disclosure proxy; semantic reliance requires further evaluation** |
+| **Biba simple: no read down** | **integrity** | A high-integrity task should not *consume* low-`I` sources unless they are sandboxed / quarantined / excluded from the write. | **Integrity-Leakage disclosure proxy** |
 
-Mnemonic kept from Tian–Song: *BLP keeps secrets from leaking down; Biba keeps garbage from flowing up.* CI-Work only measured the first half.
+BLP constrains confidentiality flow; Biba constrains integrity flow. This mapping motivates separate labels, but the implemented integrity-disclosure proxies do not directly measure semantic reliance.
 
-## 3. Zero-trust decision (Tian–Song, made explicit)
+## 3. Per-request policy decision
 
-For each candidate entry `e` being considered for inclusion in `a_fin`, compute a per-request decision from a **weighted confidentiality/integrity score** — Tian–Song's idea, but with the initial-trust rule they omitted (their published weakness; see `notes/tian-song-reading-note.md` §4):
+For each candidate entry `e` being considered for inclusion in `a_fin`, compute a per-request decision from a **weighted confidentiality/integrity score** with explicit initial labels and configurable weights. The relationship to Tian–Song remains provisional until the full paper is reviewed (see `notes/tian-song-reading-note.md`):
 
 ```
 allow_confidentiality(e, r) := C(e) ≤ clr_C(r)          # BLP no-write-down
@@ -66,10 +66,10 @@ decision(e) =
 
 ## 4. Label sources (how we assign C and I without hand-waving)
 
-To avoid Tian–Song's "ad hoc weights" critique, every label has a stated, reproducible source:
+The design makes label sources explicit so their assumptions and calibration can be evaluated:
 
 - **`C(e)`**: (a) ground truth in CI-Work for evaluation (`sensitive`→high-C, `essential`→low-C); (b) at inference, a role-lattice + CI-judge (reuse CI-Work's `tag_context.j2` 9-category scheme) mapped to a C level. Recipient clearance `clr_C(r)` from the org lattice by direction (External < Diagonal < Lateral < Downward-from-exec, etc.).
-- **`I(e)`**: a **provenance function** over observable signals, not vibes:
+- **`I(e)`**: a **provenance function** over observable signals:
   - source tool/channel (signed doc store > official email > Slack DM > casual chat)
   - artifact type (contract/board minute/ledger = high-I; "draft", "speculation", "let's claim…", "gossip", "rumor" = low-I)
   - author authority (exec/legal/finance-of-record > peer > anonymous)
@@ -79,4 +79,4 @@ To avoid Tian–Song's "ad hoc weights" critique, every label has a stated, repr
 
 ## 5. Worked cross-walk on CI-Work's own examples
 
-See `design/dual-labeled-examples.md` for the two published qualitative cases (Fig 20 software renewal, Fig 21 lease negotiation) fully dual-labeled, each showing one BLP violation and one Biba violation in the *same* transcript. That file is the source for the paper's Figure 1.
+See [dual-labeled examples](dual-labeled-examples.md) for two selected published qualitative cases (Fig. 20, software renewal, and Fig. 21, lease negotiation). The notes distinguish reported confidentiality disclosure from proposed integrity risks; they do not establish causal source reliance. These cases inform the planned Figure 1.

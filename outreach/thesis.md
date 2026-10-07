@@ -1,51 +1,19 @@
-# The Thesis (locked) — and the paper that follows from it
+# Research Hypothesis and Evaluation Plan
 
-One page. Lead the meeting with this.
+## Hypothesis
 
----
+A policy layer at an LLM agent's outbound write boundary may reduce unauthorized disclosure and use of untrusted context while retaining useful task content. The prototype labels retrieved entries for confidentiality and integrity and applies Bell–LaPadula- and Biba-inspired rules per request.
 
-## The thesis
+Confidentiality and integrity are separate concerns: a reliable fact can be restricted, while a shareable statement can still be unreliable. The design treats these concerns independently rather than inferring one label from the other.
 
-> Enterprise LLM agents fail because they treat every retrieved item as both **sendable and trustworthy** the moment it enters the context window. Placing a **zero-trust checkpoint at the moment the agent sends** — which labels each retrieved item on two independent axes (*too secret to send?* / *too unreliable to rely on?*) and enforces **Bell–LaPadula** plus **Biba** — reduces both leakage **and** a class of integrity failure CI-Work cannot currently measure, **without the usefulness collapse that prompt-based defenses cause.**
+## Current evidence
 
-## Why it's defensible in one sentence
+The implementation has rule tests, two adapted CI-Work fixtures, and three PR-review fixtures. Offline results use deterministic keyword judging and template output. They establish behavior in those cases, rather than live-model effectiveness. [The walkthrough](../design/pr-review-walkthrough.md) separates policy-permitted output from model-achieved output.
 
-CI-Work's own conclusion says the fix must be **architectural**, not a bigger model or a better prompt. We build that architecture, and add the **integrity** axis they left out.
+## Experiments needed
 
-## The conceptual core (the whole paper in one table)
+Compare undefended, Prompt-Defense, CI-CoT, post-hoc policy, and inline policy modes on the same held-out cases with the same writer and judge. Report leakage, violation, conveyance, integrity-disclosure proxies, and paired verdict corruption where implemented.
 
-|  | **Trustworthy** | **Untrustworthy** |
-|---|---|---|
-| **Secret** | walk-away price — *don't send, but it's real* | fabricated tactic — *don't send AND don't rely on* |
-| **Shareable** | signed contract — *safe both ways* | office gossip — *harmless to send, unsafe to rely on* |
+Vary enforcement mode, label source, thresholds, and case structure. Include null cases to measure false suppression and adversarial reconstruction checks for abstracts. The hypothesis is weakened if confidentiality gains require a substantial conveyance loss, if integrity failures persist, or if label error eliminates the fixture-level benefit.
 
-Two independent axes ⇒ two labels are required. CI-Work has only the vertical one.
-
-## The claim, stated so it can fail
-
-| Metric | Undefended (their Table 2) | Their best prompt defense | What we must show |
-|---|---|---|---|
-| Violation (VR) ↓ | 27.8% | 21.3% | **clearly below 21%** |
-| Conveyance (CR) ↑ | 93.0% | 81.0% | **stays near 93%, not ~81%** |
-| Integrity-Violation (IVR) ↓ | *unmeasured* | *unmeasured* | **large drop from our own measured baseline** |
-
-**What would falsify the thesis:** we cut VR but CR lands in the low 80s. That would mean we merely rebuilt their prompt defense with extra machinery, and the paper has no result. This is the honest risk and we should say so out loud.
-
-## Paper skeleton that follows
-
-1. **Intro** — their "context-centric architectures" call; integrity is the missing axis.
-2. **Background** — Contextual Integrity; Bell–LaPadula; Biba; NIST zero trust; Tian–Song.
-3. **Threat model** — extend CI-Work's formal model with integrity contamination.
-4. **Method** — the two labels, the provenance rubric, PIP/PDP/PEP at the write boundary.
-5. **Experiments** — CI-Work's 3 metrics + our 2, against undefended / Prompt Defense / CI-CoT.
-6. **Discussion** — why this is zero trust; limits (label error); ethics (their synthetic-data disclaimer).
-
-**Figure 1** — one CI-Work transcript, dual-labeled, showing a Bell–LaPadula leak *and* a Biba contamination side by side. (Already drafted from their published examples.)
-**Table 1** — the 5-metric comparison above.
-**Ablations** — enforcement mode (redact vs quarantine vs deny) and label source (ground-truth vs inferred).
-
-## The one experiment that decides the paper
-
-Run the same CI-Work cases four ways — undefended, Prompt Defense, CI-CoT, ours — and report all five metrics. Everything else is supporting material.
-
-Scope it to one or two flow directions first: **External** (where integrity matters most) and **Upward** (where they measured the worst leakage).
+Published results from CI-Work are motivation, rather than a matched baseline for these fixtures. See [the benchmark plan](../design/pr-review-benchmark.md) and [paper/README.md](../paper/README.md) for the experiment backlog.

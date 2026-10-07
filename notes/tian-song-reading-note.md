@@ -1,69 +1,33 @@
-# Reading Note 2 — Tian & Song (Zero Trust via BLP + Biba)
+# Reading Note: Tian and Song, BLP, and Biba
 
-**Xiaopeng Tian, Haohao Song. "A zero trust method based on BLP and BIBA model." 14th Int'l Symposium on Computational Intelligence and Design (ISCID 2021), Hangzhou, pp. 96–100. IEEE.**
-DOI: [10.1109/ISCID52796.2021.00031](https://doi.org/10.1109/iscid52796.2021.00031) · IEEE Xplore doc 9679285
+Xiaopeng Tian and Haohao Song, “A zero trust method based on BLP and BIBA model,” ISCID 2021, pp. 96–100. [DOI: 10.1109/ISCID52796.2021.00031](https://doi.org/10.1109/ISCID52796.2021.00031).
 
-> **Status of source:** the full IEEE PDF is paywalled and **not yet obtained** (action item). This note is reconstructed from the published abstract plus three secondary sources that describe the method in detail:
-> - He et al., "A Survey on Zero Trust Architecture," *Wireless Comm. & Mobile Computing* 2022, [10.1155/2022/6476274](https://onlinelibrary.wiley.com/doi/10.1155/2022/6476274)
-> - Sultana et al. review, PMC 2024, [PMC10892953](https://pmc.ncbi.nlm.nih.gov/articles/PMC10892953/)
-> - "Zero Trust Score-based Network-level Access Control in Enterprise Networks," [arXiv:2402.08299](https://arxiv.org/abs/2402.08299) (cites Tian–Song's entity set)
->
-> The exact trust-score formula and weight tables live in the PDF; get them before writing the method section.
+## Source status
 
----
+The full IEEE paper has not yet been obtained. This note records the abstract and secondary descriptions, so comparisons with its complete method remain provisional. The original trust-score formulas, entity definitions, weight tables, initial-trust treatment, and evaluation details need verification from the full paper.
 
-## 1. One-sentence summary
+Secondary reading leads:
 
-A **control method** (not an agent paper) that reframes zero trust as *dynamic, dual-label BLP + Biba*: compute continuous trust scores for system components and gate every access on a weighted combination of confidentiality and integrity requirements.
+- He et al., “A Survey on Zero Trust Architecture,” 2022, [DOI: 10.1155/2022/6476274](https://onlinelibrary.wiley.com/doi/10.1155/2022/6476274).
+- [2024 review, PMC10892953](https://pmc.ncbi.nlm.nih.gov/articles/PMC10892953/).
+- [Zero Trust Score-based Network-level Access Control in Enterprise Networks](https://arxiv.org/abs/2402.08299).
 
-## 2. The two classical models it builds on
+## Classical models
 
-- **Bell–LaPadula (BLP) — confidentiality.** Simple Security Property = **no read up**; ⋆-property = **no write down**. Goal: keep secrets from leaking to lower classifications.
-- **Biba — integrity.** Simple Integrity Axiom = **no read down**; ⋆-Integrity Axiom = **no write up**. Goal: keep low-integrity (untrusted) data from corrupting high-integrity data.
+Bell–LaPadula addresses confidentiality through no-read-up and no-write-down rules. Strict Biba addresses integrity through no-read-down and no-write-up rules. Applying both can restrict information flow substantially, which motivates explicit decisions about admission, attribution, and action capability.
 
-Mnemonic: *BLP keeps secrets from leaking down; Biba keeps garbage from flowing up.*
+Available summaries describe component trust scores and weighted confidentiality/integrity requirements. They mention users, terminals, files, channels, and applications, but the exact entity set and scoring rules should be checked in the full paper.
 
-The two are duals and are the canonical MLS pair (NIST IR 7316). Enforcing both simultaneously is known to be restrictive — a key design tension we inherit.
+## Questions informing this prototype
 
-## 3. Tian–Song's contribution
+How are initial labels assigned? Which parameters follow from access policy, and which require empirical calibration? How are provenance and content signals combined? How sensitive are decisions to label error?
 
-- **Expand** the notions of *subject*, *object*, and *security label* beyond static MLS levels.
-- Assign **comprehensive trust scores** to five component types:
-  - **users**
-  - **terminals**
-  - **channels**
-  - **files**
-  - **applications**
-- Set **different weights** for confidentiality vs integrity requirements, so access decisions balance both goals per object.
-- Operate under zero-trust "never trust, always verify": trust is continuous and re-evaluated, not granted by location/ownership.
+The prototype states explicit priors, provenance caps, thresholds, and weights so they can be inspected and tested. This is a design choice under evaluation, rather than evidence that the project fixes a verified defect in Tian and Song's complete method.
 
-Entity set per arXiv:2402.08299: Tian–Song use **user, terminal, file, channel** as trust entities.
+## Application to language model agents
 
-## 4. Weaknesses the literature already flags (our contributions answer these)
+This project treats retrieved entries as labeled objects and checks disclosure and integrity requirements at an outbound write boundary. The implementation has rule tests and selected CI-Work-derived fixtures. Wider CI-Work trajectory evaluation remains planned; this repository does not establish that Tian and Song lacked evaluation or quantitative metrics.
 
-From He 2022 and PMC 2024 reviews, verbatim gist:
-- **No principled initial-trust assignment** for users/terminals/environments/objects → "cannot effectively avoid human-factor errors in initial trust."
-- **Weight distribution is ad hoc / not reasonable enough**; completeness and rationality of the weight list "for further study."
-- Still a **network/OS access-control** paper — never applied to LLM agents or to information-flow inside a model's context window.
+CI-Work provides the confidentiality/conveyance setting. Biba motivates a separate integrity requirement. The current `IL` and `IVR` metrics measure disclosure of low-integrity content; they do not directly measure a model's reliance on it. Paired verdict-corruption and grounding measurements are proposals requiring implementation and validation.
 
-## 5. How this connects to NIST zero trust (for background section)
-
-- **NIST SP 800-207**: ZTA = Policy Engine (PE) + Policy Administrator (PA) + Policy Enforcement Point (PEP). No implicit trust by network location. PEP can be a device agent + resource gateway.
-- **NIST SP 800-207A**: cloud-native ZT uses sidecar proxies as distributed PEPs enforcing identity-based policy (SPIFFE/SVID).
-- SP 800-207 explicitly warns about **AI/software agents** authenticating to ZT management components and being **coerced into acting on an attacker's behalf** — which is exactly the CI-Work user-pressure result, seen from the ZT side.
-
-## 6. What we take vs what we change
-
-| We take from Tian–Song | We change / add |
-| --- | --- |
-| Dual BLP + Biba labels on every object | Objects are **retrieved context entries**, not files on disk |
-| Continuous trust scores per component | Components are user, **LLM agent (application)**, tool/channel, entry, recipient |
-| Weighted confidentiality/integrity decision | State an **explicit initial-trust rule** (fixes their published weakness) |
-| "Never trust, always verify" per request | Verify at the **agent's final write action**, inside the CI-Work loop |
-| — | Evaluate on a **real benchmark (CI-Work)** with quantitative metrics — they had none |
-
-## 7. Why the professor's ordering "Biba → CI-Work → Zero Trust" is right
-
-1. **CI-Work** supplies the enterprise-agent *problem* + the *eval harness*.
-2. **Biba** supplies the *integrity* rule CI-Work never measures (no-write-up = don't let low-trust context contaminate a high-integrity artifact).
-3. **Zero Trust** (Tian–Song + NIST) is the *architecture* that makes both BLP-style disclosure control and Biba-style contamination control happen **per request**, replacing the "prompt and hope" defenses CI-Work showed to be insufficient.
+NIST zero-trust architecture is a related reference for policy decision and enforcement components. The prototype uses this vocabulary to organize its per-request pipeline; the terminology alone does not establish successful zero-trust deployment.

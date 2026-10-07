@@ -2,7 +2,7 @@
 
 This is the system the paper proposes (plan §"Week 2–3"). It is a **context-centric** answer to CI-Work's call: a per-request Policy Information / Decision / Enforcement pipeline that sits at the agent's **write boundary**, enforcing Bell–LaPadula (confidentiality) and Biba (integrity) with continuous, zero-trust labels.
 
-Design goal: cut **Violation** and a new **Contamination** metric while keeping **Conveyance** close to the undefended agent — i.e., beat the privacy–utility trade-off that CI-Work's prompt defenses could not.
+Design goal: reduce disclosure and integrity failures while retaining useful task content. Current offline metrics include integrity-disclosure proxies; outcome/reliance metrics and live-model comparisons remain open.
 
 ```mermaid
 flowchart TB
@@ -49,7 +49,7 @@ Produces, per request, the inputs the PDP needs. **Never trust the context**: la
 - Recipient clearance `clr_C(r) ∈ [0,1]`: max confidentiality `r` may receive, from the org lattice (see §4).
 
 ### 1.3 Integrity label `I(e) ∈ [0,1]` — THE NEW AXIS
-A **provenance function** over observable signals (not vibes), so we are immune to Tian–Song's "ad-hoc" critique:
+A **provenance function** over observable signals, with explicit weights and defaults that require calibration and held-out validation:
 
 | Signal | Source in CI-Work data | Effect on I |
 |---|---|---|
@@ -59,7 +59,7 @@ A **provenance function** over observable signals (not vibes), so we are immune 
 | Manipulation markers | entry `Content` | proposes deception/fabrication → I forced low |
 | Pressure-introduced | pressure_type flag | content present only under explicit user pressure → I penalized |
 
-Implemented as a transparent weighted rubric first (auditable, deterministic), with an optional LLM integrity-judge as a second labeler (human spot-check via CI-Work Appendix C protocol).
+The current implementation uses a deterministic weighted rubric. An optional LLM integrity judge and independent human agreement study remain proposed evaluation steps.
 
 ### 1.4 Required outbound integrity `lvl_I(a_fin) ∈ [0,1]`
 From direction + recipient: External negotiation / board report / HR action = high (0.8); internal FYI = medium (0.5). This is the "high water mark" the write must meet.
@@ -80,7 +80,7 @@ decision(e):
     QUARANTINE  if allow_conf ∧ ¬allow_integ   # integrity-risky → include only if attributed, never asserted as fact
 ```
 
-### 2.1 Weighted zero-trust score (Tian–Song, made explicit)
+### 2.1 Weighted per-request risk score
 A single tunable knob per direction, so strictness is a policy not a hard-code:
 
 ```
@@ -88,7 +88,7 @@ risk(e) = w_C · max(0, C(e) − clr_C(r)) + w_I · max(0, lvl_I(a_fin) − I(e)
 block if risk(e) > θ_d
 ```
 - `w_C, w_I` per direction (External raises `w_C`; board/exec/external artifacts raise `w_I`).
-- **Initial-trust rule (fixes Tian–Song's gap):** all entities start at a stated prior — recipient `clr_C(r)` from lattice; entry `I(e)` from provenance rubric with a documented default of 0.5 when no signal fires; agent trust = 0 by default (zero trust), earned only by passing checks. No hidden hand-set weights.
+- **Explicit initial-trust rule under evaluation:** all entities start at a stated prior — recipient `clr_C(r)` from lattice; entry `I(e)` from provenance rubric with a documented default of 0.5 when no signal fires; agent trust = 0 by default (zero trust), earned only by passing checks. Parameters and defaults are explicit; their suitability still requires validation.
 
 ### 2.2 Config surface (`policy.yaml`)
 `w_C`, `w_I`, `θ_d` per direction; `εC`, `εI` slack; lattice levels; provenance rubric weights. Every number in the paper traces to this file.
@@ -109,7 +109,7 @@ Two deployment points (also an ablation):
 - **Post-hoc:** operate on `formatted_trajectory.json` — inputs `retrieval_entries` + proposed `final_action`; output a sanitized action; re-judge. Cheap, no re-generation. (`src/zt_pep/pep.py`.)
 - **Inline:** run the PDP *before* generation and hand the writer a context that already satisfies BLP and Biba. (`src/zt_pep/inline.py`.)
 
-The difference is direction, not strength, and it turned out to be worth 8.3 points of conveyance. Post-hoc receives a finished draft and can only **delete**, which leaves two failures structurally unreachable: an essential entry above the write ceiling is lost outright because paraphrasing is not an available move, and a finding the agent dropped because it believed a low-integrity entry cannot be restored because the PEP cannot add text the agent never wrote. Inline fixes both — measured in `design/pr-review-walkthrough.md` Stage 5 — and makes write-down *unreachable* rather than filtered for the abstracted set. For real trajectories, inline still needs wrapping the final tool call in CI-Work's `agent_executor_builder.py`.
+In the three-case fixture suite, inline template output increases conveyance by 8.3 points relative to post-hoc redaction. Post-hoc receives a finished draft and can only **delete**, which leaves two failures structurally unreachable: an essential entry above the write ceiling is lost outright because paraphrasing is not an available move, and a finding the agent dropped because it believed a low-integrity entry cannot be restored because the PEP cannot add text the agent never wrote. The template writer illustrates how the admitted context can retain content lost by redaction. This is not a live model result or a general non-disclosure guarantee: labels and abstracts require validation, and inference can reconstruct omitted details. For real trajectories, inline still needs wrapping the final tool call in CI-Work's `agent_executor_builder.py`.
 
 ---
 
@@ -135,9 +135,9 @@ Intuition matches CI-Work's finding that External leaks least (lowest clearance 
 |---|---|---|
 | BLP no-write-down | PDP `allow_conf` + PEP REDACT/DENY | Leakage ↓, Violation ↓ |
 | BLP no-read-up | optional retrieval-time guard | (not in CI-Work metrics) |
-| Biba no-write-up | PDP `allow_integ` + PEP QUARANTINE | **Integrity-Violation ↓ (new)** |
-| Biba no-read-down | retrieval quarantine | **Integrity-Leakage ↓ (new)** |
-| Zero trust (per-request scoring) | PDP weighted score | keeps Conveyance up by only blocking what fails a check, unlike blanket prompt defenses |
+| Biba-inspired no-write-up | PDP `allow_integ` + PEP QUARANTINE | Integrity-disclosure violation proxy; causal reliance requires further evaluation |
+| Biba-inspired no-read-down | retrieval quarantine | Integrity-disclosure leakage proxy; retrieval-time effects require further evaluation |
+| Per-request scoring | PDP weighted score | May retain task content; requires matched conveyance and false-suppression evaluation |
 
 ---
 

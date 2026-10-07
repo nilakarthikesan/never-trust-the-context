@@ -17,13 +17,9 @@ LaTeX source for the conference submission. Sections are split so two people can
 | Conference | May 17–20, 2027, Montreal |
 
 **Fallback: USENIX Security '27 Cycle 2, Tue Jan 26, 2027.** Ten weeks later, notification
-May 6. If the LLM-judge experiment hasn't landed by ~Nov 1, roll to this rather than submit
-thin — reviewers rotate across all four big security venues, and a weak submission burns the
-cycle.
+May 6. If the LLM-judge experiment hasn't landed by ~Nov 1, roll to this to allow time for the missing evaluation.
 
-**Register the Nov 10 abstract regardless.** It's free and reversible. A mandatory abstract
-gate is exactly what cost us SaTML 2027 (abstract was due Sep 22, unextended; the Sep 29 paper
-deadline was irrelevant once that passed). Track deadlines at https://sec-deadlines.github.io/.
+Verify registration and submission requirements against the official venue CFP before scheduling a submission. The dates below are planning notes and may change.
 
 Venues checked and closed: SaTML 2027 (abstract Sep 22), NDSS 2027 fall (Aug 19), ACM AISec
 2026 (Jul 24), AGENT-SEC 2026 (Jul 23), ACSAC 42 technical papers (May 26). ACM CCS 2027 CFP
@@ -47,7 +43,7 @@ These are stricter than most IEEE venues and differ from the SaTML setup this dr
   are none we must still explain how we reached that conclusion. Our §8 content covers this.
 - An author may register at most 6 papers per cycle; the cap binds at abstract registration.
 
-### ⚠️ Open action item: the artifact repo is not anonymous
+### Artifact repository anonymity
 
 S&P requires artifact repositories to be anonymized too, and explicitly warns that **account
 and repository names must not identify the authors**. Ours is
@@ -134,8 +130,7 @@ Ordered by how much each one changes the paper's standing, not by effort.
    of §7.3. Small matrix, large payoff — it directly contradicts CI-Work's scaling result if
    it works.
 3. **`VC` (verdict corruption) and `GR` (grounding rate).** §6.5 shows `IL` undercounts
-   contamination by exactly the entries silently believed rather than repeated. Until `VC`
-   exists, all integrity results are a lower bound. `VC` needs paired runs per case.
+   possible reliance on entries that are not emitted. Current `IL`/`IVR` results are disclosure proxies, not a measured bound on semantic contamination. `VC` requires paired runs and validation of its outcome interpretation.
 4. **Scale the suite to ~100 seeds, ≥20% null.** Current n=3 supports existence claims only.
 5. **θ sweep** over 0.0→0.5 with the leakage/conveyance curve, plus sensitivity at θ/2 and 2θ.
    §4.9 argues a single θ with no curve is not defensible — so we must not ship one.
@@ -147,13 +142,12 @@ Ordered by how much each one changes the paper's standing, not by effort.
 8. **Adversarial reconstruction check** on L2 abstracts. Until it exists, abstract safety is
    an assumption, and we say so in §7.5.
 
-Items 1–3 are what separate "interesting design paper" from "result." If only one can be
-done before Sep 29, do 1.
+Items 1–3 address the main gap between the implemented policy design and live-model evidence. Prioritize the matched LLM-judge evaluation.
 
 ## Figures still to draw
 
 - **Figure 1** — two-panel dual-labeled CI-Work transcript: entries as a C×I scatter, the sent
-  message, arrows marking the BLP leak and the Biba contamination. Source content is in
+  message, annotations separating disclosure from proposed integrity risks. Source content is in
   `design/dual-labeled-examples.md`; both panels are fully specified there.
 - **Figure 2** — the request pipeline as a block diagram, with the two ceilings (`clr_C`,
   `lvl_I`) marked and the content/action planes as parallel tracks. Source in

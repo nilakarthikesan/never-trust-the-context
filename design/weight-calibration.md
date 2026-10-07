@@ -1,11 +1,8 @@
 # Where Every Weight Comes From
 
-Answers the question a reviewer will ask first: *you criticize Tian–Song for ad-hoc weights, so where do yours come from?*
+This note separates policy assumptions, label calibration, and operating-point selection. The example configuration contains hand-set values such as `w_I: {External: 1.2}`; the proposed derivations and held-out studies below are an evaluation plan. Their suitability is not established by the current fixtures.
 
-Right now `config/policy.example.yaml` contains `w_I: {External: 1.2}`. Nothing in the repo derives that
-number. It is exactly the weakness `notes/tian-song-reading-note.md` §4 accuses them of. This file fixes
-that by splitting every parameter into three tiers with **different justification obligations**, and by
-deriving the ones that were previously hand-set.
+Comparisons with Tian and Song's complete method remain provisional until the full paper is reviewed. This note does not establish that their method omitted parameter justification.
 
 ## 0. The governing principle
 
@@ -74,19 +71,19 @@ merge needs strictly better evidence than an agent that can only comment, for th
 deployments of the same model reviewing the same PR get different integrity requirements. Nothing about the
 prompt changes this; revoking the merge permission does.
 
-## 3. Tier 2 — the provenance rubric is calibrated, and its error is reported
+## 3. Tier 2 — proposed provenance calibration and error reporting
 
 `labels.py::label_integrity` is a deterministic rubric over source channel, artifact-type markers,
-fabrication markers, and pressure origin. Its weights are Tier 2: fit for agreement with human integrity
-labels on a dev split, then frozen.
+fabrication markers, and pressure origin. Its weights are Tier 2: the proposed study fits them for agreement with human integrity
+labels on a development split, then freezes them for held-out evaluation.
 
-Protocol, copied deliberately from CI-Work so the numbers are comparable:
+Proposed protocol informed by CI-Work; agreement rates from different labels and samples are not directly comparable:
 
 1. Two annotators independently label a dev sample on a 4-point integrity scale (Unverified / Weak /
    Reviewed / Authoritative), blind to the rubric.
 2. Fit `source_integrity` and marker effects to maximize agreement on the dev split only.
 3. Report agreement on a **held-out** split. CI-Work reports 82.5–95.0% for entry labels and 83.0–91.0%
-   for its judge; anything materially below that band is not publishable as a labeler.
+   for its judge. Report our agreement with uncertainty and explain differences in labels, samples, and annotators rather than treating those rates as a universal acceptance threshold.
 4. `integrity_prior` is set to the **empirical base rate** of Reviewed-or-better among dev-split sources
    with no firing signal. The current value of 0.5 is a placeholder chosen for symmetry, which is not a
    justification.
