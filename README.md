@@ -47,6 +47,21 @@ The fixture suite is too small to estimate generalization or false-suppression r
 
 The next experiments are live-model evaluation on CI-Work trajectories, matched Prompt-Defense and CI-CoT baselines, larger PR-review suites, paired verdict-corruption measurements, labeler agreement, and adversarial reconstruction tests on abstracts. Detailed proposals are in [design/pr-review-benchmark.md](design/pr-review-benchmark.md) and [paper/README.md](paper/README.md).
 
+### October 2026 extension: measure the decision, not only disclosure
+
+The [current literature map](notes/context-provenance-literature-2026-10-18.md) reviews CI-Work, CaMeL, ARGUS, PAA, AgentDyn and newer contextual-integrity benchmarks. It narrows the proposed contribution rather than claiming the first provenance-based defense. The [paired study protocol](design/paired-outcome-study.md) adds a concrete experiment around misleading instructions, mistaken/stale accounts, helpful hints and benign controls. [Collaboration scopes](design/collaboration-scopes.md) offers opt-in intellectual work packages without assigning authorship.
+
+Ten authored synthetic pairs and an outcome scorer are now available. They measure clean/perturbed verdict accuracy, conditional correct-to-wrong transitions, annotated-support grounding, required-claim coverage and abstention. No live-model result is included, and the new pilot does not measure confidentiality leakage.
+
+```bash
+python3 -m unittest discover -s tests -p 'test_paired_metrics.py' -v
+python3 eval/run_paired_eval.py --export-prompts /tmp/paired-raw.jsonl
+python3 eval/run_paired_eval.py --export-prompts /tmp/paired-inline.jsonl --mode inline
+python3 eval/run_paired_eval.py --predictions /path/to/model-run.jsonl
+```
+
+Prompt export uses the existing inline admission policy and withholds gold decisions/support annotations. Real writer execution remains separate. The scorer rejects missing or duplicate paired observations and records input hashes. See the protocol for labels, limitations and matched-baseline requirements.
+
 ## Research status
 
 This is an ongoing project. The broader claim—that a write-boundary policy can reduce disclosure and integrity failures while preserving task utility—remains a hypothesis to test on live models and held-out cases.
