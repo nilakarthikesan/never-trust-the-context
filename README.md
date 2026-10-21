@@ -47,7 +47,7 @@ Only exported public packets go to evaluated models. Files named fixtures, manif
 
 ## Research scope and collaboration
 
-Nila owns implementation, case construction, experiment operations, initial analysis, and the first draft. An initial scientific review can be limited to the definitions and four cases: do historical attribution, present endorsement, and surviving support have clear, reproducible grading rules? Collaborator participation and scientific ownership remain to be agreed.
+The project maintainer handles implementation, case construction, experiment operations, initial analysis, and the first draft. An initial scientific review can be limited to the definitions and four cases: do historical attribution, present endorsement, and surviving support have clear, reproducible grading rules? Collaborator participation and scientific ownership remain to be agreed.
 
 [Venue options](research/correction-grounding/venues.md) include SAFE at AAAI 2027 (November 2, 2026), ACL 2027 through ARR (January 4, 2027), and LangCode at NAACL (February 5, 2027). These are alternative routes; choose after pilot validation and check the venue's concurrent-submission rules.
 

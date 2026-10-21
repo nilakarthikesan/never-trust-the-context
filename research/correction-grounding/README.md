@@ -2,7 +2,7 @@
 
 Study package, October 21, 2026. **After a correction, what still counts as evidence?**
 
-Read the [short review brief](review-brief.md) and [four examples](review-cases.md) first. Nila owns the implementation, case construction, experimental operations, initial analysis, and first draft. The first request to a scientific collaborator is focused review of the constructs, wording, and grading rules; participation and further responsibilities are unconfirmed.
+Read the [short review brief](review-brief.md) and [four examples](review-cases.md) first. The project maintainer handles implementation, case construction, experimental operations, initial analysis, and the first draft. The first request to a scientific collaborator is focused review of the constructs, wording, and grading rules; participation and further responsibilities are unconfirmed.
 
 CI can withdraw a report about build 41 because it actually tested build 40. Its historical report remains part of the record. Current endorsement and current admissible support require valid surviving evidence. A same-owner replacement may restore support. Withdrawal does not prove failure.
 
