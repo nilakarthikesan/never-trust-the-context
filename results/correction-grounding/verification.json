@@ -1,0 +1,114 @@
+{
+  "artifact_kind": "local software verification; not model performance",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "tests/test_pdp.py"
+      ],
+      "exit_code": 0,
+      "output_sha256": "eb8e6ab3a0840afca9e4f5692da3ab032bc1b9c20bd7ffbd90362508ffb4ffed",
+      "standalone_policy_tests": 15
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "output_sha256": "ecdbc5fc55d63fcbdedf848638d5d48bec70c77afcd2880656ff2b378058bcb9",
+      "unittest_count": 86
+    },
+    {
+      "command": [
+        "python3",
+        "eval/verify_walkthrough.py"
+      ],
+      "exit_code": 0,
+      "output_sha256": "91379431e17dea9e7d8c520decef4fdce1db2e317e1bd1f0a8448ea14e6bb618"
+    },
+    {
+      "command": [
+        "python3",
+        "eval/correction_scope_demo.py",
+        "validate"
+      ],
+      "exit_code": 0,
+      "output_sha256": "eb962d28256cfa55de4eb15e78bc613fb6145995025c101b7e609498310c684e"
+    },
+    {
+      "command": [
+        "python3",
+        "eval/build_correction_pilot.py",
+        "validate"
+      ],
+      "exit_code": 0,
+      "output_sha256": "8295656be7aaab172b9c70a36e882e32f07aeff91580dd75f55e90c401ed4be4"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "model_prediction_count": 0,
+  "notes": [
+    "All software checks pass on this recorded source snapshot.",
+    "CI will independently run on Python 3.11 after push; not yet claimed here.",
+    "Source reports and deterministic control scores are not LLM observations."
+  ],
+  "python": "3.9.12",
+  "source_sha256": {
+    ".github/workflows/research.yml": "7ae5c949682145e6e88e1098527ce9dc3b4eb3d9453066f9b702fe85575807d9",
+    "eval/analyze_correction_pilot.py": "d257e2004f4c77b3eb28bb8e1d3660a9ea8a125c9509b4448cf752b416c42fa2",
+    "eval/build_correction_pilot.py": "9bd2f0edfe09315f53db280ccca82090e2beada16a74c3bc1701c8994faa3f75",
+    "eval/ciwork_adapter.py": "3b0fa21d6ca1eddf0ca7287e41e00a2b60a86803906b2e3e81e3f0d623f881b8",
+    "eval/correction_scope_demo.py": "97770904a6c0ce344771ab59d5f6e9354592358beb0353cc63b82f41cedb734c",
+    "eval/fixtures/cases.json": "565f20666b761cd148033e6ccc2e6eb603d375dbefa8a28b89d03c95839cf8a1",
+    "eval/fixtures/correction_pilot.json": "50bf69d1b893e73172d1f6cea7005e8699d128d5461cf2b424914b9a1da0780f",
+    "eval/fixtures/correction_pilot_manifest.json": "619e51e780b45e473261b129ffffbe43de5adc253d3e61a6a17ca50ee9bf900e",
+    "eval/fixtures/correction_scope_cases.json": "b5b88b72850119eb65b6fb91bfdcf27cf93756d1dc4c1b97b6b79d4cd65b3b53",
+    "eval/fixtures/pr_review_cases.json": "a26ef36bc0b37bfa97a349cca74fd4e4c631c1761273dd0664a088209337e9ca",
+    "eval/run_correction_actions.py": "a4a158553d17d31948d839ae805d36e798dfff7ceaef90d363b5a5e84237cca8",
+    "eval/run_correction_eval.py": "227e196e86d77037822b7ad7b5cb1e5536fba73ad8943a85c336ea5586dcc2d8",
+    "eval/run_correction_models.py": "85f66df50644b5658abb1107060074b141e713dd8fc9d5873be500cbff121a01",
+    "eval/run_eval.py": "b779f7eb755b6c3f372df883fbe045855d02d38165819c46f5bf49f091fd5781",
+    "eval/summarize_correction_models.py": "3e7665d212c3d91af9f57d47964c6849f7477536d6f92fc49e7f6700cac1fde3",
+    "eval/verify_walkthrough.py": "9c1300af6e88a3a8c8a9b2efb840b80ec1fd8faa553c22c0fdea2e2e3c500856",
+    "scripts/package_correction_starter.py": "a309b4467fee7ab319fc43c6a674191d6c2cb4910a576b9b733955e9e1a22bed",
+    "src/zt_pep/__init__.py": "d4b841d8c98a2510624d4c7d72fed1d195af3ad317f5158a4a6a7eccaa3ac100",
+    "src/zt_pep/correction_actions.py": "43d288c6a1b02e9d89c05ef72f393d34811d8d9c7df19aea491e8e51c232c875",
+    "src/zt_pep/correction_eval.py": "5e2d12febe663c9aa091641826a7edd95758d8bf2158b646079a1e461bda7986",
+    "src/zt_pep/correction_pilot.py": "67948d9e90506c64b45d3e03b8778e33feb35f0a5a05dc5f68ae727940ea30a9",
+    "src/zt_pep/correction_runner.py": "7ae183530bd1da00706052d5cbd5be23814deeba038ca5645348ab2453f9b28c",
+    "src/zt_pep/inline.py": "bd65b1b5a4eec494c680a81000309890df62892d95427d4bce1163dd8ce7fc1f",
+    "src/zt_pep/labels.py": "209e27f25807d9b4b7036fd94e7046239087b373744e47fcb8695f2fbd788667",
+    "src/zt_pep/metrics.py": "f59a7ac9e393a8845ede57a5e54ec43a0ba800f57f738390ff0a8c4872500217",
+    "src/zt_pep/model.py": "002f74a500352a2502f2bed4b5dd92856868ef04fabf3d1a1a31a56c59760b95",
+    "src/zt_pep/pdp.py": "1e738709eab22fb9c16cec8430d44c369098e506342d588319a3ef37d6684a4e",
+    "src/zt_pep/pep.py": "07d1980bbc531240b2f8eb545327cf09e3d90746571bb9167853aea090c2fec5",
+    "src/zt_pep/policy.py": "194ed2797f1d398a37dc2844a66180f194d7c0095633867b5a1acae60d6acc22",
+    "tests/test_correction_actions.py": "3fc7f3862bf315aabb1690b0d7a3e4485ff9b5ab24cb92975bf67684bb29cbcf",
+    "tests/test_correction_eval.py": "28681233c0aeb7a5131c4fa9d0478e000b67751f6c229f123c4546948257d6dc",
+    "tests/test_correction_pilot.py": "70a65d88dc32f140ede8a0879d3b2487e7984338a26ef8537cccedd5f92c9f4d",
+    "tests/test_correction_runner.py": "69a0ba55884cdc8f84c9b63b0a6e3ba143ac2cf63c411ce8c255b393593f8de2",
+    "tests/test_correction_scope.py": "45ee47f31aaeabe4c2259f715074340335980a899326831dd1814553ecac23ad",
+    "tests/test_correction_summary.py": "1ad415c9203f2414e450e0624624f45d95136fb5d459a8cee0dac6bc689ad1b8",
+    "tests/test_legacy_integration.py": "e2431c1bd9c1472714cd14e7e88248b0c09d30bd33a7794115b1c9ae617f9d94",
+    "tests/test_pdp.py": "ca19a9a37d30c056847f569ee6227a2a112574fd2908e2b59a723ddc04e5bd6b"
+  },
+  "standalone_policy_tests": 15,
+  "unittest_count": 86,
+  "verified_at_utc": "2026-10-21T11:35:15.115909+00:00",
+  "walkthrough_production_decisions": 27
+}

@@ -1,0 +1,1 @@
+{"error_code": "http_error", "finished_at_utc": "2026-10-21T11:24:16.992676+00:00", "http_status": 429, "input_token_reservation": 7678, "network": true, "output_token_limit": 800, "request_sha256": "333a4339d84ed37d2c8a0e7f40f3f321d7c8ad615d624c3d2d8ffb613f5deca2", "reserved_cost_usd": 0.0043512, "started_at_utc": "2026-10-21T11:24:16.786999+00:00", "state": "failure"}

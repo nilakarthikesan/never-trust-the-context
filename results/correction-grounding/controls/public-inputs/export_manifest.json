@@ -1,0 +1,15 @@
+{
+  "artifact_kind": "synthetic prompt export; no model execution",
+  "code_sha256": {
+    "eval/correction_scope_demo.py": "97770904a6c0ce344771ab59d5f6e9354592358beb0353cc63b82f41cedb734c",
+    "eval/run_correction_eval.py": "227e196e86d77037822b7ad7b5cb1e5536fba73ad8943a85c336ea5586dcc2d8",
+    "src/zt_pep/correction_eval.py": "5e2d12febe663c9aa091641826a7edd95758d8bf2158b646079a1e461bda7986"
+  },
+  "created_at_utc": "2026-10-21T11:34:21.183870+00:00",
+  "format": "correction-scope-external-v1",
+  "n_claims": 144,
+  "n_packets": 48,
+  "prompts_sha256": "e2c0772efdb0f32a1e88858418d06a4c1e00242a72cd9cb4a6ded1f430d9b5ad",
+  "scope_condition": "extract from text; gold claim AST withheld",
+  "suite_sha256": "50bf69d1b893e73172d1f6cea7005e8699d128d5461cf2b424914b9a1da0780f"
+}

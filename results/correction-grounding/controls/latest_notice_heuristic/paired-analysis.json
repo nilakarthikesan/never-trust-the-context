@@ -1,0 +1,750 @@
+{
+  "artifact_kind": "paired diagnostic analysis of supplied scored observations; no model execution",
+  "bootstrap": {
+    "samples": 2000,
+    "seed": 1729,
+    "unit": "whole authored base block; all claims and paired variants move together"
+  },
+  "directional_status_errors": {
+    "opposed_claim_marked_supported": 0,
+    "supported_current_claim_marked_unsupported_or_opposed": 8,
+    "supported_history_marked_unsupported_or_opposed": 0,
+    "unsupported_claim_marked_supported": 0
+  },
+  "extra_observations": 0,
+  "input_sha256": {
+    "metrics": "c9135ef6dc051e71c256ab702293cbc86371391dec19a21d0c31c7f5b6676c13",
+    "private_manifest": "619e51e780b45e473261b129ffffbe43de5adc253d3e61a6a17ca50ee9bf900e"
+  },
+  "limitations": [
+    "Intervals describe a small authored diagnostic sample, not a population or preregistered test.",
+    "The provisional locked partition was authored openly and has no completed independent human validation.",
+    "Paired differences compare evidence states, not two audit interventions and not causal effects of regeneration.",
+    "No world-truth or action results are inferred from scope/support judgments."
+  ],
+  "missing_observations": 0,
+  "n_bases": 24,
+  "n_claims": 144,
+  "n_packets": 48,
+  "per_base": [
+    {
+      "base_id": "base-230d4652d8509107",
+      "family": "genuine_withdrawal",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "development",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-69de05283d19742b",
+      "family": "genuine_withdrawal",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-8aa83f1da9f2eabe",
+      "family": "genuine_withdrawal",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-49c71ff3773ef7e6",
+      "family": "genuine_withdrawal",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-0dc6a67b0969506e",
+      "family": "opposite_correction",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "development",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-8ff57a1b4d05ee99",
+      "family": "opposite_correction",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-92c4c264c3d76569",
+      "family": "opposite_correction",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-443ccfff858f86c2",
+      "family": "opposite_correction",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-581b70c00ff79474",
+      "family": "same_value_replacement",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "development",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-acdc28a39f503ff8",
+      "family": "same_value_replacement",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-e04b60f3df9e5036",
+      "family": "same_value_replacement",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-5d2658e42d2d6c48",
+      "family": "same_value_replacement",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-2294d877fbae3695",
+      "family": "independent_support",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "development",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-0d266e140bbe87ff",
+      "family": "independent_support",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-47d0ccf5c4222b53",
+      "family": "independent_support",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-7e1f58f1a3ba6ae9",
+      "family": "independent_support",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-9b0f4da1ce07dd52",
+      "family": "forged_notice",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": -0.6666666666666667,
+        "evidence_sets_exact": -0.6666666666666667,
+        "scope_correct": 0.0,
+        "scope_status_correct": -0.6666666666666667,
+        "status_correct": -0.6666666666666667
+      },
+      "partition": "development",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 0.3333333333333333,
+          "evidence_sets_exact": 0.3333333333333333,
+          "scope_correct": 1.0,
+          "scope_status_correct": 0.3333333333333333,
+          "status_correct": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "base_id": "base-575849795b214fc1",
+      "family": "forged_notice",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": -0.6666666666666667,
+        "evidence_sets_exact": -0.6666666666666667,
+        "scope_correct": 0.0,
+        "scope_status_correct": -0.6666666666666667,
+        "status_correct": -0.6666666666666667
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 0.3333333333333333,
+          "evidence_sets_exact": 0.3333333333333333,
+          "scope_correct": 1.0,
+          "scope_status_correct": 0.3333333333333333,
+          "status_correct": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "base_id": "base-ff259c9588a17824",
+      "family": "forged_notice",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": -0.6666666666666667,
+        "evidence_sets_exact": -0.6666666666666667,
+        "scope_correct": 0.0,
+        "scope_status_correct": -0.6666666666666667,
+        "status_correct": -0.6666666666666667
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 0.3333333333333333,
+          "evidence_sets_exact": 0.3333333333333333,
+          "scope_correct": 1.0,
+          "scope_status_correct": 0.3333333333333333,
+          "status_correct": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "base_id": "base-3fc49a74eb0a055e",
+      "family": "forged_notice",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": -0.6666666666666667,
+        "evidence_sets_exact": -0.6666666666666667,
+        "scope_correct": 0.0,
+        "scope_status_correct": -0.6666666666666667,
+        "status_correct": -0.6666666666666667
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 0.3333333333333333,
+          "evidence_sets_exact": 0.3333333333333333,
+          "scope_correct": 1.0,
+          "scope_status_correct": 0.3333333333333333,
+          "status_correct": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "base_id": "base-655aae7cd918283f",
+      "family": "conflict_survivor",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "development",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-34137c00c20ceee8",
+      "family": "conflict_survivor",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-1e1a8e36566bf2a8",
+      "family": "conflict_survivor",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    },
+    {
+      "base_id": "base-2babdb94270ea0fd",
+      "family": "conflict_survivor",
+      "paired_change_update_minus_unchanged": {
+        "all_fields_correct": 0.0,
+        "evidence_sets_exact": 0.0,
+        "scope_correct": 0.0,
+        "scope_status_correct": 0.0,
+        "status_correct": 0.0
+      },
+      "partition": "pilot_locked_provisional",
+      "variants": {
+        "unchanged": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        },
+        "update": {
+          "all_fields_correct": 1.0,
+          "evidence_sets_exact": 1.0,
+          "scope_correct": 1.0,
+          "scope_status_correct": 1.0,
+          "status_correct": 1.0
+        }
+      }
+    }
+  ],
+  "summary": {
+    "all_fields_correct": {
+      "descriptive_base_bootstrap_95_interval": [
+        -0.2222222222222223,
+        -0.02777777777777778
+      ],
+      "paired_mean_change": -0.11111111111111112,
+      "unchanged_base_mean": 1.0,
+      "update_base_mean": 0.8888888888888887
+    },
+    "evidence_sets_exact": {
+      "descriptive_base_bootstrap_95_interval": [
+        -0.2222222222222223,
+        -0.02777777777777778
+      ],
+      "paired_mean_change": -0.11111111111111112,
+      "unchanged_base_mean": 1.0,
+      "update_base_mean": 0.8888888888888887
+    },
+    "scope_correct": {
+      "descriptive_base_bootstrap_95_interval": [
+        0.0,
+        0.0
+      ],
+      "paired_mean_change": 0.0,
+      "unchanged_base_mean": 1.0,
+      "update_base_mean": 1.0
+    },
+    "scope_status_correct": {
+      "descriptive_base_bootstrap_95_interval": [
+        -0.2222222222222223,
+        -0.02777777777777778
+      ],
+      "paired_mean_change": -0.11111111111111112,
+      "unchanged_base_mean": 1.0,
+      "update_base_mean": 0.8888888888888887
+    },
+    "status_correct": {
+      "descriptive_base_bootstrap_95_interval": [
+        -0.2222222222222223,
+        -0.02777777777777778
+      ],
+      "paired_mean_change": -0.11111111111111112,
+      "unchanged_base_mean": 1.0,
+      "update_base_mean": 0.8888888888888887
+    }
+  }
+}

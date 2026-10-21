@@ -231,23 +231,18 @@ To isolate the per-request recomputation from the labels, we re-run
 lead reviewing a junior's PR in a private repository---giving
 $\clr = 0.70$, $\lvlI = 0.45$, $\wC = 0.67$, $\wI = 0.60$.
 
-Two entries change decision. Entry e4 becomes \textsc{allow} because
-$0.30 \le 0.70$, and e7 (the unannounced roadmap change) becomes
-\textsc{allow} because its risk of $0.1005$ falls under $\theta$.
-\textbf{No label changed.} $\Cl(e7)$ is $0.85$ in both runs; the entry became
-quotable because the \emph{audience} changed and the decision was recomputed
-from the request rather than read from a cache. Static multilevel security with
-administratively assigned labels cannot express this---it would need a distinct
-label per audience per entry.
+Entry e4 becomes \textsc{allow} because $0.30 \le 0.70$.
+Entry e7 remains \textsc{deny}: although its weighted risk $0.1005$ is below
+$\theta$, its confidentiality $0.85$ exceeds the implemented hard-deny floor.
+\textbf{No label changed.} The request changes recipient clearance, while the
+hard-deny precedence remains in force. The walkthrough verifier now executes
+the production decision function rather than an independent arithmetic copy.
 
 Two findings fall out. First, \textbf{integrity did not relax}: e8 and e9 stay
 quarantined internally, because familiarity of the audience is not evidence.
-A confidentiality-only defense misses this entirely. Second, and less
-comfortably, \textbf{e5 survives on $0.0175$ of margin}: a named-customer
-regulated entry sits one $\theta$ adjustment away from release. That margin is
-what motivated the precedence fix in \Cref{sec:discussion:bugs}, and until that
-fix landed the safety of this case was an accident of calibration rather than a
-property of the design.
+Second, the regulated-entry precedence fix is active: e5 cannot be released
+by changing $\theta$. Before that fix, its $0.0175$ margin made protection
+depend on calibration; the current implementation excludes it from the override.
 
 \subsection{Capability changes the evidence bar}
 \label{sec:eval:capability}

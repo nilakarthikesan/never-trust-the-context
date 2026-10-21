@@ -1,0 +1,3941 @@
+{
+  "assumptions": [
+    "48 paired packets from 24 distinct bounded program contracts; claims and variants within a base are correlated.",
+    "Source reports and their separate-execution lineage are fictional authored assumptions, not executed measurements.",
+    "Only the separately invoked bounded sandbox produces actual local check output.",
+    "Private truth is passing the three specified checks, not a proof of unrestricted correctness.",
+    "Partitions were authored openly; pilot_locked_provisional is not a preregistered held-out set."
+  ],
+  "packets": [
+    {
+      "claims": [
+        {
+          "claim_id": "c-b2ed062e522449c0",
+          "kind": "historical_assertion",
+          "proposition_id": "p-03b8d0048d0a34b6",
+          "record_id": "r-440f18d9b0fc33c3",
+          "source_owner": "s-e9191dba84835703",
+          "text": "In historical record r-440f18d9b0fc33c3, Retry scheduling review service reported that candidate retry_delay for artifact a-2b6b14b14a9961a9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-1b092a91de4ab13b",
+          "kind": "current_endorsement",
+          "proposition_id": "p-03b8d0048d0a34b6",
+          "source_owner": "s-e9191dba84835703",
+          "text": "Retry scheduling review service currently attests that candidate retry_delay for artifact a-2b6b14b14a9961a9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-861556fb9d7440ed",
+          "kind": "current_support",
+          "proposition_id": "p-03b8d0048d0a34b6",
+          "text": "The currently admissible evidence supports that candidate retry_delay for artifact a-2b6b14b14a9961a9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-951d852ca86a2743",
+      "private_world_truth": {
+        "p-03b8d0048d0a34b6": false
+      },
+      "propositions": {
+        "p-03b8d0048d0a34b6": "Candidate retry_delay for artifact a-2b6b14b14a9961a9 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-0776905f7b974544",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-03b8d0048d0a34b6",
+          "record_id": "r-440f18d9b0fc33c3",
+          "source_owner": "s-e9191dba84835703",
+          "status": "active",
+          "text": "Retry scheduling review service report: Candidate retry_delay for artifact a-2b6b14b14a9961a9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-774249174defa433": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-03b8d0048d0a34b6"
+          ]
+        },
+        "s-80133f41907d3853": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-e9191dba84835703": {
+          "label": "Retry scheduling review service",
+          "may_support": [
+            "p-03b8d0048d0a34b6"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-b2ed062e522449c0",
+          "kind": "historical_assertion",
+          "proposition_id": "p-03b8d0048d0a34b6",
+          "record_id": "r-440f18d9b0fc33c3",
+          "source_owner": "s-e9191dba84835703",
+          "text": "In historical record r-440f18d9b0fc33c3, Retry scheduling review service reported that candidate retry_delay for artifact a-2b6b14b14a9961a9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-1b092a91de4ab13b",
+          "kind": "current_endorsement",
+          "proposition_id": "p-03b8d0048d0a34b6",
+          "source_owner": "s-e9191dba84835703",
+          "text": "Retry scheduling review service currently attests that candidate retry_delay for artifact a-2b6b14b14a9961a9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-861556fb9d7440ed",
+          "kind": "current_support",
+          "proposition_id": "p-03b8d0048d0a34b6",
+          "text": "The currently admissible evidence supports that candidate retry_delay for artifact a-2b6b14b14a9961a9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-03b8d0048d0a34b6",
+          "issuer": "s-e9191dba84835703",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-440f18d9b0fc33c3"
+        }
+      ],
+      "packet_id": "item-28f94476110ffa63",
+      "private_world_truth": {
+        "p-03b8d0048d0a34b6": false
+      },
+      "propositions": {
+        "p-03b8d0048d0a34b6": "Candidate retry_delay for artifact a-2b6b14b14a9961a9 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-0776905f7b974544",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-03b8d0048d0a34b6",
+          "record_id": "r-440f18d9b0fc33c3",
+          "source_owner": "s-e9191dba84835703",
+          "status": "active",
+          "text": "Retry scheduling review service report: Candidate retry_delay for artifact a-2b6b14b14a9961a9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-774249174defa433": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-03b8d0048d0a34b6"
+          ]
+        },
+        "s-80133f41907d3853": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-e9191dba84835703": {
+          "label": "Retry scheduling review service",
+          "may_support": [
+            "p-03b8d0048d0a34b6"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-d46570b69c657034",
+          "kind": "historical_assertion",
+          "proposition_id": "p-23ffdc885f27d5ac",
+          "record_id": "r-98998045a96430aa",
+          "source_owner": "s-e52e04cc1c462e4c",
+          "text": "In historical record r-98998045a96430aa, Pagination review service reported that candidate page_slice for artifact a-faa26972692eece9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-4887dc9b581eee35",
+          "kind": "current_endorsement",
+          "proposition_id": "p-23ffdc885f27d5ac",
+          "source_owner": "s-e52e04cc1c462e4c",
+          "text": "Pagination review service currently attests that candidate page_slice for artifact a-faa26972692eece9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-a10a8029e1dfd302",
+          "kind": "current_support",
+          "proposition_id": "p-23ffdc885f27d5ac",
+          "text": "The currently admissible evidence supports that candidate page_slice for artifact a-faa26972692eece9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-54ce409bc6b7476b",
+      "private_world_truth": {
+        "p-23ffdc885f27d5ac": true
+      },
+      "propositions": {
+        "p-23ffdc885f27d5ac": "Candidate page_slice for artifact a-faa26972692eece9 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-59f7e2572e5cf370",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-23ffdc885f27d5ac",
+          "record_id": "r-98998045a96430aa",
+          "source_owner": "s-e52e04cc1c462e4c",
+          "status": "active",
+          "text": "Pagination review service report: Candidate page_slice for artifact a-faa26972692eece9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-438b090d7a032395": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-c86970a318a6e97c": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-23ffdc885f27d5ac"
+          ]
+        },
+        "s-e52e04cc1c462e4c": {
+          "label": "Pagination review service",
+          "may_support": [
+            "p-23ffdc885f27d5ac"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-d46570b69c657034",
+          "kind": "historical_assertion",
+          "proposition_id": "p-23ffdc885f27d5ac",
+          "record_id": "r-98998045a96430aa",
+          "source_owner": "s-e52e04cc1c462e4c",
+          "text": "In historical record r-98998045a96430aa, Pagination review service reported that candidate page_slice for artifact a-faa26972692eece9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-4887dc9b581eee35",
+          "kind": "current_endorsement",
+          "proposition_id": "p-23ffdc885f27d5ac",
+          "source_owner": "s-e52e04cc1c462e4c",
+          "text": "Pagination review service currently attests that candidate page_slice for artifact a-faa26972692eece9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-a10a8029e1dfd302",
+          "kind": "current_support",
+          "proposition_id": "p-23ffdc885f27d5ac",
+          "text": "The currently admissible evidence supports that candidate page_slice for artifact a-faa26972692eece9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-23ffdc885f27d5ac",
+          "issuer": "s-e52e04cc1c462e4c",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-98998045a96430aa"
+        }
+      ],
+      "packet_id": "item-a9b57a0c52a2319d",
+      "private_world_truth": {
+        "p-23ffdc885f27d5ac": true
+      },
+      "propositions": {
+        "p-23ffdc885f27d5ac": "Candidate page_slice for artifact a-faa26972692eece9 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-59f7e2572e5cf370",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-23ffdc885f27d5ac",
+          "record_id": "r-98998045a96430aa",
+          "source_owner": "s-e52e04cc1c462e4c",
+          "status": "active",
+          "text": "Pagination review service report: Candidate page_slice for artifact a-faa26972692eece9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-438b090d7a032395": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-c86970a318a6e97c": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-23ffdc885f27d5ac"
+          ]
+        },
+        "s-e52e04cc1c462e4c": {
+          "label": "Pagination review service",
+          "may_support": [
+            "p-23ffdc885f27d5ac"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-c4f66104f8210776",
+          "kind": "historical_assertion",
+          "proposition_id": "p-7b38fc677220c57f",
+          "record_id": "r-e6cf4b3afec0ad58",
+          "source_owner": "s-321b8db650f5a3b3",
+          "text": "In historical record r-e6cf4b3afec0ad58, Port validation review service reported that candidate port_allowed for artifact a-794367412a08632f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-eba2c8fe630ea51e",
+          "kind": "current_endorsement",
+          "proposition_id": "p-7b38fc677220c57f",
+          "source_owner": "s-321b8db650f5a3b3",
+          "text": "Port validation review service currently attests that candidate port_allowed for artifact a-794367412a08632f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-bcef7fd0b5c1b4c3",
+          "kind": "current_support",
+          "proposition_id": "p-7b38fc677220c57f",
+          "text": "The currently admissible evidence supports that candidate port_allowed for artifact a-794367412a08632f passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-21eea1e9b935179c",
+      "private_world_truth": {
+        "p-7b38fc677220c57f": false
+      },
+      "propositions": {
+        "p-7b38fc677220c57f": "Candidate port_allowed for artifact a-794367412a08632f passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-9f310d3790ff9180",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-7b38fc677220c57f",
+          "record_id": "r-e6cf4b3afec0ad58",
+          "source_owner": "s-321b8db650f5a3b3",
+          "status": "active",
+          "text": "Port validation review service report: Candidate port_allowed for artifact a-794367412a08632f passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-161aa195e8bc3146": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-7b38fc677220c57f"
+          ]
+        },
+        "s-321b8db650f5a3b3": {
+          "label": "Port validation review service",
+          "may_support": [
+            "p-7b38fc677220c57f"
+          ]
+        },
+        "s-ee201144640d6161": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-c4f66104f8210776",
+          "kind": "historical_assertion",
+          "proposition_id": "p-7b38fc677220c57f",
+          "record_id": "r-e6cf4b3afec0ad58",
+          "source_owner": "s-321b8db650f5a3b3",
+          "text": "In historical record r-e6cf4b3afec0ad58, Port validation review service reported that candidate port_allowed for artifact a-794367412a08632f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-eba2c8fe630ea51e",
+          "kind": "current_endorsement",
+          "proposition_id": "p-7b38fc677220c57f",
+          "source_owner": "s-321b8db650f5a3b3",
+          "text": "Port validation review service currently attests that candidate port_allowed for artifact a-794367412a08632f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-bcef7fd0b5c1b4c3",
+          "kind": "current_support",
+          "proposition_id": "p-7b38fc677220c57f",
+          "text": "The currently admissible evidence supports that candidate port_allowed for artifact a-794367412a08632f passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-7b38fc677220c57f",
+          "issuer": "s-321b8db650f5a3b3",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-e6cf4b3afec0ad58"
+        }
+      ],
+      "packet_id": "item-a8f12830958e7e6d",
+      "private_world_truth": {
+        "p-7b38fc677220c57f": false
+      },
+      "propositions": {
+        "p-7b38fc677220c57f": "Candidate port_allowed for artifact a-794367412a08632f passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-9f310d3790ff9180",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-7b38fc677220c57f",
+          "record_id": "r-e6cf4b3afec0ad58",
+          "source_owner": "s-321b8db650f5a3b3",
+          "status": "active",
+          "text": "Port validation review service report: Candidate port_allowed for artifact a-794367412a08632f passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-161aa195e8bc3146": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-7b38fc677220c57f"
+          ]
+        },
+        "s-321b8db650f5a3b3": {
+          "label": "Port validation review service",
+          "may_support": [
+            "p-7b38fc677220c57f"
+          ]
+        },
+        "s-ee201144640d6161": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-6c2c9c22c38312d4",
+          "kind": "historical_assertion",
+          "proposition_id": "p-cd5b5cf291b8a3e7",
+          "record_id": "r-3123b562e2cf153d",
+          "source_owner": "s-15ef7a8daa7b61e4",
+          "text": "In historical record r-3123b562e2cf153d, Integer refunds review service reported that candidate refund_cents for artifact a-1984bbd3334bb0b0 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-960751ca67fecccd",
+          "kind": "current_endorsement",
+          "proposition_id": "p-cd5b5cf291b8a3e7",
+          "source_owner": "s-15ef7a8daa7b61e4",
+          "text": "Integer refunds review service currently attests that candidate refund_cents for artifact a-1984bbd3334bb0b0 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-c93677b878aefb11",
+          "kind": "current_support",
+          "proposition_id": "p-cd5b5cf291b8a3e7",
+          "text": "The currently admissible evidence supports that candidate refund_cents for artifact a-1984bbd3334bb0b0 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-b5fbd40a56d1a849",
+      "private_world_truth": {
+        "p-cd5b5cf291b8a3e7": true
+      },
+      "propositions": {
+        "p-cd5b5cf291b8a3e7": "Candidate refund_cents for artifact a-1984bbd3334bb0b0 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-69008fff292fc93d",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-cd5b5cf291b8a3e7",
+          "record_id": "r-3123b562e2cf153d",
+          "source_owner": "s-15ef7a8daa7b61e4",
+          "status": "active",
+          "text": "Integer refunds review service report: Candidate refund_cents for artifact a-1984bbd3334bb0b0 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-15ef7a8daa7b61e4": {
+          "label": "Integer refunds review service",
+          "may_support": [
+            "p-cd5b5cf291b8a3e7"
+          ]
+        },
+        "s-871a1d6aa0ff167a": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-b65992c31edadef0": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-cd5b5cf291b8a3e7"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-6c2c9c22c38312d4",
+          "kind": "historical_assertion",
+          "proposition_id": "p-cd5b5cf291b8a3e7",
+          "record_id": "r-3123b562e2cf153d",
+          "source_owner": "s-15ef7a8daa7b61e4",
+          "text": "In historical record r-3123b562e2cf153d, Integer refunds review service reported that candidate refund_cents for artifact a-1984bbd3334bb0b0 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-960751ca67fecccd",
+          "kind": "current_endorsement",
+          "proposition_id": "p-cd5b5cf291b8a3e7",
+          "source_owner": "s-15ef7a8daa7b61e4",
+          "text": "Integer refunds review service currently attests that candidate refund_cents for artifact a-1984bbd3334bb0b0 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-c93677b878aefb11",
+          "kind": "current_support",
+          "proposition_id": "p-cd5b5cf291b8a3e7",
+          "text": "The currently admissible evidence supports that candidate refund_cents for artifact a-1984bbd3334bb0b0 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-cd5b5cf291b8a3e7",
+          "issuer": "s-15ef7a8daa7b61e4",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-3123b562e2cf153d"
+        }
+      ],
+      "packet_id": "item-290c03f22b7d175a",
+      "private_world_truth": {
+        "p-cd5b5cf291b8a3e7": true
+      },
+      "propositions": {
+        "p-cd5b5cf291b8a3e7": "Candidate refund_cents for artifact a-1984bbd3334bb0b0 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-69008fff292fc93d",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-cd5b5cf291b8a3e7",
+          "record_id": "r-3123b562e2cf153d",
+          "source_owner": "s-15ef7a8daa7b61e4",
+          "status": "active",
+          "text": "Integer refunds review service report: Candidate refund_cents for artifact a-1984bbd3334bb0b0 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-15ef7a8daa7b61e4": {
+          "label": "Integer refunds review service",
+          "may_support": [
+            "p-cd5b5cf291b8a3e7"
+          ]
+        },
+        "s-871a1d6aa0ff167a": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-b65992c31edadef0": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-cd5b5cf291b8a3e7"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-66b7a5a219e6857c",
+          "kind": "historical_assertion",
+          "proposition_id": "p-6fc4d6de1416e8a1",
+          "record_id": "r-8b91d0274fb4ec6f",
+          "source_owner": "s-3f7edcc9d65c67ef",
+          "text": "In historical record r-8b91d0274fb4ec6f, Archive path boundaries review service reported that candidate path_is_child for artifact a-53ffe56cfca888dc passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-8e6c5ab076286894",
+          "kind": "current_endorsement",
+          "proposition_id": "p-6fc4d6de1416e8a1",
+          "source_owner": "s-3f7edcc9d65c67ef",
+          "text": "Archive path boundaries review service currently attests that candidate path_is_child for artifact a-53ffe56cfca888dc passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-ac64f46df2eb5adc",
+          "kind": "current_support",
+          "proposition_id": "p-6fc4d6de1416e8a1",
+          "text": "The currently admissible evidence supports that candidate path_is_child for artifact a-53ffe56cfca888dc passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-e386327fdd95220f",
+      "private_world_truth": {
+        "p-6fc4d6de1416e8a1": false
+      },
+      "propositions": {
+        "p-6fc4d6de1416e8a1": "Candidate path_is_child for artifact a-53ffe56cfca888dc passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-189a06d7f11db708",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-6fc4d6de1416e8a1",
+          "record_id": "r-8b91d0274fb4ec6f",
+          "source_owner": "s-3f7edcc9d65c67ef",
+          "status": "active",
+          "text": "Archive path boundaries review service report: Candidate path_is_child for artifact a-53ffe56cfca888dc passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-3f7edcc9d65c67ef": {
+          "label": "Archive path boundaries review service",
+          "may_support": [
+            "p-6fc4d6de1416e8a1"
+          ]
+        },
+        "s-ccbd1e4f32e166c5": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-ea41a0a1afd51fff": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-6fc4d6de1416e8a1"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-66b7a5a219e6857c",
+          "kind": "historical_assertion",
+          "proposition_id": "p-6fc4d6de1416e8a1",
+          "record_id": "r-8b91d0274fb4ec6f",
+          "source_owner": "s-3f7edcc9d65c67ef",
+          "text": "In historical record r-8b91d0274fb4ec6f, Archive path boundaries review service reported that candidate path_is_child for artifact a-53ffe56cfca888dc passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-8e6c5ab076286894",
+          "kind": "current_endorsement",
+          "proposition_id": "p-6fc4d6de1416e8a1",
+          "source_owner": "s-3f7edcc9d65c67ef",
+          "text": "Archive path boundaries review service currently attests that candidate path_is_child for artifact a-53ffe56cfca888dc passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-ac64f46df2eb5adc",
+          "kind": "current_support",
+          "proposition_id": "p-6fc4d6de1416e8a1",
+          "text": "The currently admissible evidence supports that candidate path_is_child for artifact a-53ffe56cfca888dc passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-6fc4d6de1416e8a1",
+          "issuer": "s-3f7edcc9d65c67ef",
+          "notice": "We supersede this exact report with a new owner attestation for the same artifact and check proposition.",
+          "op": "supersede",
+          "replacement": {
+            "proposition_id": "p-6fc4d6de1416e8a1",
+            "record_id": "r-9608144e249052a8",
+            "source_owner": "s-3f7edcc9d65c67ef",
+            "status": "active",
+            "text": "Archive path boundaries review service correction: candidate path_is_child for artifact a-53ffe56cfca888dc fails at least one specified acceptance check.",
+            "value": false
+          },
+          "target_record_id": "r-8b91d0274fb4ec6f"
+        }
+      ],
+      "packet_id": "item-1eba4997f1df13d8",
+      "private_world_truth": {
+        "p-6fc4d6de1416e8a1": false
+      },
+      "propositions": {
+        "p-6fc4d6de1416e8a1": "Candidate path_is_child for artifact a-53ffe56cfca888dc passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-189a06d7f11db708",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-6fc4d6de1416e8a1",
+          "record_id": "r-8b91d0274fb4ec6f",
+          "source_owner": "s-3f7edcc9d65c67ef",
+          "status": "active",
+          "text": "Archive path boundaries review service report: Candidate path_is_child for artifact a-53ffe56cfca888dc passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-3f7edcc9d65c67ef": {
+          "label": "Archive path boundaries review service",
+          "may_support": [
+            "p-6fc4d6de1416e8a1"
+          ]
+        },
+        "s-ccbd1e4f32e166c5": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-ea41a0a1afd51fff": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-6fc4d6de1416e8a1"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-9fa99255647a0061",
+          "kind": "historical_assertion",
+          "proposition_id": "p-e194f0ada28e3084",
+          "record_id": "r-fb423b506c4bc3aa",
+          "source_owner": "s-a2a91b6fee2894c9",
+          "text": "In historical record r-fb423b506c4bc3aa, Log redaction review service reported that candidate mask_secret for artifact a-58af9dd77b04bacc passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-76d2052049614ae3",
+          "kind": "current_endorsement",
+          "proposition_id": "p-e194f0ada28e3084",
+          "source_owner": "s-a2a91b6fee2894c9",
+          "text": "Log redaction review service currently attests that candidate mask_secret for artifact a-58af9dd77b04bacc passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-1058b5deac834f61",
+          "kind": "current_support",
+          "proposition_id": "p-e194f0ada28e3084",
+          "text": "The currently admissible evidence supports that candidate mask_secret for artifact a-58af9dd77b04bacc passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-1a89835decd2b47d",
+      "private_world_truth": {
+        "p-e194f0ada28e3084": false
+      },
+      "propositions": {
+        "p-e194f0ada28e3084": "Candidate mask_secret for artifact a-58af9dd77b04bacc passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-c1fad8f8a1b771f1",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-e194f0ada28e3084",
+          "record_id": "r-fb423b506c4bc3aa",
+          "source_owner": "s-a2a91b6fee2894c9",
+          "status": "active",
+          "text": "Log redaction review service report: Candidate mask_secret for artifact a-58af9dd77b04bacc passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-1a07751c67da1910": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-891a1ceb8287c58d": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-e194f0ada28e3084"
+          ]
+        },
+        "s-a2a91b6fee2894c9": {
+          "label": "Log redaction review service",
+          "may_support": [
+            "p-e194f0ada28e3084"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-9fa99255647a0061",
+          "kind": "historical_assertion",
+          "proposition_id": "p-e194f0ada28e3084",
+          "record_id": "r-fb423b506c4bc3aa",
+          "source_owner": "s-a2a91b6fee2894c9",
+          "text": "In historical record r-fb423b506c4bc3aa, Log redaction review service reported that candidate mask_secret for artifact a-58af9dd77b04bacc passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-76d2052049614ae3",
+          "kind": "current_endorsement",
+          "proposition_id": "p-e194f0ada28e3084",
+          "source_owner": "s-a2a91b6fee2894c9",
+          "text": "Log redaction review service currently attests that candidate mask_secret for artifact a-58af9dd77b04bacc passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-1058b5deac834f61",
+          "kind": "current_support",
+          "proposition_id": "p-e194f0ada28e3084",
+          "text": "The currently admissible evidence supports that candidate mask_secret for artifact a-58af9dd77b04bacc passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-e194f0ada28e3084",
+          "issuer": "s-a2a91b6fee2894c9",
+          "notice": "We supersede this exact report with a new owner attestation for the same artifact and check proposition.",
+          "op": "supersede",
+          "replacement": {
+            "proposition_id": "p-e194f0ada28e3084",
+            "record_id": "r-fa9c0a603034bf8d",
+            "source_owner": "s-a2a91b6fee2894c9",
+            "status": "active",
+            "text": "Log redaction review service correction: candidate mask_secret for artifact a-58af9dd77b04bacc fails at least one specified acceptance check.",
+            "value": false
+          },
+          "target_record_id": "r-fb423b506c4bc3aa"
+        }
+      ],
+      "packet_id": "item-7a6596dd9fc0139e",
+      "private_world_truth": {
+        "p-e194f0ada28e3084": false
+      },
+      "propositions": {
+        "p-e194f0ada28e3084": "Candidate mask_secret for artifact a-58af9dd77b04bacc passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-c1fad8f8a1b771f1",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-e194f0ada28e3084",
+          "record_id": "r-fb423b506c4bc3aa",
+          "source_owner": "s-a2a91b6fee2894c9",
+          "status": "active",
+          "text": "Log redaction review service report: Candidate mask_secret for artifact a-58af9dd77b04bacc passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-1a07751c67da1910": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-891a1ceb8287c58d": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-e194f0ada28e3084"
+          ]
+        },
+        "s-a2a91b6fee2894c9": {
+          "label": "Log redaction review service",
+          "may_support": [
+            "p-e194f0ada28e3084"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-913cb97c43cf87ea",
+          "kind": "historical_assertion",
+          "proposition_id": "p-a98c1331f2f113bd",
+          "record_id": "r-59c659c9a7d71a7d",
+          "source_owner": "s-74678542aef6abff",
+          "text": "In historical record r-59c659c9a7d71a7d, Event deduplication review service reported that candidate stable_unique for artifact a-1f15b455ba630a44 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-270f4fa46afedea4",
+          "kind": "current_endorsement",
+          "proposition_id": "p-a98c1331f2f113bd",
+          "source_owner": "s-74678542aef6abff",
+          "text": "Event deduplication review service currently attests that candidate stable_unique for artifact a-1f15b455ba630a44 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-e7e44a509ff8b65e",
+          "kind": "current_support",
+          "proposition_id": "p-a98c1331f2f113bd",
+          "text": "The currently admissible evidence supports that candidate stable_unique for artifact a-1f15b455ba630a44 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-1467b31d0710a443",
+      "private_world_truth": {
+        "p-a98c1331f2f113bd": false
+      },
+      "propositions": {
+        "p-a98c1331f2f113bd": "Candidate stable_unique for artifact a-1f15b455ba630a44 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-859d6a03454fee95",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-a98c1331f2f113bd",
+          "record_id": "r-59c659c9a7d71a7d",
+          "source_owner": "s-74678542aef6abff",
+          "status": "active",
+          "text": "Event deduplication review service report: Candidate stable_unique for artifact a-1f15b455ba630a44 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-74678542aef6abff": {
+          "label": "Event deduplication review service",
+          "may_support": [
+            "p-a98c1331f2f113bd"
+          ]
+        },
+        "s-ac97f53405094849": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-a98c1331f2f113bd"
+          ]
+        },
+        "s-b26a30872efc81d8": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-913cb97c43cf87ea",
+          "kind": "historical_assertion",
+          "proposition_id": "p-a98c1331f2f113bd",
+          "record_id": "r-59c659c9a7d71a7d",
+          "source_owner": "s-74678542aef6abff",
+          "text": "In historical record r-59c659c9a7d71a7d, Event deduplication review service reported that candidate stable_unique for artifact a-1f15b455ba630a44 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-270f4fa46afedea4",
+          "kind": "current_endorsement",
+          "proposition_id": "p-a98c1331f2f113bd",
+          "source_owner": "s-74678542aef6abff",
+          "text": "Event deduplication review service currently attests that candidate stable_unique for artifact a-1f15b455ba630a44 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-e7e44a509ff8b65e",
+          "kind": "current_support",
+          "proposition_id": "p-a98c1331f2f113bd",
+          "text": "The currently admissible evidence supports that candidate stable_unique for artifact a-1f15b455ba630a44 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-a98c1331f2f113bd",
+          "issuer": "s-74678542aef6abff",
+          "notice": "We supersede this exact report with a new owner attestation for the same artifact and check proposition.",
+          "op": "supersede",
+          "replacement": {
+            "proposition_id": "p-a98c1331f2f113bd",
+            "record_id": "r-8d6b67365bac104b",
+            "source_owner": "s-74678542aef6abff",
+            "status": "active",
+            "text": "Event deduplication review service correction: candidate stable_unique for artifact a-1f15b455ba630a44 fails at least one specified acceptance check.",
+            "value": false
+          },
+          "target_record_id": "r-59c659c9a7d71a7d"
+        }
+      ],
+      "packet_id": "item-779d1ac6e0030dd8",
+      "private_world_truth": {
+        "p-a98c1331f2f113bd": false
+      },
+      "propositions": {
+        "p-a98c1331f2f113bd": "Candidate stable_unique for artifact a-1f15b455ba630a44 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-859d6a03454fee95",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-a98c1331f2f113bd",
+          "record_id": "r-59c659c9a7d71a7d",
+          "source_owner": "s-74678542aef6abff",
+          "status": "active",
+          "text": "Event deduplication review service report: Candidate stable_unique for artifact a-1f15b455ba630a44 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-74678542aef6abff": {
+          "label": "Event deduplication review service",
+          "may_support": [
+            "p-a98c1331f2f113bd"
+          ]
+        },
+        "s-ac97f53405094849": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-a98c1331f2f113bd"
+          ]
+        },
+        "s-b26a30872efc81d8": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-89f3f0c9ba96c52a",
+          "kind": "historical_assertion",
+          "proposition_id": "p-dbf41ab69ff3b0bb",
+          "record_id": "r-993d685742dcd1b4",
+          "source_owner": "s-24398ddf9c6f258b",
+          "text": "In historical record r-993d685742dcd1b4, Calendar validation review service reported that candidate leap_year for artifact a-a478f0411a75e7a3 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-3428821db75d202c",
+          "kind": "current_endorsement",
+          "proposition_id": "p-dbf41ab69ff3b0bb",
+          "source_owner": "s-24398ddf9c6f258b",
+          "text": "Calendar validation review service currently attests that candidate leap_year for artifact a-a478f0411a75e7a3 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-b5e0a9fffaeb4df7",
+          "kind": "current_support",
+          "proposition_id": "p-dbf41ab69ff3b0bb",
+          "text": "The currently admissible evidence supports that candidate leap_year for artifact a-a478f0411a75e7a3 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-d0066d010c37bf22",
+      "private_world_truth": {
+        "p-dbf41ab69ff3b0bb": false
+      },
+      "propositions": {
+        "p-dbf41ab69ff3b0bb": "Candidate leap_year for artifact a-a478f0411a75e7a3 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-6dca518c39e00377",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-dbf41ab69ff3b0bb",
+          "record_id": "r-993d685742dcd1b4",
+          "source_owner": "s-24398ddf9c6f258b",
+          "status": "active",
+          "text": "Calendar validation review service report: Candidate leap_year for artifact a-a478f0411a75e7a3 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-24398ddf9c6f258b": {
+          "label": "Calendar validation review service",
+          "may_support": [
+            "p-dbf41ab69ff3b0bb"
+          ]
+        },
+        "s-4f78c85f8d7d7ded": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-75e223b497557bf1": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-dbf41ab69ff3b0bb"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-89f3f0c9ba96c52a",
+          "kind": "historical_assertion",
+          "proposition_id": "p-dbf41ab69ff3b0bb",
+          "record_id": "r-993d685742dcd1b4",
+          "source_owner": "s-24398ddf9c6f258b",
+          "text": "In historical record r-993d685742dcd1b4, Calendar validation review service reported that candidate leap_year for artifact a-a478f0411a75e7a3 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-3428821db75d202c",
+          "kind": "current_endorsement",
+          "proposition_id": "p-dbf41ab69ff3b0bb",
+          "source_owner": "s-24398ddf9c6f258b",
+          "text": "Calendar validation review service currently attests that candidate leap_year for artifact a-a478f0411a75e7a3 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-b5e0a9fffaeb4df7",
+          "kind": "current_support",
+          "proposition_id": "p-dbf41ab69ff3b0bb",
+          "text": "The currently admissible evidence supports that candidate leap_year for artifact a-a478f0411a75e7a3 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-dbf41ab69ff3b0bb",
+          "issuer": "s-24398ddf9c6f258b",
+          "notice": "We supersede this exact report with a new owner attestation for the same artifact and check proposition.",
+          "op": "supersede",
+          "replacement": {
+            "proposition_id": "p-dbf41ab69ff3b0bb",
+            "record_id": "r-c9b27b53ca03d7f3",
+            "source_owner": "s-24398ddf9c6f258b",
+            "status": "active",
+            "text": "Calendar validation review service correction: candidate leap_year for artifact a-a478f0411a75e7a3 fails at least one specified acceptance check.",
+            "value": false
+          },
+          "target_record_id": "r-993d685742dcd1b4"
+        }
+      ],
+      "packet_id": "item-0500071a8ad83d43",
+      "private_world_truth": {
+        "p-dbf41ab69ff3b0bb": false
+      },
+      "propositions": {
+        "p-dbf41ab69ff3b0bb": "Candidate leap_year for artifact a-a478f0411a75e7a3 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-6dca518c39e00377",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-dbf41ab69ff3b0bb",
+          "record_id": "r-993d685742dcd1b4",
+          "source_owner": "s-24398ddf9c6f258b",
+          "status": "active",
+          "text": "Calendar validation review service report: Candidate leap_year for artifact a-a478f0411a75e7a3 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-24398ddf9c6f258b": {
+          "label": "Calendar validation review service",
+          "may_support": [
+            "p-dbf41ab69ff3b0bb"
+          ]
+        },
+        "s-4f78c85f8d7d7ded": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-75e223b497557bf1": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-dbf41ab69ff3b0bb"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-e7c2314ddb708db7",
+          "kind": "historical_assertion",
+          "proposition_id": "p-28c1905541a0cc1f",
+          "record_id": "r-1331b3bf4918d6b9",
+          "source_owner": "s-80ab5815db96a763",
+          "text": "In historical record r-1331b3bf4918d6b9, Bounded queue review service reported that candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-342b2d47cba914a1",
+          "kind": "current_endorsement",
+          "proposition_id": "p-28c1905541a0cc1f",
+          "source_owner": "s-80ab5815db96a763",
+          "text": "Bounded queue review service currently attests that candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-f180ee5e51ee2c6d",
+          "kind": "current_support",
+          "proposition_id": "p-28c1905541a0cc1f",
+          "text": "The currently admissible evidence supports that candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-45994711e5beae69",
+      "private_world_truth": {
+        "p-28c1905541a0cc1f": true
+      },
+      "propositions": {
+        "p-28c1905541a0cc1f": "Candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-e2180c5957f7dec1",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-28c1905541a0cc1f",
+          "record_id": "r-1331b3bf4918d6b9",
+          "source_owner": "s-80ab5815db96a763",
+          "status": "active",
+          "text": "Bounded queue review service report: Candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-80ab5815db96a763": {
+          "label": "Bounded queue review service",
+          "may_support": [
+            "p-28c1905541a0cc1f"
+          ]
+        },
+        "s-e8d0e55b973e5934": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-28c1905541a0cc1f"
+          ]
+        },
+        "s-fe6ccd269f7d9ed9": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-e7c2314ddb708db7",
+          "kind": "historical_assertion",
+          "proposition_id": "p-28c1905541a0cc1f",
+          "record_id": "r-1331b3bf4918d6b9",
+          "source_owner": "s-80ab5815db96a763",
+          "text": "In historical record r-1331b3bf4918d6b9, Bounded queue review service reported that candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-342b2d47cba914a1",
+          "kind": "current_endorsement",
+          "proposition_id": "p-28c1905541a0cc1f",
+          "source_owner": "s-80ab5815db96a763",
+          "text": "Bounded queue review service currently attests that candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-f180ee5e51ee2c6d",
+          "kind": "current_support",
+          "proposition_id": "p-28c1905541a0cc1f",
+          "text": "The currently admissible evidence supports that candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-28c1905541a0cc1f",
+          "issuer": "s-80ab5815db96a763",
+          "notice": "We supersede this exact report with a new owner attestation for the same artifact and check proposition.",
+          "op": "supersede",
+          "replacement": {
+            "proposition_id": "p-28c1905541a0cc1f",
+            "record_id": "r-c5500bb32508858b",
+            "source_owner": "s-80ab5815db96a763",
+            "status": "active",
+            "text": "Bounded queue review service replacement: Candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks.",
+            "value": true
+          },
+          "target_record_id": "r-1331b3bf4918d6b9"
+        }
+      ],
+      "packet_id": "item-870ad3998c5d1313",
+      "private_world_truth": {
+        "p-28c1905541a0cc1f": true
+      },
+      "propositions": {
+        "p-28c1905541a0cc1f": "Candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-e2180c5957f7dec1",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-28c1905541a0cc1f",
+          "record_id": "r-1331b3bf4918d6b9",
+          "source_owner": "s-80ab5815db96a763",
+          "status": "active",
+          "text": "Bounded queue review service report: Candidate queue_push for artifact a-3c8b52250f3052e1 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-80ab5815db96a763": {
+          "label": "Bounded queue review service",
+          "may_support": [
+            "p-28c1905541a0cc1f"
+          ]
+        },
+        "s-e8d0e55b973e5934": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-28c1905541a0cc1f"
+          ]
+        },
+        "s-fe6ccd269f7d9ed9": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-52a3afc04fe1b77b",
+          "kind": "historical_assertion",
+          "proposition_id": "p-6191119eff003461",
+          "record_id": "r-955e87f06af7ff0f",
+          "source_owner": "s-12c6d0fafc69c041",
+          "text": "In historical record r-955e87f06af7ff0f, Byte checksum review service reported that candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-2dd6f98538997153",
+          "kind": "current_endorsement",
+          "proposition_id": "p-6191119eff003461",
+          "source_owner": "s-12c6d0fafc69c041",
+          "text": "Byte checksum review service currently attests that candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-6fda3d5eb896f16a",
+          "kind": "current_support",
+          "proposition_id": "p-6191119eff003461",
+          "text": "The currently admissible evidence supports that candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-e3eb7a7c483161c1",
+      "private_world_truth": {
+        "p-6191119eff003461": false
+      },
+      "propositions": {
+        "p-6191119eff003461": "Candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-6b7326b0160bffa7",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-6191119eff003461",
+          "record_id": "r-955e87f06af7ff0f",
+          "source_owner": "s-12c6d0fafc69c041",
+          "status": "active",
+          "text": "Byte checksum review service report: Candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-12c6d0fafc69c041": {
+          "label": "Byte checksum review service",
+          "may_support": [
+            "p-6191119eff003461"
+          ]
+        },
+        "s-a07c4109b39f78da": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-6191119eff003461"
+          ]
+        },
+        "s-ed4dd4506edfd896": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-52a3afc04fe1b77b",
+          "kind": "historical_assertion",
+          "proposition_id": "p-6191119eff003461",
+          "record_id": "r-955e87f06af7ff0f",
+          "source_owner": "s-12c6d0fafc69c041",
+          "text": "In historical record r-955e87f06af7ff0f, Byte checksum review service reported that candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-2dd6f98538997153",
+          "kind": "current_endorsement",
+          "proposition_id": "p-6191119eff003461",
+          "source_owner": "s-12c6d0fafc69c041",
+          "text": "Byte checksum review service currently attests that candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-6fda3d5eb896f16a",
+          "kind": "current_support",
+          "proposition_id": "p-6191119eff003461",
+          "text": "The currently admissible evidence supports that candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-6191119eff003461",
+          "issuer": "s-12c6d0fafc69c041",
+          "notice": "We supersede this exact report with a new owner attestation for the same artifact and check proposition.",
+          "op": "supersede",
+          "replacement": {
+            "proposition_id": "p-6191119eff003461",
+            "record_id": "r-9751809ca75e408c",
+            "source_owner": "s-12c6d0fafc69c041",
+            "status": "active",
+            "text": "Byte checksum review service replacement: Candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks.",
+            "value": true
+          },
+          "target_record_id": "r-955e87f06af7ff0f"
+        }
+      ],
+      "packet_id": "item-c5f4140fb067a887",
+      "private_world_truth": {
+        "p-6191119eff003461": false
+      },
+      "propositions": {
+        "p-6191119eff003461": "Candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-6b7326b0160bffa7",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-6191119eff003461",
+          "record_id": "r-955e87f06af7ff0f",
+          "source_owner": "s-12c6d0fafc69c041",
+          "status": "active",
+          "text": "Byte checksum review service report: Candidate byte_checksum for artifact a-d039095ec5902f37 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-12c6d0fafc69c041": {
+          "label": "Byte checksum review service",
+          "may_support": [
+            "p-6191119eff003461"
+          ]
+        },
+        "s-a07c4109b39f78da": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-6191119eff003461"
+          ]
+        },
+        "s-ed4dd4506edfd896": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-da2157dabf8bfecf",
+          "kind": "historical_assertion",
+          "proposition_id": "p-d4cbd3bf7d029ed2",
+          "record_id": "r-eca975207f681d9e",
+          "source_owner": "s-8888de221bd07bc3",
+          "text": "In historical record r-eca975207f681d9e, HTTP header lookup review service reported that candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-9b2236392a3881a0",
+          "kind": "current_endorsement",
+          "proposition_id": "p-d4cbd3bf7d029ed2",
+          "source_owner": "s-8888de221bd07bc3",
+          "text": "HTTP header lookup review service currently attests that candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-7b9f1566dff8567d",
+          "kind": "current_support",
+          "proposition_id": "p-d4cbd3bf7d029ed2",
+          "text": "The currently admissible evidence supports that candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-7027ae44d2e7c234",
+      "private_world_truth": {
+        "p-d4cbd3bf7d029ed2": true
+      },
+      "propositions": {
+        "p-d4cbd3bf7d029ed2": "Candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-23d1c8d03c488233",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-d4cbd3bf7d029ed2",
+          "record_id": "r-eca975207f681d9e",
+          "source_owner": "s-8888de221bd07bc3",
+          "status": "active",
+          "text": "HTTP header lookup review service report: Candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-8888de221bd07bc3": {
+          "label": "HTTP header lookup review service",
+          "may_support": [
+            "p-d4cbd3bf7d029ed2"
+          ]
+        },
+        "s-c3ba4fc8ac473ad1": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-d4cbd3bf7d029ed2"
+          ]
+        },
+        "s-e47642daa2bd101e": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-da2157dabf8bfecf",
+          "kind": "historical_assertion",
+          "proposition_id": "p-d4cbd3bf7d029ed2",
+          "record_id": "r-eca975207f681d9e",
+          "source_owner": "s-8888de221bd07bc3",
+          "text": "In historical record r-eca975207f681d9e, HTTP header lookup review service reported that candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-9b2236392a3881a0",
+          "kind": "current_endorsement",
+          "proposition_id": "p-d4cbd3bf7d029ed2",
+          "source_owner": "s-8888de221bd07bc3",
+          "text": "HTTP header lookup review service currently attests that candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-7b9f1566dff8567d",
+          "kind": "current_support",
+          "proposition_id": "p-d4cbd3bf7d029ed2",
+          "text": "The currently admissible evidence supports that candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-d4cbd3bf7d029ed2",
+          "issuer": "s-8888de221bd07bc3",
+          "notice": "We supersede this exact report with a new owner attestation for the same artifact and check proposition.",
+          "op": "supersede",
+          "replacement": {
+            "proposition_id": "p-d4cbd3bf7d029ed2",
+            "record_id": "r-03acfa29caff2153",
+            "source_owner": "s-8888de221bd07bc3",
+            "status": "active",
+            "text": "HTTP header lookup review service replacement: Candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks.",
+            "value": true
+          },
+          "target_record_id": "r-eca975207f681d9e"
+        }
+      ],
+      "packet_id": "item-1020d58f9f77210a",
+      "private_world_truth": {
+        "p-d4cbd3bf7d029ed2": true
+      },
+      "propositions": {
+        "p-d4cbd3bf7d029ed2": "Candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-23d1c8d03c488233",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-d4cbd3bf7d029ed2",
+          "record_id": "r-eca975207f681d9e",
+          "source_owner": "s-8888de221bd07bc3",
+          "status": "active",
+          "text": "HTTP header lookup review service report: Candidate header_lookup for artifact a-3c5b8fc8652bfaa7 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-8888de221bd07bc3": {
+          "label": "HTTP header lookup review service",
+          "may_support": [
+            "p-d4cbd3bf7d029ed2"
+          ]
+        },
+        "s-c3ba4fc8ac473ad1": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-d4cbd3bf7d029ed2"
+          ]
+        },
+        "s-e47642daa2bd101e": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-3add25d992964d85",
+          "kind": "historical_assertion",
+          "proposition_id": "p-815598fcba88ea37",
+          "record_id": "r-de2b9d443ab425e2",
+          "source_owner": "s-d8bafad692980ad5",
+          "text": "In historical record r-de2b9d443ab425e2, Batch partitioning review service reported that candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-7fa9510291867359",
+          "kind": "current_endorsement",
+          "proposition_id": "p-815598fcba88ea37",
+          "source_owner": "s-d8bafad692980ad5",
+          "text": "Batch partitioning review service currently attests that candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-75f2b78209dcdda2",
+          "kind": "current_support",
+          "proposition_id": "p-815598fcba88ea37",
+          "text": "The currently admissible evidence supports that candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-2c85453cdb185969",
+      "private_world_truth": {
+        "p-815598fcba88ea37": false
+      },
+      "propositions": {
+        "p-815598fcba88ea37": "Candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-cd5715dc201b0b21",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-815598fcba88ea37",
+          "record_id": "r-de2b9d443ab425e2",
+          "source_owner": "s-d8bafad692980ad5",
+          "status": "active",
+          "text": "Batch partitioning review service report: Candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-6b74ae4b2036db6d": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-815598fcba88ea37"
+          ]
+        },
+        "s-c7f89aad61900e1a": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-d8bafad692980ad5": {
+          "label": "Batch partitioning review service",
+          "may_support": [
+            "p-815598fcba88ea37"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-3add25d992964d85",
+          "kind": "historical_assertion",
+          "proposition_id": "p-815598fcba88ea37",
+          "record_id": "r-de2b9d443ab425e2",
+          "source_owner": "s-d8bafad692980ad5",
+          "text": "In historical record r-de2b9d443ab425e2, Batch partitioning review service reported that candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-7fa9510291867359",
+          "kind": "current_endorsement",
+          "proposition_id": "p-815598fcba88ea37",
+          "source_owner": "s-d8bafad692980ad5",
+          "text": "Batch partitioning review service currently attests that candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-75f2b78209dcdda2",
+          "kind": "current_support",
+          "proposition_id": "p-815598fcba88ea37",
+          "text": "The currently admissible evidence supports that candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-815598fcba88ea37",
+          "issuer": "s-d8bafad692980ad5",
+          "notice": "We supersede this exact report with a new owner attestation for the same artifact and check proposition.",
+          "op": "supersede",
+          "replacement": {
+            "proposition_id": "p-815598fcba88ea37",
+            "record_id": "r-14752792d6a18e19",
+            "source_owner": "s-d8bafad692980ad5",
+            "status": "active",
+            "text": "Batch partitioning review service replacement: Candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks.",
+            "value": true
+          },
+          "target_record_id": "r-de2b9d443ab425e2"
+        }
+      ],
+      "packet_id": "item-e197726a7acc8764",
+      "private_world_truth": {
+        "p-815598fcba88ea37": false
+      },
+      "propositions": {
+        "p-815598fcba88ea37": "Candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-cd5715dc201b0b21",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-815598fcba88ea37",
+          "record_id": "r-de2b9d443ab425e2",
+          "source_owner": "s-d8bafad692980ad5",
+          "status": "active",
+          "text": "Batch partitioning review service report: Candidate split_chunks for artifact a-face71b5d025a42a passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-6b74ae4b2036db6d": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-815598fcba88ea37"
+          ]
+        },
+        "s-c7f89aad61900e1a": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-d8bafad692980ad5": {
+          "label": "Batch partitioning review service",
+          "may_support": [
+            "p-815598fcba88ea37"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-1fb456c150990725",
+          "kind": "historical_assertion",
+          "proposition_id": "p-52b9ed228686df74",
+          "record_id": "r-db49bc81915dd692",
+          "source_owner": "s-a392a5475ab1ba4e",
+          "text": "In historical record r-db49bc81915dd692, Cache expiration review service reported that candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-1266fe8695f5c8a4",
+          "kind": "current_endorsement",
+          "proposition_id": "p-52b9ed228686df74",
+          "source_owner": "s-a392a5475ab1ba4e",
+          "text": "Cache expiration review service currently attests that candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-bf77d2a87a410dd4",
+          "kind": "current_support",
+          "proposition_id": "p-52b9ed228686df74",
+          "text": "The currently admissible evidence supports that candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-bd79f7bb503a053f",
+      "private_world_truth": {
+        "p-52b9ed228686df74": false
+      },
+      "propositions": {
+        "p-52b9ed228686df74": "Candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-1eb3c19727c4272b",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-52b9ed228686df74",
+          "record_id": "r-db49bc81915dd692",
+          "source_owner": "s-a392a5475ab1ba4e",
+          "status": "active",
+          "text": "Cache expiration review service report: Candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-040c32c22b9ab143",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-52b9ed228686df74",
+          "record_id": "r-040c32c22b9ab143",
+          "source_owner": "s-33588af91e1faa44",
+          "status": "active",
+          "text": "Separate verification service: Candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-33588af91e1faa44": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-52b9ed228686df74"
+          ]
+        },
+        "s-a392a5475ab1ba4e": {
+          "label": "Cache expiration review service",
+          "may_support": [
+            "p-52b9ed228686df74"
+          ]
+        },
+        "s-ed0467ee16a3b925": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-1fb456c150990725",
+          "kind": "historical_assertion",
+          "proposition_id": "p-52b9ed228686df74",
+          "record_id": "r-db49bc81915dd692",
+          "source_owner": "s-a392a5475ab1ba4e",
+          "text": "In historical record r-db49bc81915dd692, Cache expiration review service reported that candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-1266fe8695f5c8a4",
+          "kind": "current_endorsement",
+          "proposition_id": "p-52b9ed228686df74",
+          "source_owner": "s-a392a5475ab1ba4e",
+          "text": "Cache expiration review service currently attests that candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-bf77d2a87a410dd4",
+          "kind": "current_support",
+          "proposition_id": "p-52b9ed228686df74",
+          "text": "The currently admissible evidence supports that candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-52b9ed228686df74",
+          "issuer": "s-a392a5475ab1ba4e",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-db49bc81915dd692"
+        }
+      ],
+      "packet_id": "item-24517287f92b4792",
+      "private_world_truth": {
+        "p-52b9ed228686df74": false
+      },
+      "propositions": {
+        "p-52b9ed228686df74": "Candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-1eb3c19727c4272b",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-52b9ed228686df74",
+          "record_id": "r-db49bc81915dd692",
+          "source_owner": "s-a392a5475ab1ba4e",
+          "status": "active",
+          "text": "Cache expiration review service report: Candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-040c32c22b9ab143",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-52b9ed228686df74",
+          "record_id": "r-040c32c22b9ab143",
+          "source_owner": "s-33588af91e1faa44",
+          "status": "active",
+          "text": "Separate verification service: Candidate cache_live for artifact a-ca9b4367dadc55bb passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-33588af91e1faa44": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-52b9ed228686df74"
+          ]
+        },
+        "s-a392a5475ab1ba4e": {
+          "label": "Cache expiration review service",
+          "may_support": [
+            "p-52b9ed228686df74"
+          ]
+        },
+        "s-ed0467ee16a3b925": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-71a3cc21d9302b4c",
+          "kind": "historical_assertion",
+          "proposition_id": "p-2965e5a26a3ae477",
+          "record_id": "r-9130f937279f59eb",
+          "source_owner": "s-b1dffea85551bdad",
+          "text": "In historical record r-9130f937279f59eb, Quota accounting review service reported that candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-184a0d5ac2ccdeac",
+          "kind": "current_endorsement",
+          "proposition_id": "p-2965e5a26a3ae477",
+          "source_owner": "s-b1dffea85551bdad",
+          "text": "Quota accounting review service currently attests that candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-5992d815b1592ad1",
+          "kind": "current_support",
+          "proposition_id": "p-2965e5a26a3ae477",
+          "text": "The currently admissible evidence supports that candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-11aa1ebbf4a8c34d",
+      "private_world_truth": {
+        "p-2965e5a26a3ae477": true
+      },
+      "propositions": {
+        "p-2965e5a26a3ae477": "Candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-93f7996da3da7307",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-2965e5a26a3ae477",
+          "record_id": "r-9130f937279f59eb",
+          "source_owner": "s-b1dffea85551bdad",
+          "status": "active",
+          "text": "Quota accounting review service report: Candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-98a979acf835ef79",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-2965e5a26a3ae477",
+          "record_id": "r-98a979acf835ef79",
+          "source_owner": "s-4deaea0d73be67d3",
+          "status": "active",
+          "text": "Separate verification service: Candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-4deaea0d73be67d3": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-2965e5a26a3ae477"
+          ]
+        },
+        "s-b1dffea85551bdad": {
+          "label": "Quota accounting review service",
+          "may_support": [
+            "p-2965e5a26a3ae477"
+          ]
+        },
+        "s-f7a079ada52e9154": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-71a3cc21d9302b4c",
+          "kind": "historical_assertion",
+          "proposition_id": "p-2965e5a26a3ae477",
+          "record_id": "r-9130f937279f59eb",
+          "source_owner": "s-b1dffea85551bdad",
+          "text": "In historical record r-9130f937279f59eb, Quota accounting review service reported that candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-184a0d5ac2ccdeac",
+          "kind": "current_endorsement",
+          "proposition_id": "p-2965e5a26a3ae477",
+          "source_owner": "s-b1dffea85551bdad",
+          "text": "Quota accounting review service currently attests that candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-5992d815b1592ad1",
+          "kind": "current_support",
+          "proposition_id": "p-2965e5a26a3ae477",
+          "text": "The currently admissible evidence supports that candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-2965e5a26a3ae477",
+          "issuer": "s-b1dffea85551bdad",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-9130f937279f59eb"
+        }
+      ],
+      "packet_id": "item-225e9ed5b939a9d6",
+      "private_world_truth": {
+        "p-2965e5a26a3ae477": true
+      },
+      "propositions": {
+        "p-2965e5a26a3ae477": "Candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-93f7996da3da7307",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-2965e5a26a3ae477",
+          "record_id": "r-9130f937279f59eb",
+          "source_owner": "s-b1dffea85551bdad",
+          "status": "active",
+          "text": "Quota accounting review service report: Candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-98a979acf835ef79",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-2965e5a26a3ae477",
+          "record_id": "r-98a979acf835ef79",
+          "source_owner": "s-4deaea0d73be67d3",
+          "status": "active",
+          "text": "Separate verification service: Candidate remaining_quota for artifact a-7efc570751a62cce passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-4deaea0d73be67d3": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-2965e5a26a3ae477"
+          ]
+        },
+        "s-b1dffea85551bdad": {
+          "label": "Quota accounting review service",
+          "may_support": [
+            "p-2965e5a26a3ae477"
+          ]
+        },
+        "s-f7a079ada52e9154": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-bea0e06acac22d81",
+          "kind": "historical_assertion",
+          "proposition_id": "p-1c2a26a8884a11e6",
+          "record_id": "r-9cf40a0f6075fe2b",
+          "source_owner": "s-10ab9c3f99fa78f2",
+          "text": "In historical record r-9cf40a0f6075fe2b, Job scheduling review service reported that candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-8967de2d090b9a58",
+          "kind": "current_endorsement",
+          "proposition_id": "p-1c2a26a8884a11e6",
+          "source_owner": "s-10ab9c3f99fa78f2",
+          "text": "Job scheduling review service currently attests that candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-d6a7cf91a008c4a5",
+          "kind": "current_support",
+          "proposition_id": "p-1c2a26a8884a11e6",
+          "text": "The currently admissible evidence supports that candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-71c25c051fe44584",
+      "private_world_truth": {
+        "p-1c2a26a8884a11e6": true
+      },
+      "propositions": {
+        "p-1c2a26a8884a11e6": "Candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-98b60c9b9b3d34bf",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-1c2a26a8884a11e6",
+          "record_id": "r-9cf40a0f6075fe2b",
+          "source_owner": "s-10ab9c3f99fa78f2",
+          "status": "active",
+          "text": "Job scheduling review service report: Candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-4f58d49014a2e949",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-1c2a26a8884a11e6",
+          "record_id": "r-4f58d49014a2e949",
+          "source_owner": "s-fb4b37e77f662d55",
+          "status": "active",
+          "text": "Separate verification service: Candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-10ab9c3f99fa78f2": {
+          "label": "Job scheduling review service",
+          "may_support": [
+            "p-1c2a26a8884a11e6"
+          ]
+        },
+        "s-462fa4800c088ffb": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-fb4b37e77f662d55": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-1c2a26a8884a11e6"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-bea0e06acac22d81",
+          "kind": "historical_assertion",
+          "proposition_id": "p-1c2a26a8884a11e6",
+          "record_id": "r-9cf40a0f6075fe2b",
+          "source_owner": "s-10ab9c3f99fa78f2",
+          "text": "In historical record r-9cf40a0f6075fe2b, Job scheduling review service reported that candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-8967de2d090b9a58",
+          "kind": "current_endorsement",
+          "proposition_id": "p-1c2a26a8884a11e6",
+          "source_owner": "s-10ab9c3f99fa78f2",
+          "text": "Job scheduling review service currently attests that candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-d6a7cf91a008c4a5",
+          "kind": "current_support",
+          "proposition_id": "p-1c2a26a8884a11e6",
+          "text": "The currently admissible evidence supports that candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-1c2a26a8884a11e6",
+          "issuer": "s-10ab9c3f99fa78f2",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-9cf40a0f6075fe2b"
+        }
+      ],
+      "packet_id": "item-31a168c3fe80dba0",
+      "private_world_truth": {
+        "p-1c2a26a8884a11e6": true
+      },
+      "propositions": {
+        "p-1c2a26a8884a11e6": "Candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-98b60c9b9b3d34bf",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-1c2a26a8884a11e6",
+          "record_id": "r-9cf40a0f6075fe2b",
+          "source_owner": "s-10ab9c3f99fa78f2",
+          "status": "active",
+          "text": "Job scheduling review service report: Candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-4f58d49014a2e949",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-1c2a26a8884a11e6",
+          "record_id": "r-4f58d49014a2e949",
+          "source_owner": "s-fb4b37e77f662d55",
+          "status": "active",
+          "text": "Separate verification service: Candidate schedule_by_priority for artifact a-f51bafa75969a4e9 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-10ab9c3f99fa78f2": {
+          "label": "Job scheduling review service",
+          "may_support": [
+            "p-1c2a26a8884a11e6"
+          ]
+        },
+        "s-462fa4800c088ffb": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-fb4b37e77f662d55": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-1c2a26a8884a11e6"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-5783cfa0adf7e98d",
+          "kind": "historical_assertion",
+          "proposition_id": "p-ee14e1e9633d20ac",
+          "record_id": "r-a2823d4623d464b0",
+          "source_owner": "s-e868af48749a02a0",
+          "text": "In historical record r-a2823d4623d464b0, CSV export review service reported that candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-9343c381bcc643a8",
+          "kind": "current_endorsement",
+          "proposition_id": "p-ee14e1e9633d20ac",
+          "source_owner": "s-e868af48749a02a0",
+          "text": "CSV export review service currently attests that candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-925687c8fef19165",
+          "kind": "current_support",
+          "proposition_id": "p-ee14e1e9633d20ac",
+          "text": "The currently admissible evidence supports that candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-2cfec7d1c0e221d6",
+      "private_world_truth": {
+        "p-ee14e1e9633d20ac": false
+      },
+      "propositions": {
+        "p-ee14e1e9633d20ac": "Candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-ac41e4273dfd45f6",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-ee14e1e9633d20ac",
+          "record_id": "r-a2823d4623d464b0",
+          "source_owner": "s-e868af48749a02a0",
+          "status": "active",
+          "text": "CSV export review service report: Candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-a9362833451338eb",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-ee14e1e9633d20ac",
+          "record_id": "r-a9362833451338eb",
+          "source_owner": "s-a106147a0b3a7424",
+          "status": "active",
+          "text": "Separate verification service: Candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-1e38f4a314cc04e0": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-a106147a0b3a7424": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-ee14e1e9633d20ac"
+          ]
+        },
+        "s-e868af48749a02a0": {
+          "label": "CSV export review service",
+          "may_support": [
+            "p-ee14e1e9633d20ac"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-5783cfa0adf7e98d",
+          "kind": "historical_assertion",
+          "proposition_id": "p-ee14e1e9633d20ac",
+          "record_id": "r-a2823d4623d464b0",
+          "source_owner": "s-e868af48749a02a0",
+          "text": "In historical record r-a2823d4623d464b0, CSV export review service reported that candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-9343c381bcc643a8",
+          "kind": "current_endorsement",
+          "proposition_id": "p-ee14e1e9633d20ac",
+          "source_owner": "s-e868af48749a02a0",
+          "text": "CSV export review service currently attests that candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-925687c8fef19165",
+          "kind": "current_support",
+          "proposition_id": "p-ee14e1e9633d20ac",
+          "text": "The currently admissible evidence supports that candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-ee14e1e9633d20ac",
+          "issuer": "s-e868af48749a02a0",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-a2823d4623d464b0"
+        }
+      ],
+      "packet_id": "item-4730b1f0e0d9d519",
+      "private_world_truth": {
+        "p-ee14e1e9633d20ac": false
+      },
+      "propositions": {
+        "p-ee14e1e9633d20ac": "Candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-ac41e4273dfd45f6",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-ee14e1e9633d20ac",
+          "record_id": "r-a2823d4623d464b0",
+          "source_owner": "s-e868af48749a02a0",
+          "status": "active",
+          "text": "CSV export review service report: Candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-a9362833451338eb",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-ee14e1e9633d20ac",
+          "record_id": "r-a9362833451338eb",
+          "source_owner": "s-a106147a0b3a7424",
+          "status": "active",
+          "text": "Separate verification service: Candidate csv_cell for artifact a-260bb0ef8d958948 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-1e38f4a314cc04e0": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-a106147a0b3a7424": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-ee14e1e9633d20ac"
+          ]
+        },
+        "s-e868af48749a02a0": {
+          "label": "CSV export review service",
+          "may_support": [
+            "p-ee14e1e9633d20ac"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-5e00ee3ab1cf3092",
+          "kind": "historical_assertion",
+          "proposition_id": "p-819971bb2e7a7a80",
+          "record_id": "r-1861ed7a6d3353b4",
+          "source_owner": "s-7e5121e710f17297",
+          "text": "In historical record r-1861ed7a6d3353b4, Access roles review service reported that candidate role_allowed for artifact a-05229b23084003ab passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-84945518776e3c54",
+          "kind": "current_endorsement",
+          "proposition_id": "p-819971bb2e7a7a80",
+          "source_owner": "s-7e5121e710f17297",
+          "text": "Access roles review service currently attests that candidate role_allowed for artifact a-05229b23084003ab passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-0bf8ec036979ff67",
+          "kind": "current_support",
+          "proposition_id": "p-819971bb2e7a7a80",
+          "text": "The currently admissible evidence supports that candidate role_allowed for artifact a-05229b23084003ab passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-e3f6a508c161caf1",
+      "private_world_truth": {
+        "p-819971bb2e7a7a80": true
+      },
+      "propositions": {
+        "p-819971bb2e7a7a80": "Candidate role_allowed for artifact a-05229b23084003ab passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-1284c2414fa5b58e",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-819971bb2e7a7a80",
+          "record_id": "r-1861ed7a6d3353b4",
+          "source_owner": "s-7e5121e710f17297",
+          "status": "active",
+          "text": "Access roles review service report: Candidate role_allowed for artifact a-05229b23084003ab passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-077ef8146690c222": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-819971bb2e7a7a80"
+          ]
+        },
+        "s-33864731b8e9c526": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-7e5121e710f17297": {
+          "label": "Access roles review service",
+          "may_support": [
+            "p-819971bb2e7a7a80"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-5e00ee3ab1cf3092",
+          "kind": "historical_assertion",
+          "proposition_id": "p-819971bb2e7a7a80",
+          "record_id": "r-1861ed7a6d3353b4",
+          "source_owner": "s-7e5121e710f17297",
+          "text": "In historical record r-1861ed7a6d3353b4, Access roles review service reported that candidate role_allowed for artifact a-05229b23084003ab passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-84945518776e3c54",
+          "kind": "current_endorsement",
+          "proposition_id": "p-819971bb2e7a7a80",
+          "source_owner": "s-7e5121e710f17297",
+          "text": "Access roles review service currently attests that candidate role_allowed for artifact a-05229b23084003ab passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-0bf8ec036979ff67",
+          "kind": "current_support",
+          "proposition_id": "p-819971bb2e7a7a80",
+          "text": "The currently admissible evidence supports that candidate role_allowed for artifact a-05229b23084003ab passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-819971bb2e7a7a80",
+          "issuer": "s-33864731b8e9c526",
+          "notice": "The review service has revoked its earlier pass report. Treat that earlier report as withdrawn.",
+          "op": "retract",
+          "target_record_id": "r-1861ed7a6d3353b4"
+        }
+      ],
+      "packet_id": "item-e13b6fdb3c6d7577",
+      "private_world_truth": {
+        "p-819971bb2e7a7a80": true
+      },
+      "propositions": {
+        "p-819971bb2e7a7a80": "Candidate role_allowed for artifact a-05229b23084003ab passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-1284c2414fa5b58e",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-819971bb2e7a7a80",
+          "record_id": "r-1861ed7a6d3353b4",
+          "source_owner": "s-7e5121e710f17297",
+          "status": "active",
+          "text": "Access roles review service report: Candidate role_allowed for artifact a-05229b23084003ab passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-077ef8146690c222": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-819971bb2e7a7a80"
+          ]
+        },
+        "s-33864731b8e9c526": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-7e5121e710f17297": {
+          "label": "Access roles review service",
+          "may_support": [
+            "p-819971bb2e7a7a80"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-8ea4b6b4898fb8c7",
+          "kind": "historical_assertion",
+          "proposition_id": "p-2a998fa037c32816",
+          "record_id": "r-fa3f62c7749da93c",
+          "source_owner": "s-ebbe77e0ab876f87",
+          "text": "In historical record r-fa3f62c7749da93c, Version prefix review service reported that candidate version_matches for artifact a-363932e6c1d69ec0 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-dd4aae88046a6edf",
+          "kind": "current_endorsement",
+          "proposition_id": "p-2a998fa037c32816",
+          "source_owner": "s-ebbe77e0ab876f87",
+          "text": "Version prefix review service currently attests that candidate version_matches for artifact a-363932e6c1d69ec0 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-48318cc2474bd896",
+          "kind": "current_support",
+          "proposition_id": "p-2a998fa037c32816",
+          "text": "The currently admissible evidence supports that candidate version_matches for artifact a-363932e6c1d69ec0 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-4a4e92d80b87626d",
+      "private_world_truth": {
+        "p-2a998fa037c32816": false
+      },
+      "propositions": {
+        "p-2a998fa037c32816": "Candidate version_matches for artifact a-363932e6c1d69ec0 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-9114492d6045fd32",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-2a998fa037c32816",
+          "record_id": "r-fa3f62c7749da93c",
+          "source_owner": "s-ebbe77e0ab876f87",
+          "status": "active",
+          "text": "Version prefix review service report: Candidate version_matches for artifact a-363932e6c1d69ec0 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-96c1ebad4f0da054": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-b42d58ac9d0b44ad": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-2a998fa037c32816"
+          ]
+        },
+        "s-ebbe77e0ab876f87": {
+          "label": "Version prefix review service",
+          "may_support": [
+            "p-2a998fa037c32816"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-8ea4b6b4898fb8c7",
+          "kind": "historical_assertion",
+          "proposition_id": "p-2a998fa037c32816",
+          "record_id": "r-fa3f62c7749da93c",
+          "source_owner": "s-ebbe77e0ab876f87",
+          "text": "In historical record r-fa3f62c7749da93c, Version prefix review service reported that candidate version_matches for artifact a-363932e6c1d69ec0 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-dd4aae88046a6edf",
+          "kind": "current_endorsement",
+          "proposition_id": "p-2a998fa037c32816",
+          "source_owner": "s-ebbe77e0ab876f87",
+          "text": "Version prefix review service currently attests that candidate version_matches for artifact a-363932e6c1d69ec0 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-48318cc2474bd896",
+          "kind": "current_support",
+          "proposition_id": "p-2a998fa037c32816",
+          "text": "The currently admissible evidence supports that candidate version_matches for artifact a-363932e6c1d69ec0 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-2a998fa037c32816",
+          "issuer": "s-96c1ebad4f0da054",
+          "notice": "The review service has revoked its earlier pass report. Treat that earlier report as withdrawn.",
+          "op": "retract",
+          "target_record_id": "r-fa3f62c7749da93c"
+        }
+      ],
+      "packet_id": "item-ae3133d3bb3917c7",
+      "private_world_truth": {
+        "p-2a998fa037c32816": false
+      },
+      "propositions": {
+        "p-2a998fa037c32816": "Candidate version_matches for artifact a-363932e6c1d69ec0 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-9114492d6045fd32",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-2a998fa037c32816",
+          "record_id": "r-fa3f62c7749da93c",
+          "source_owner": "s-ebbe77e0ab876f87",
+          "status": "active",
+          "text": "Version prefix review service report: Candidate version_matches for artifact a-363932e6c1d69ec0 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-96c1ebad4f0da054": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-b42d58ac9d0b44ad": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-2a998fa037c32816"
+          ]
+        },
+        "s-ebbe77e0ab876f87": {
+          "label": "Version prefix review service",
+          "may_support": [
+            "p-2a998fa037c32816"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-9dc958d1f63ff8d6",
+          "kind": "historical_assertion",
+          "proposition_id": "p-7d893bb0e72c0683",
+          "record_id": "r-f6e086a5cf2f2c71",
+          "source_owner": "s-715f792fe616ac8f",
+          "text": "In historical record r-f6e086a5cf2f2c71, Amount validation review service reported that candidate nonnegative_amount for artifact a-cf8d82330d1b084d passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-d479562abaf1a1c3",
+          "kind": "current_endorsement",
+          "proposition_id": "p-7d893bb0e72c0683",
+          "source_owner": "s-715f792fe616ac8f",
+          "text": "Amount validation review service currently attests that candidate nonnegative_amount for artifact a-cf8d82330d1b084d passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-4cb71f4fb4305b37",
+          "kind": "current_support",
+          "proposition_id": "p-7d893bb0e72c0683",
+          "text": "The currently admissible evidence supports that candidate nonnegative_amount for artifact a-cf8d82330d1b084d passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-7334732d10243d6a",
+      "private_world_truth": {
+        "p-7d893bb0e72c0683": true
+      },
+      "propositions": {
+        "p-7d893bb0e72c0683": "Candidate nonnegative_amount for artifact a-cf8d82330d1b084d passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-f8f45e79a02e076a",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-7d893bb0e72c0683",
+          "record_id": "r-f6e086a5cf2f2c71",
+          "source_owner": "s-715f792fe616ac8f",
+          "status": "active",
+          "text": "Amount validation review service report: Candidate nonnegative_amount for artifact a-cf8d82330d1b084d passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-715f792fe616ac8f": {
+          "label": "Amount validation review service",
+          "may_support": [
+            "p-7d893bb0e72c0683"
+          ]
+        },
+        "s-92d11eee89037c78": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-7d893bb0e72c0683"
+          ]
+        },
+        "s-d434f41de5586ab3": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-9dc958d1f63ff8d6",
+          "kind": "historical_assertion",
+          "proposition_id": "p-7d893bb0e72c0683",
+          "record_id": "r-f6e086a5cf2f2c71",
+          "source_owner": "s-715f792fe616ac8f",
+          "text": "In historical record r-f6e086a5cf2f2c71, Amount validation review service reported that candidate nonnegative_amount for artifact a-cf8d82330d1b084d passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-d479562abaf1a1c3",
+          "kind": "current_endorsement",
+          "proposition_id": "p-7d893bb0e72c0683",
+          "source_owner": "s-715f792fe616ac8f",
+          "text": "Amount validation review service currently attests that candidate nonnegative_amount for artifact a-cf8d82330d1b084d passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-4cb71f4fb4305b37",
+          "kind": "current_support",
+          "proposition_id": "p-7d893bb0e72c0683",
+          "text": "The currently admissible evidence supports that candidate nonnegative_amount for artifact a-cf8d82330d1b084d passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-7d893bb0e72c0683",
+          "issuer": "s-d434f41de5586ab3",
+          "notice": "The review service has revoked its earlier pass report. Treat that earlier report as withdrawn.",
+          "op": "retract",
+          "target_record_id": "r-f6e086a5cf2f2c71"
+        }
+      ],
+      "packet_id": "item-66393d4cdf1c99f6",
+      "private_world_truth": {
+        "p-7d893bb0e72c0683": true
+      },
+      "propositions": {
+        "p-7d893bb0e72c0683": "Candidate nonnegative_amount for artifact a-cf8d82330d1b084d passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-f8f45e79a02e076a",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-7d893bb0e72c0683",
+          "record_id": "r-f6e086a5cf2f2c71",
+          "source_owner": "s-715f792fe616ac8f",
+          "status": "active",
+          "text": "Amount validation review service report: Candidate nonnegative_amount for artifact a-cf8d82330d1b084d passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-715f792fe616ac8f": {
+          "label": "Amount validation review service",
+          "may_support": [
+            "p-7d893bb0e72c0683"
+          ]
+        },
+        "s-92d11eee89037c78": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-7d893bb0e72c0683"
+          ]
+        },
+        "s-d434f41de5586ab3": {
+          "label": "Change author",
+          "may_support": []
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-7784148dd6370d10",
+          "kind": "historical_assertion",
+          "proposition_id": "p-9611984010a53e30",
+          "record_id": "r-7e90eda269842a0b",
+          "source_owner": "s-20e16e98ec791f29",
+          "text": "In historical record r-7e90eda269842a0b, Protocol framing review service reported that candidate stop_at_token for artifact a-b37a839559723d38 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-08611f457f25e52e",
+          "kind": "current_endorsement",
+          "proposition_id": "p-9611984010a53e30",
+          "source_owner": "s-20e16e98ec791f29",
+          "text": "Protocol framing review service currently attests that candidate stop_at_token for artifact a-b37a839559723d38 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-0f3bab792c71f5fd",
+          "kind": "current_support",
+          "proposition_id": "p-9611984010a53e30",
+          "text": "The currently admissible evidence supports that candidate stop_at_token for artifact a-b37a839559723d38 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-ab31f6e4dd4e819c",
+      "private_world_truth": {
+        "p-9611984010a53e30": false
+      },
+      "propositions": {
+        "p-9611984010a53e30": "Candidate stop_at_token for artifact a-b37a839559723d38 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-3b5f26f9b2f44b23",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-9611984010a53e30",
+          "record_id": "r-7e90eda269842a0b",
+          "source_owner": "s-20e16e98ec791f29",
+          "status": "active",
+          "text": "Protocol framing review service report: Candidate stop_at_token for artifact a-b37a839559723d38 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-20e16e98ec791f29": {
+          "label": "Protocol framing review service",
+          "may_support": [
+            "p-9611984010a53e30"
+          ]
+        },
+        "s-4dab876411ff8aee": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-93f4a14dcfe3d961": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-9611984010a53e30"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-7784148dd6370d10",
+          "kind": "historical_assertion",
+          "proposition_id": "p-9611984010a53e30",
+          "record_id": "r-7e90eda269842a0b",
+          "source_owner": "s-20e16e98ec791f29",
+          "text": "In historical record r-7e90eda269842a0b, Protocol framing review service reported that candidate stop_at_token for artifact a-b37a839559723d38 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-08611f457f25e52e",
+          "kind": "current_endorsement",
+          "proposition_id": "p-9611984010a53e30",
+          "source_owner": "s-20e16e98ec791f29",
+          "text": "Protocol framing review service currently attests that candidate stop_at_token for artifact a-b37a839559723d38 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-0f3bab792c71f5fd",
+          "kind": "current_support",
+          "proposition_id": "p-9611984010a53e30",
+          "text": "The currently admissible evidence supports that candidate stop_at_token for artifact a-b37a839559723d38 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-9611984010a53e30",
+          "issuer": "s-4dab876411ff8aee",
+          "notice": "The review service has revoked its earlier pass report. Treat that earlier report as withdrawn.",
+          "op": "retract",
+          "target_record_id": "r-7e90eda269842a0b"
+        }
+      ],
+      "packet_id": "item-031ad96ede7b2034",
+      "private_world_truth": {
+        "p-9611984010a53e30": false
+      },
+      "propositions": {
+        "p-9611984010a53e30": "Candidate stop_at_token for artifact a-b37a839559723d38 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-3b5f26f9b2f44b23",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-9611984010a53e30",
+          "record_id": "r-7e90eda269842a0b",
+          "source_owner": "s-20e16e98ec791f29",
+          "status": "active",
+          "text": "Protocol framing review service report: Candidate stop_at_token for artifact a-b37a839559723d38 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "sources": {
+        "s-20e16e98ec791f29": {
+          "label": "Protocol framing review service",
+          "may_support": [
+            "p-9611984010a53e30"
+          ]
+        },
+        "s-4dab876411ff8aee": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-93f4a14dcfe3d961": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-9611984010a53e30"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-0a75bcf1a0e4c941",
+          "kind": "historical_assertion",
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "record_id": "r-c41fd50c4ac05187",
+          "source_owner": "s-9a51228c48fe53b8",
+          "text": "In historical record r-c41fd50c4ac05187, Ratio calculation review service reported that candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-83379bfebfde178a",
+          "kind": "current_endorsement",
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "source_owner": "s-9a51228c48fe53b8",
+          "text": "Ratio calculation review service currently attests that candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-508b8ca4a440ea51",
+          "kind": "current_support",
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "text": "The currently admissible evidence supports that candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-a74b1702dc33f70c",
+      "private_world_truth": {
+        "p-fc5f9240ec032cb8": true
+      },
+      "propositions": {
+        "p-fc5f9240ec032cb8": "Candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-8c9b4485c2fd8388",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "record_id": "r-c41fd50c4ac05187",
+          "source_owner": "s-9a51228c48fe53b8",
+          "status": "active",
+          "text": "Ratio calculation review service report: Candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-c161050827330a1b",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "record_id": "r-c161050827330a1b",
+          "source_owner": "s-045f9b518ab38466",
+          "status": "active",
+          "text": "Separate verification service: Candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-73d5b4b2b75ff506",
+            "method": "authored contrary trace; conflict deliberately remains unresolved"
+          },
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "record_id": "r-758d8694f58b1e48",
+          "source_owner": "s-045f9b518ab38466",
+          "status": "active",
+          "text": "Separate verification service also reports that candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks is incorrect; at least one specified check fails.",
+          "value": false
+        }
+      ],
+      "sources": {
+        "s-045f9b518ab38466": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-fc5f9240ec032cb8"
+          ]
+        },
+        "s-2c629b64020a1ba3": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-9a51228c48fe53b8": {
+          "label": "Ratio calculation review service",
+          "may_support": [
+            "p-fc5f9240ec032cb8"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-0a75bcf1a0e4c941",
+          "kind": "historical_assertion",
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "record_id": "r-c41fd50c4ac05187",
+          "source_owner": "s-9a51228c48fe53b8",
+          "text": "In historical record r-c41fd50c4ac05187, Ratio calculation review service reported that candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-83379bfebfde178a",
+          "kind": "current_endorsement",
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "source_owner": "s-9a51228c48fe53b8",
+          "text": "Ratio calculation review service currently attests that candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-508b8ca4a440ea51",
+          "kind": "current_support",
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "text": "The currently admissible evidence supports that candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-fc5f9240ec032cb8",
+          "issuer": "s-9a51228c48fe53b8",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-c41fd50c4ac05187"
+        }
+      ],
+      "packet_id": "item-b5451fd6e391de03",
+      "private_world_truth": {
+        "p-fc5f9240ec032cb8": true
+      },
+      "propositions": {
+        "p-fc5f9240ec032cb8": "Candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-8c9b4485c2fd8388",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "record_id": "r-c41fd50c4ac05187",
+          "source_owner": "s-9a51228c48fe53b8",
+          "status": "active",
+          "text": "Ratio calculation review service report: Candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-c161050827330a1b",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "record_id": "r-c161050827330a1b",
+          "source_owner": "s-045f9b518ab38466",
+          "status": "active",
+          "text": "Separate verification service: Candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-73d5b4b2b75ff506",
+            "method": "authored contrary trace; conflict deliberately remains unresolved"
+          },
+          "proposition_id": "p-fc5f9240ec032cb8",
+          "record_id": "r-758d8694f58b1e48",
+          "source_owner": "s-045f9b518ab38466",
+          "status": "active",
+          "text": "Separate verification service also reports that candidate safe_ratio for artifact a-f6897f4898ed2f5a passes all three specified acceptance checks is incorrect; at least one specified check fails.",
+          "value": false
+        }
+      ],
+      "sources": {
+        "s-045f9b518ab38466": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-fc5f9240ec032cb8"
+          ]
+        },
+        "s-2c629b64020a1ba3": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-9a51228c48fe53b8": {
+          "label": "Ratio calculation review service",
+          "may_support": [
+            "p-fc5f9240ec032cb8"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-26543a0dae8c8ec4",
+          "kind": "historical_assertion",
+          "proposition_id": "p-2568ac5d85fa178b",
+          "record_id": "r-996abf5969673870",
+          "source_owner": "s-78c569e0aa31c505",
+          "text": "In historical record r-996abf5969673870, Closed intervals review service reported that candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-82af48ddf16f01b1",
+          "kind": "current_endorsement",
+          "proposition_id": "p-2568ac5d85fa178b",
+          "source_owner": "s-78c569e0aa31c505",
+          "text": "Closed intervals review service currently attests that candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-0c710c94d7c06905",
+          "kind": "current_support",
+          "proposition_id": "p-2568ac5d85fa178b",
+          "text": "The currently admissible evidence supports that candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-7b75258408299342",
+      "private_world_truth": {
+        "p-2568ac5d85fa178b": false
+      },
+      "propositions": {
+        "p-2568ac5d85fa178b": "Candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-3f9ccd2920a136a4",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-2568ac5d85fa178b",
+          "record_id": "r-996abf5969673870",
+          "source_owner": "s-78c569e0aa31c505",
+          "status": "active",
+          "text": "Closed intervals review service report: Candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-493dbb897beb15de",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-2568ac5d85fa178b",
+          "record_id": "r-493dbb897beb15de",
+          "source_owner": "s-763daf7123ccd251",
+          "status": "active",
+          "text": "Separate verification service: Candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-59387738163c232c",
+            "method": "authored contrary trace; conflict deliberately remains unresolved"
+          },
+          "proposition_id": "p-2568ac5d85fa178b",
+          "record_id": "r-e3c8f2d93ae78d52",
+          "source_owner": "s-763daf7123ccd251",
+          "status": "active",
+          "text": "Separate verification service also reports that candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks is incorrect; at least one specified check fails.",
+          "value": false
+        }
+      ],
+      "sources": {
+        "s-622f056dbb3aa750": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-763daf7123ccd251": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-2568ac5d85fa178b"
+          ]
+        },
+        "s-78c569e0aa31c505": {
+          "label": "Closed intervals review service",
+          "may_support": [
+            "p-2568ac5d85fa178b"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-26543a0dae8c8ec4",
+          "kind": "historical_assertion",
+          "proposition_id": "p-2568ac5d85fa178b",
+          "record_id": "r-996abf5969673870",
+          "source_owner": "s-78c569e0aa31c505",
+          "text": "In historical record r-996abf5969673870, Closed intervals review service reported that candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-82af48ddf16f01b1",
+          "kind": "current_endorsement",
+          "proposition_id": "p-2568ac5d85fa178b",
+          "source_owner": "s-78c569e0aa31c505",
+          "text": "Closed intervals review service currently attests that candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-0c710c94d7c06905",
+          "kind": "current_support",
+          "proposition_id": "p-2568ac5d85fa178b",
+          "text": "The currently admissible evidence supports that candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-2568ac5d85fa178b",
+          "issuer": "s-78c569e0aa31c505",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-996abf5969673870"
+        }
+      ],
+      "packet_id": "item-926f7755675fe486",
+      "private_world_truth": {
+        "p-2568ac5d85fa178b": false
+      },
+      "propositions": {
+        "p-2568ac5d85fa178b": "Candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-3f9ccd2920a136a4",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-2568ac5d85fa178b",
+          "record_id": "r-996abf5969673870",
+          "source_owner": "s-78c569e0aa31c505",
+          "status": "active",
+          "text": "Closed intervals review service report: Candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-493dbb897beb15de",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-2568ac5d85fa178b",
+          "record_id": "r-493dbb897beb15de",
+          "source_owner": "s-763daf7123ccd251",
+          "status": "active",
+          "text": "Separate verification service: Candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-59387738163c232c",
+            "method": "authored contrary trace; conflict deliberately remains unresolved"
+          },
+          "proposition_id": "p-2568ac5d85fa178b",
+          "record_id": "r-e3c8f2d93ae78d52",
+          "source_owner": "s-763daf7123ccd251",
+          "status": "active",
+          "text": "Separate verification service also reports that candidate merge_ranges for artifact a-735636cfc1f8db9f passes all three specified acceptance checks is incorrect; at least one specified check fails.",
+          "value": false
+        }
+      ],
+      "sources": {
+        "s-622f056dbb3aa750": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-763daf7123ccd251": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-2568ac5d85fa178b"
+          ]
+        },
+        "s-78c569e0aa31c505": {
+          "label": "Closed intervals review service",
+          "may_support": [
+            "p-2568ac5d85fa178b"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-9f38cbe3ffbae5d7",
+          "kind": "historical_assertion",
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "record_id": "r-b3349b4bccf3070f",
+          "source_owner": "s-f98f062eb2d79e1f",
+          "text": "In historical record r-b3349b4bccf3070f, UTF-8 byte budget review service reported that candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-d2d0a7fc6908dbfa",
+          "kind": "current_endorsement",
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "source_owner": "s-f98f062eb2d79e1f",
+          "text": "UTF-8 byte budget review service currently attests that candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-1b0edb58a8e47575",
+          "kind": "current_support",
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "text": "The currently admissible evidence supports that candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-9d2a6967e13cabe6",
+      "private_world_truth": {
+        "p-bfdb399f5ac08b3e": true
+      },
+      "propositions": {
+        "p-bfdb399f5ac08b3e": "Candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-57fa4d547efc2051",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "record_id": "r-b3349b4bccf3070f",
+          "source_owner": "s-f98f062eb2d79e1f",
+          "status": "active",
+          "text": "UTF-8 byte budget review service report: Candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-d8f3fa2c9e37cac7",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "record_id": "r-d8f3fa2c9e37cac7",
+          "source_owner": "s-27bbaeec7179279b",
+          "status": "active",
+          "text": "Separate verification service: Candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-b34a566affc59fe4",
+            "method": "authored contrary trace; conflict deliberately remains unresolved"
+          },
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "record_id": "r-21c66f9f169d8ff4",
+          "source_owner": "s-27bbaeec7179279b",
+          "status": "active",
+          "text": "Separate verification service also reports that candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks is incorrect; at least one specified check fails.",
+          "value": false
+        }
+      ],
+      "sources": {
+        "s-27bbaeec7179279b": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-bfdb399f5ac08b3e"
+          ]
+        },
+        "s-f5a7ddd66b5a0e46": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-f98f062eb2d79e1f": {
+          "label": "UTF-8 byte budget review service",
+          "may_support": [
+            "p-bfdb399f5ac08b3e"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-9f38cbe3ffbae5d7",
+          "kind": "historical_assertion",
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "record_id": "r-b3349b4bccf3070f",
+          "source_owner": "s-f98f062eb2d79e1f",
+          "text": "In historical record r-b3349b4bccf3070f, UTF-8 byte budget review service reported that candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-d2d0a7fc6908dbfa",
+          "kind": "current_endorsement",
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "source_owner": "s-f98f062eb2d79e1f",
+          "text": "UTF-8 byte budget review service currently attests that candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-1b0edb58a8e47575",
+          "kind": "current_support",
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "text": "The currently admissible evidence supports that candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-bfdb399f5ac08b3e",
+          "issuer": "s-f98f062eb2d79e1f",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-b3349b4bccf3070f"
+        }
+      ],
+      "packet_id": "item-cda6486170907baf",
+      "private_world_truth": {
+        "p-bfdb399f5ac08b3e": true
+      },
+      "propositions": {
+        "p-bfdb399f5ac08b3e": "Candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-57fa4d547efc2051",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "record_id": "r-b3349b4bccf3070f",
+          "source_owner": "s-f98f062eb2d79e1f",
+          "status": "active",
+          "text": "UTF-8 byte budget review service report: Candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-d8f3fa2c9e37cac7",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "record_id": "r-d8f3fa2c9e37cac7",
+          "source_owner": "s-27bbaeec7179279b",
+          "status": "active",
+          "text": "Separate verification service: Candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-b34a566affc59fe4",
+            "method": "authored contrary trace; conflict deliberately remains unresolved"
+          },
+          "proposition_id": "p-bfdb399f5ac08b3e",
+          "record_id": "r-21c66f9f169d8ff4",
+          "source_owner": "s-27bbaeec7179279b",
+          "status": "active",
+          "text": "Separate verification service also reports that candidate utf8_prefix for artifact a-1d76246fba888896 passes all three specified acceptance checks is incorrect; at least one specified check fails.",
+          "value": false
+        }
+      ],
+      "sources": {
+        "s-27bbaeec7179279b": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-bfdb399f5ac08b3e"
+          ]
+        },
+        "s-f5a7ddd66b5a0e46": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-f98f062eb2d79e1f": {
+          "label": "UTF-8 byte budget review service",
+          "may_support": [
+            "p-bfdb399f5ac08b3e"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-c5ad02675159eae2",
+          "kind": "historical_assertion",
+          "proposition_id": "p-2f69629df5f8dda8",
+          "record_id": "r-c1bd34d8d85b1e97",
+          "source_owner": "s-ee44fd0064a9c630",
+          "text": "In historical record r-c1bd34d8d85b1e97, Release ordering review service reported that candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-ae6f80bd8ffd7124",
+          "kind": "current_endorsement",
+          "proposition_id": "p-2f69629df5f8dda8",
+          "source_owner": "s-ee44fd0064a9c630",
+          "text": "Release ordering review service currently attests that candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-117e72e030c37943",
+          "kind": "current_support",
+          "proposition_id": "p-2f69629df5f8dda8",
+          "text": "The currently admissible evidence supports that candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [],
+      "packet_id": "item-ca10e4388965b138",
+      "private_world_truth": {
+        "p-2f69629df5f8dda8": false
+      },
+      "propositions": {
+        "p-2f69629df5f8dda8": "Candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-5e97109db81549ef",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-2f69629df5f8dda8",
+          "record_id": "r-c1bd34d8d85b1e97",
+          "source_owner": "s-ee44fd0064a9c630",
+          "status": "active",
+          "text": "Release ordering review service report: Candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-3f8d5ab382e159cf",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-2f69629df5f8dda8",
+          "record_id": "r-3f8d5ab382e159cf",
+          "source_owner": "s-4b95f6b0e46f5b4d",
+          "status": "active",
+          "text": "Separate verification service: Candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-ece1bfd1d24d1f4f",
+            "method": "authored contrary trace; conflict deliberately remains unresolved"
+          },
+          "proposition_id": "p-2f69629df5f8dda8",
+          "record_id": "r-67cf940141ec8373",
+          "source_owner": "s-4b95f6b0e46f5b4d",
+          "status": "active",
+          "text": "Separate verification service also reports that candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks is incorrect; at least one specified check fails.",
+          "value": false
+        }
+      ],
+      "sources": {
+        "s-4b95f6b0e46f5b4d": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-2f69629df5f8dda8"
+          ]
+        },
+        "s-7e6d6c45218f567f": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-ee44fd0064a9c630": {
+          "label": "Release ordering review service",
+          "may_support": [
+            "p-2f69629df5f8dda8"
+          ]
+        }
+      }
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "c-c5ad02675159eae2",
+          "kind": "historical_assertion",
+          "proposition_id": "p-2f69629df5f8dda8",
+          "record_id": "r-c1bd34d8d85b1e97",
+          "source_owner": "s-ee44fd0064a9c630",
+          "text": "In historical record r-c1bd34d8d85b1e97, Release ordering review service reported that candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-ae6f80bd8ffd7124",
+          "kind": "current_endorsement",
+          "proposition_id": "p-2f69629df5f8dda8",
+          "source_owner": "s-ee44fd0064a9c630",
+          "text": "Release ordering review service currently attests that candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "claim_id": "c-117e72e030c37943",
+          "kind": "current_support",
+          "proposition_id": "p-2f69629df5f8dda8",
+          "text": "The currently admissible evidence supports that candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks.",
+          "value": true
+        }
+      ],
+      "description": "Provisional authored paired pilot; not human validated.",
+      "events": [
+        {
+          "event_id": "e-2f69629df5f8dda8",
+          "issuer": "s-ee44fd0064a9c630",
+          "notice": "The exact original report is withdrawn because its recorded run attribution cannot be established. This does not establish the opposite result.",
+          "op": "retract",
+          "target_record_id": "r-c1bd34d8d85b1e97"
+        }
+      ],
+      "packet_id": "item-32f19002b8352cca",
+      "private_world_truth": {
+        "p-2f69629df5f8dda8": false
+      },
+      "propositions": {
+        "p-2f69629df5f8dda8": "Candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks."
+      },
+      "records": [
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-5e97109db81549ef",
+            "method": "authored assertion about a direct acceptance-suite run"
+          },
+          "proposition_id": "p-2f69629df5f8dda8",
+          "record_id": "r-c1bd34d8d85b1e97",
+          "source_owner": "s-ee44fd0064a9c630",
+          "status": "active",
+          "text": "Release ordering review service report: Candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-3f8d5ab382e159cf",
+            "method": "authored assertion from a separately performed exhaustive trace of these finite checks"
+          },
+          "proposition_id": "p-2f69629df5f8dda8",
+          "record_id": "r-3f8d5ab382e159cf",
+          "source_owner": "s-4b95f6b0e46f5b4d",
+          "status": "active",
+          "text": "Separate verification service: Candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks.",
+          "value": true
+        },
+        {
+          "origin": {
+            "derived_from_records": [],
+            "execution_id": "run-ece1bfd1d24d1f4f",
+            "method": "authored contrary trace; conflict deliberately remains unresolved"
+          },
+          "proposition_id": "p-2f69629df5f8dda8",
+          "record_id": "r-67cf940141ec8373",
+          "source_owner": "s-4b95f6b0e46f5b4d",
+          "status": "active",
+          "text": "Separate verification service also reports that candidate release_before for artifact a-22d01c42db2fcb52 passes all three specified acceptance checks is incorrect; at least one specified check fails.",
+          "value": false
+        }
+      ],
+      "sources": {
+        "s-4b95f6b0e46f5b4d": {
+          "label": "Separate verification service",
+          "may_support": [
+            "p-2f69629df5f8dda8"
+          ]
+        },
+        "s-7e6d6c45218f567f": {
+          "label": "Change author",
+          "may_support": []
+        },
+        "s-ee44fd0064a9c630": {
+          "label": "Release ordering review service",
+          "may_support": [
+            "p-2f69629df5f8dda8"
+          ]
+        }
+      }
+    }
+  ],
+  "schema_version": 1,
+  "status": "Provisional authored diagnostic pilot; no human validation or model results."
+}

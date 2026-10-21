@@ -1,0 +1,1705 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-10-21",
+  "as_of": "2026-10-21",
+  "scope": "Targeted primary-source review of evidence correction, support, regeneration and agent actions; not a systematic review or novelty certification.",
+  "thesis_status": "unestablished_empirical_hypothesis",
+  "source_policy": {
+    "versioned_papers": "Specific inspected versions recorded; reported results not independently reproduced.",
+    "affiliations": "Paper-time author lines only, not current employment or inferred research groups.",
+    "unknowns": "Null dates, affiliations and artifacts are deliberate; unavailable sources are not silently treated as read.",
+    "software": "Mutable public specifications are prior art but not equivalent to peer-reviewed performance evidence."
+  },
+  "search_passes": [
+    {
+      "date": "2026-10-21",
+      "queries": [
+        "\"agent\" \"evidence\" \"retraction\" \"October\" \"2026\" arxiv",
+        "\"agent\" \"regeneration\" \"groundedness\" arxiv",
+        "\"LLM\" \"source withdrawal\" \"support\""
+      ],
+      "new_primary_ids": [
+        "acharya2026structure",
+        "kamelhar2026gsar"
+      ],
+      "note": "Aggregator hits used only for discovery; primary paper URLs inspected."
+    }
+  ],
+  "reference_chains": [
+    {
+      "id": "truth_maintenance",
+      "path": [
+        "choudhary2026receipts",
+        "doyle1979tms",
+        "dekleer1986atms"
+      ],
+      "verification": "Receipts §2 references checked; original Doyle/de Kleer access limitations recorded.",
+      "engineering_consequence": "Credit belief-dependency maintenance; do not claim support propagation as new."
+    },
+    {
+      "id": "provenance",
+      "path": [
+        "choudhary2026receipts",
+        "green2007semirings"
+      ],
+      "verification": "Receipts bibliography and author-hosted primary PODS PDF inspected.",
+      "engineering_consequence": "Oracle needs alternative support bundles and conjunctive premises; semantic edge extraction remains separate."
+    },
+    {
+      "id": "knowledge_conflict",
+      "path": [
+        "xu2024knowledgeconflicts",
+        "longpre2021conflicts"
+      ],
+      "verification": "Survey §2.2 and original EMNLP primary method inspected.",
+      "engineering_consequence": "Separate contextual/parametric conflict from mere withdrawal; test without manufactured contradictory facts."
+    }
+  ],
+  "references": [
+    {
+      "id": "choudhary2026receipts",
+      "title": "Keep Your Receipts: Trustworthy Cleanup of Agent-Built Knowledge Graphs",
+      "authors": [
+        "Vishisht Choudhary"
+      ],
+      "publication_date": "2026-10-13",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2610.17719",
+        "full_text": "https://arxiv.org/html/2610.17719v1"
+      },
+      "citation": {
+        "key": "choudhary2026receipts",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2610.17719",
+        "version": "v1",
+        "venue": "Preprint; manuscript names Who Verifies the Agents? workshop",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "6",
+          "8"
+        ],
+        "notes": "Methods, oracle objective, summary receipts and limitations read; not independently reproduced."
+      },
+      "closest_claim": "Regeneration after withdrawal is not the same objective as surviving-source support.",
+      "overlap": "Alternative support bundles, sentence receipts and selective cleanup are existing methods.",
+      "limitations": "The paper explicitly measures constructor-relative liveness; source-groundedness remains ungraded.",
+      "what_we_borrow": "Reproduce or label adaptation of its audit; compare with independent support labels.",
+      "discriminating_test": "Does audit disagreement change decisions under the same evidence policy?",
+      "source_quality_notes": [
+        "Paper-linked repository returned 404 during this review; that does not prove permanent unavailability."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "Technical University of Munich",
+            "authors": [
+              "Vishisht Choudhary"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2610.17719v1"
+      },
+      "artifact": {
+        "status": "paper_link_404_on_check",
+        "url": "https://github.com/VishiATChoudhary/polygraph"
+      }
+    },
+    {
+      "id": "heyu2026stored",
+      "title": "Stored Is Not Supported: Typed Provenance and Assertion Guardrails for Persistent AI Agents",
+      "authors": [
+        "Jun He",
+        "Deying Yu"
+      ],
+      "publication_date": "2026-09-02",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2609.02127",
+        "full_text": "https://arxiv.org/html/2609.02127v1"
+      },
+      "citation": {
+        "key": "heyu2026stored",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2609.02127",
+        "version": "v1",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "2",
+          "3.5",
+          "4.5",
+          "5",
+          "Appendix C",
+          "Appendix F"
+        ]
+      },
+      "closest_claim": "Report, belief, support, truth, validity and release authority require different judgments.",
+      "overlap": "Preserved history, alternative support, revocation and typed release are direct conceptual predecessors.",
+      "limitations": "Reported conformance is structured; natural-language extraction and general graph traversal are not implemented.",
+      "what_we_borrow": "Operationalize existing semantics and evaluate the extraction assumption.",
+      "discriminating_test": "Does a model-extracted representation improve beyond ordinary grounding?",
+      "source_quality_notes": [
+        "Future end-to-end evaluation is proposed in Appendix C, so its need is also prior art."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "OpenKedge.io",
+            "authors": [
+              "Jun He",
+              "Deying Yu"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2609.02127v1"
+      },
+      "artifact": {
+        "status": "tagged_repository_read_not_executed",
+        "url": "https://github.com/openkedge/pci/tree/v0.2.0",
+        "version": "v0.2.0",
+        "paper_commit": "7484153"
+      }
+    },
+    {
+      "id": "li2026memtx",
+      "title": "MemTX: Transactional Belief Commit for Stateful Agent Memory",
+      "authors": [
+        "Xiaoyang Li",
+        "Yiqi Wang",
+        "Haohui Lu",
+        "Zhi Chen",
+        "Mo Li",
+        "Pingan Song",
+        "Mingkai Zheng",
+        "Taotao Cai"
+      ],
+      "publication_date": "2026-07-27",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2607.23929",
+        "full_text": "https://arxiv.org/pdf/2607.23929"
+      },
+      "citation": {
+        "key": "li2026memtx",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2607.23929",
+        "version": "v1",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "3",
+          "4",
+          "5 scope blind spots",
+          "Appendix H"
+        ],
+        "notes": "PDF author line used because HTML omits Mingkai Zheng."
+      },
+      "closest_claim": "Retraction and validity must reach memory-derived effects and action gates.",
+      "overlap": "Typed cascading repair and LLM experiments with mock actions are already evaluated.",
+      "limitations": "Repair depends on declared lineage; the strong gate is existential, and transcription can omit parents.",
+      "what_we_borrow": "Required/forbidden action grading, controls, protocol traces and matched baselines.",
+      "discriminating_test": "Test semantic support and lineage extraction rather than merely adding actions.",
+      "source_quality_notes": [
+        "HTML/PDF author discrepancy; use the eight-author PDF citation."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "University of Southern Queensland",
+            "authors": [
+              "Xiaoyang Li",
+              "Zhi Chen",
+              "Pingan Song",
+              "Taotao Cai"
+            ]
+          },
+          {
+            "organization": "Griffith University",
+            "authors": [
+              "Yiqi Wang"
+            ]
+          },
+          {
+            "organization": "The University of Sydney",
+            "authors": [
+              "Haohui Lu"
+            ]
+          },
+          {
+            "organization": "Liaoning University",
+            "authors": [
+              "Mo Li"
+            ]
+          },
+          {
+            "organization": "Southern University of Science and Technology",
+            "authors": [
+              "Mingkai Zheng"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/pdf/2607.23929"
+      },
+      "artifact": {
+        "status": "repository_read_not_executed",
+        "url": "https://github.com/lxy1134/MEMTX_"
+      }
+    },
+    {
+      "id": "zhao2026memorepair",
+      "title": "MemoRepair: Barrier-First Cascade Repair in Agentic Memory",
+      "authors": [
+        "Yang Zhao",
+        "Chengxiao Dai",
+        "Mengying Kou",
+        "Yue Xiu"
+      ],
+      "publication_date": "2026-05-08",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2605.07242",
+        "full_text": "https://arxiv.org/html/2605.07242v1"
+      },
+      "citation": {
+        "key": "zhao2026memorepair",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2605.07242",
+        "version": "v1",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "2",
+          "3 metrics",
+          "3.4",
+          "5"
+        ],
+        "notes": "PDF first page checked; no affiliations shown there."
+      },
+      "closest_claim": "Regenerated successors require retained support and validation after invalidation.",
+      "overlap": "Grounded regeneration and post-event stale-use measurement are existing work.",
+      "limitations": "Complete influence provenance and validator coverage are assumptions.",
+      "what_we_borrow": "Validation baseline and separate stale exposure, utility and cost outcomes.",
+      "discriminating_test": "Does natural-language scope extraction expose failures beyond typed repair?",
+      "source_quality_notes": [
+        "No author affiliation or usable code link verified; do not infer a lab."
+      ],
+      "organizations": {
+        "verification": "unknown",
+        "affiliations": [],
+        "source_url": null
+      },
+      "artifact": {
+        "status": "not_located_in_inspected_primary_text",
+        "url": null
+      }
+    },
+    {
+      "id": "chu2026evidence",
+      "title": "When Evidence Changes: Evaluating Memory Repair and Re-reading in Language-Model Agents",
+      "authors": [
+        "Wenhui Chu"
+      ],
+      "publication_date": "2026-10-02",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2610.03902",
+        "full_text": "https://arxiv.org/html/2610.03902v1"
+      },
+      "citation": {
+        "key": "chu2026evidence",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2610.03902",
+        "version": "v1",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "3",
+          "4",
+          "6",
+          "8",
+          "Appendix B",
+          "Appendix F"
+        ]
+      },
+      "closest_claim": "Repair must compete with fresh source-filtered reading.",
+      "overlap": "Revocation, replacement, allowed-source support, retention and commit outcomes are already measured.",
+      "limitations": "Narrow clinical tasks; authenticated updates; scoring-contract sensitivity is disclosed.",
+      "what_we_borrow": "Allowed-source oracle, independent-support controls, full cost accounting and rereading.",
+      "discriminating_test": "Add report/endorsement scope and liveness-support disagreement, not generic revision.",
+      "source_quality_notes": [
+        "Appendix B describes an evidence archive without source code; no downloadable archive URL verified."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "University at Albany, State University of New York",
+            "authors": [
+              "Wenhui Chu"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2610.03902v1"
+      },
+      "artifact": {
+        "status": "archive_described_url_not_verified_no_source_code",
+        "url": null
+      }
+    },
+    {
+      "id": "zheng2026apex",
+      "title": "APEX: Active Protection at Execution Boundaries for LLM Agents",
+      "authors": [
+        "Xinran Zheng",
+        "Xin Fan Guo",
+        "Zhiqiang Hao",
+        "Fan Yang",
+        "Xingzhi Qian",
+        "Jiawei Du",
+        "Jinfeng Xu",
+        "Zheng Xing",
+        "Shuo Yang",
+        "Xingjun Wang"
+      ],
+      "publication_date": "2026-10-03",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2610.06966",
+        "full_text": "https://arxiv.org/html/2610.06966v1"
+      },
+      "citation": {
+        "key": "zheng2026apex",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2610.06966",
+        "version": "v1",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "2",
+          "3",
+          "Appendix H",
+          "Appendix I"
+        ]
+      },
+      "closest_claim": "Task authorization and endorsed runtime evidence govern boundary effects.",
+      "overlap": "Output decisions and advice-as-authorization are covered; silent verdict changes alone are not new.",
+      "limitations": "A harmful dependency already endorsed by the trusted task is outside the stated injection boundary.",
+      "what_we_borrow": "Freeze the task policy and distinguish endorsement from factual correctness.",
+      "discriminating_test": "Test admissible support revision without claiming an out-of-model policy error is a bypass.",
+      "source_quality_notes": [
+        "Artifact URL was paper-linked but fetch returned a cache miss."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "Tsinghua University",
+            "authors": [
+              "Xinran Zheng",
+              "Xingjun Wang"
+            ]
+          },
+          {
+            "organization": "Imperial College London",
+            "authors": [
+              "Xin Fan Guo"
+            ]
+          },
+          {
+            "organization": "Nanjing University",
+            "authors": [
+              "Zhiqiang Hao"
+            ]
+          },
+          {
+            "organization": "The Chinese University of Hong Kong",
+            "authors": [
+              "Fan Yang"
+            ]
+          },
+          {
+            "organization": "University College London",
+            "authors": [
+              "Xingzhi Qian"
+            ]
+          },
+          {
+            "organization": "A*STAR",
+            "authors": [
+              "Jiawei Du"
+            ]
+          },
+          {
+            "organization": "University of British Columbia",
+            "authors": [
+              "Jinfeng Xu"
+            ]
+          },
+          {
+            "organization": "Shenzhen University",
+            "authors": [
+              "Zheng Xing"
+            ]
+          },
+          {
+            "organization": "The University of Hong Kong",
+            "authors": [
+              "Shuo Yang"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2610.06966v1"
+      },
+      "artifact": {
+        "status": "paper_link_fetch_cache_miss",
+        "url": "https://github.com/ZhengXR930/APEX_official/tree/official"
+      }
+    },
+    {
+      "id": "debenedetti2025camel",
+      "title": "Defeating Prompt Injections by Design",
+      "authors": [
+        "Edoardo Debenedetti",
+        "Ilia Shumailov",
+        "Tianqi Fan",
+        "Jamie Hayes",
+        "Nicholas Carlini",
+        "Daniel Fabian",
+        "Christoph Kern",
+        "Chongyang Shi",
+        "Andreas Terzis",
+        "Florian Tramèr"
+      ],
+      "publication_date": "2025-06-24",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2503.18813",
+        "full_text": "https://arxiv.org/html/2503.18813v2"
+      },
+      "citation": {
+        "key": "debenedetti2025camel",
+        "type": "preprint",
+        "year": 2025,
+        "arxiv": "2503.18813",
+        "version": "v2",
+        "doi": null,
+        "date_basis": "inspected version date, not first submission"
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "3",
+          "5",
+          "6.4",
+          "9"
+        ]
+      },
+      "closest_claim": "Provenance-sensitive security policies already cover confidentiality and integrity.",
+      "overlap": "Capabilities, dependency tracking and data-dependent policies predate this repository.",
+      "limitations": "Security-policy enforcement does not certify arbitrary factual truth.",
+      "what_we_borrow": "Keep control policy outside untrusted text and log data dependencies.",
+      "discriminating_test": "Measure semantic support rather than relabeling existing information-flow enforcement.",
+      "source_quality_notes": [
+        "Affiliations are those printed in v2, not verified current employment."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "Google",
+            "authors": [
+              "Edoardo Debenedetti",
+              "Tianqi Fan",
+              "Daniel Fabian",
+              "Christoph Kern"
+            ]
+          },
+          {
+            "organization": "Google DeepMind",
+            "authors": [
+              "Ilia Shumailov",
+              "Jamie Hayes",
+              "Nicholas Carlini",
+              "Chongyang Shi",
+              "Andreas Terzis"
+            ]
+          },
+          {
+            "organization": "ETH Zurich",
+            "authors": [
+              "Florian Tramèr"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2503.18813v2"
+      },
+      "artifact": {
+        "status": "repository_read_not_executed",
+        "url": "https://github.com/google-research/camel-prompt-injection"
+      }
+    },
+    {
+      "id": "wilie2024beliefr",
+      "title": "Belief Revision: The Adaptability of Large Language Models Reasoning",
+      "authors": [
+        "Bryan Wilie",
+        "Samuel Cahyawijaya",
+        "Etsuko Ishii",
+        "Junxian He",
+        "Pascale Fung"
+      ],
+      "publication_date": "2024-11",
+      "date_precision": "month",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://aclanthology.org/2024.emnlp-main.586/",
+        "full_text": "https://aclanthology.org/2024.emnlp-main.586.pdf"
+      },
+      "citation": {
+        "key": "wilie2024beliefr",
+        "type": "inproceedings",
+        "year": 2024,
+        "venue": "EMNLP",
+        "doi": "10.18653/v1/2024.emnlp-main.586",
+        "pages": "10480–10496"
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "task construction",
+          "reasoning formulations",
+          "experiments",
+          "limitations"
+        ]
+      },
+      "closest_claim": "Appropriate updating must be measured beside appropriate non-updating.",
+      "overlap": "The revision-versus-preservation trade-off is established.",
+      "limitations": "Premise reasoning differs from uncertain-source admission and tool action.",
+      "what_we_borrow": "Balance change-required with keep-valid controls.",
+      "discriminating_test": "Add source standing and executable consequences rather than new belief-update terminology.",
+      "source_quality_notes": [],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "Hong Kong University of Science and Technology",
+            "authors": [
+              "Bryan Wilie",
+              "Samuel Cahyawijaya",
+              "Etsuko Ishii",
+              "Junxian He",
+              "Pascale Fung"
+            ]
+          }
+        ],
+        "source_url": "https://aclanthology.org/2024.emnlp-main.586.pdf"
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "remnic_memcorrect",
+      "title": "MemCorrect — an open correction / steerability benchmark",
+      "authors": [
+        "Remnic project; repository owner joshuaswarren"
+      ],
+      "publication_date": null,
+      "date_precision": "unknown",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://github.com/joshuaswarren/remnic/blob/main/docs/benchmarks/memcorrect.md",
+        "full_text": "https://github.com/joshuaswarren/remnic/blob/main/docs/benchmarks/memcorrect.md"
+      },
+      "citation": {
+        "key": "remnic_memcorrect",
+        "type": "software_specification",
+        "year": 2026,
+        "version": "memcorrect-v1; mutable main inspected",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "complete_public_specification",
+        "sections": [
+          "adapter",
+          "generator",
+          "metrics",
+          "old failed runs",
+          "status"
+        ]
+      },
+      "closest_claim": "Correction evaluation already combines scoped updates and false-apply controls.",
+      "overlap": "Uptake, non-resurrection, collateral safety, reassertion, provenance and quoted/hypothetical corrections are covered.",
+      "limitations": "The documented probes use recall/token criteria; provenance is optional; saved old native runs fail.",
+      "what_we_borrow": "Anti-events and preservation controls, while separately grading support and actions.",
+      "discriminating_test": "Do support semantics add information beyond correction recall?",
+      "source_quality_notes": [
+        "Mutable repository not pinned; project ownership is not a verified institutional affiliation.",
+        "Treat as prior public tooling, not peer-reviewed evidence."
+      ],
+      "organizations": {
+        "verification": "unknown",
+        "affiliations": [],
+        "source_url": null
+      },
+      "artifact": {
+        "status": "complete_spec_read_implementation_not_run",
+        "url": "https://github.com/joshuaswarren/remnic"
+      }
+    },
+    {
+      "id": "sunhe2026stateauditor",
+      "title": "When Memory Updates but Behavior Does Not: Repairing Implicit Stale Dependencies in Personalized Agent Responses",
+      "authors": [
+        "Haofei Sun",
+        "Lin He"
+      ],
+      "publication_date": "2026-08-03",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2608.01619",
+        "full_text": "https://arxiv.org/html/2608.01619v1"
+      },
+      "citation": {
+        "key": "sunhe2026stateauditor",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2608.01619",
+        "version": "v1",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "3",
+          "4",
+          "6.4",
+          "7"
+        ]
+      },
+      "closest_claim": "Updated stored state need not update implicit response dependencies.",
+      "overlap": "State-to-draft auditing and lifecycle-aware repair already exist.",
+      "limitations": "Provenance/chronology gates do not establish semantic supersession; difficult transfer has no gain.",
+      "what_we_borrow": "Separate transition extraction from gate correctness and downstream behavior.",
+      "discriminating_test": "Measure report/endorsement extraction with matched evidence and calls.",
+      "source_quality_notes": [],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "University of Texas at Arlington",
+            "authors": [
+              "Haofei Sun"
+            ]
+          },
+          {
+            "organization": "University of Tennessee, Knoxville",
+            "authors": [
+              "Lin He"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2608.01619v1"
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "acharya2026structure",
+      "title": "Structure Before Intelligence: Gating What Agentic Scientific Workflows Release",
+      "authors": [
+        "Ashish Acharya",
+        "Aman Al Amin",
+        "Hong Qin"
+      ],
+      "publication_date": "2026-10-14",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2610.19507",
+        "full_text": "https://arxiv.org/html/2610.19507v1"
+      },
+      "citation": {
+        "key": "acharya2026structure",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2610.19507",
+        "version": "v1",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "3",
+          "4 release/late evidence",
+          "6",
+          "7 metrics",
+          "8",
+          "9"
+        ]
+      },
+      "closest_claim": "Execution completion does not authorize release; validation and lineage affect release/retraction.",
+      "overlap": "Explicit release manifests, recovery and late-evidence consequences are evaluated.",
+      "limitations": "Two designed workflows; validator/fault co-design; no measurable agent benefit is shown.",
+      "what_we_borrow": "Count release versions, collateral withholding and validation cost separately.",
+      "discriminating_test": "Does linguistic interpretation add value beyond a deterministic harness?",
+      "source_quality_notes": [
+        "No runnable artifact URL verified in inspected sections."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "Old Dominion University",
+            "authors": [
+              "Ashish Acharya",
+              "Aman Al Amin",
+              "Hong Qin"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2610.19507v1"
+      },
+      "artifact": {
+        "status": "artifact_described_url_not_verified",
+        "url": null
+      }
+    },
+    {
+      "id": "kamelhar2026gsar",
+      "title": "GSAR: Typed Grounding for Hallucination Detection and Recovery in Multi-Agent LLMs",
+      "authors": [
+        "Federico A. Kamelhar"
+      ],
+      "publication_date": "2026-04-25",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2604.23366",
+        "full_text": "https://arxiv.org/html/2604.23366v1"
+      },
+      "citation": {
+        "key": "kamelhar2026gsar",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2604.23366",
+        "version": "v1",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "3",
+          "4",
+          "5",
+          "6",
+          "8 design",
+          "10"
+        ]
+      },
+      "closest_claim": "Typed evidence grounding can select proceeding, regeneration or replanning.",
+      "overlap": "Grounding-to-recovery control is already an evaluated approach.",
+      "limitations": "Atomicity and expert weights are assumptions; forged tool outputs and provenance defense are outside scope.",
+      "what_we_borrow": "Strong ordinary-grounding/recovery comparator and judge calibration.",
+      "discriminating_test": "Test scope/validity changes at fixed policy rather than invent a new grounding score.",
+      "source_quality_notes": [
+        "Reported experiments not independently reproduced; implementation availability not checked."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "Oracle Corporation",
+            "authors": [
+              "Federico A. Kamelhar"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2604.23366v1"
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "shen2026revoked",
+      "title": "Revoked but Still Authoritative: An Empirical Study of Revocation Enforcement in Agent-Memory Systems",
+      "authors": [
+        "Yi Ting Shen",
+        "Kentaroh Toyoda",
+        "Alex Leung"
+      ],
+      "publication_date": "2026-09",
+      "date_precision": "month",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2609.08258",
+        "full_text": "https://arxiv.org/html/2609.08258v1"
+      },
+      "citation": {
+        "key": "shen2026revoked",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2609.08258",
+        "version": "v1",
+        "doi": null,
+        "date_basis": "month confirmed; exact submission day not recorded"
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "1",
+          "method overview",
+          "Appendix C headings"
+        ],
+        "notes": "Not every per-backend implementation or appendix result inspected."
+      },
+      "closest_claim": "A soft-revoked record can still be retrieved and cause an unsafe decision.",
+      "overlap": "Revocation enforcement, replacements and action consequences are direct prior evaluations.",
+      "limitations": "Guard depends on visible validity metadata or detectable incompatible returned facts.",
+      "what_we_borrow": "Separate backend exposure from model use and include history-sensitive controls.",
+      "discriminating_test": "Compare legal historical attribution with active endorsement, not merely revoked retrieval.",
+      "source_quality_notes": [],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "Vulcan Research, AIFT",
+            "authors": [
+              "Yi Ting Shen",
+              "Kentaroh Toyoda",
+              "Alex Leung"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2609.08258v1"
+      },
+      "artifact": {
+        "status": "repository_read_not_executed",
+        "url": "https://github.com/VulcanLab/Memory-Rebirth-Attack"
+      }
+    },
+    {
+      "id": "wucanedo2026invalidation",
+      "title": "Invalidation Contracts for Cross-Episode Agent Memory",
+      "authors": [
+        "Michael Wu",
+        "Arquimedes Canedo"
+      ],
+      "publication_date": "2026-08-31",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2609.00243",
+        "full_text": "https://arxiv.org/html/2609.00243v1"
+      },
+      "citation": {
+        "key": "wucanedo2026invalidation",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2609.00243",
+        "version": "v1",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "abstract",
+          "3 overview",
+          "6 limitations"
+        ]
+      },
+      "closest_claim": "Cached information validity and planner compliance are different quantities.",
+      "overlap": "Versioned invalidation and collateral-preserving cache updates are already measured.",
+      "limitations": "Synthetic API constraints and limited dependency topology bound transfer.",
+      "what_we_borrow": "Report oracle-valid state and model behavior as distinct outcomes.",
+      "discriminating_test": "Does semantic correction differ from mechanically versioned cache invalidation?",
+      "source_quality_notes": [
+        "Affiliations copied from paper, not inferred from names."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "South Dakota State University",
+            "authors": [
+              "Michael Wu"
+            ]
+          },
+          {
+            "organization": "Siemens Digital Industries Software",
+            "authors": [
+              "Arquimedes Canedo"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2609.00243v1"
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "jin2026memir",
+      "title": "Mitigating Provenance-Role Collapse in Long-Term Agents via Typed Memory Representation",
+      "authors": [
+        "Zhengda Jin",
+        "Bingbing Wang",
+        "Jing Li",
+        "Ruifeng Xu",
+        "Min Zhang"
+      ],
+      "publication_date": "2026-05-25",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2605.25869",
+        "full_text": "https://arxiv.org/html/2605.25869v1"
+      },
+      "citation": {
+        "key": "jin2026memir",
+        "type": "preprint",
+        "year": 2026,
+        "arxiv": "2605.25869",
+        "version": "v1",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "3",
+          "4 evaluation",
+          "4.7",
+          "limitations"
+        ]
+      },
+      "closest_claim": "Memory roles and provenance should constrain factual use.",
+      "overlap": "Typed evidence/cue/claim atoms and source-scoped generation already exist.",
+      "limitations": "Cross-claim reasoning remains downstream; evaluation is memory QA rather than a withdrawal audit.",
+      "what_we_borrow": "Compare normalized supported facts against raw-history retrieval.",
+      "discriminating_test": "Test scope errors after withdrawal without claiming typing as new.",
+      "source_quality_notes": [],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "Harbin Institute of Technology, Shenzhen",
+            "authors": [
+              "Zhengda Jin",
+              "Bingbing Wang",
+              "Ruifeng Xu",
+              "Min Zhang"
+            ]
+          },
+          {
+            "organization": "The Hong Kong Polytechnic University",
+            "authors": [
+              "Bingbing Wang",
+              "Jing Li"
+            ]
+          },
+          {
+            "organization": "Shenzhen Loop Area Institute",
+            "authors": [
+              "Ruifeng Xu"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2605.25869v1"
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "tang2024minicheck",
+      "title": "MiniCheck: Efficient Fact-Checking of LLMs on Grounding Documents",
+      "authors": [
+        "Liyan Tang",
+        "Philippe Laban",
+        "Greg Durrett"
+      ],
+      "publication_date": "2024-11",
+      "date_precision": "month",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://aclanthology.org/2024.emnlp-main.499/",
+        "full_text": "https://aclanthology.org/2024.emnlp-main.499.pdf"
+      },
+      "citation": {
+        "key": "tang2024minicheck",
+        "type": "inproceedings",
+        "year": 2024,
+        "venue": "EMNLP",
+        "doi": "10.18653/v1/2024.emnlp-main.499",
+        "pages": "8818–8847"
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "1",
+          "evaluation",
+          "7"
+        ]
+      },
+      "closest_claim": "Document support checking is an established efficient primitive.",
+      "overlap": "A new support checker alone is not a contribution.",
+      "limitations": "Benchmark grounding does not automatically resolve trusted policy and evidence lifecycles.",
+      "what_we_borrow": "Whole-sentence support baseline and independent human-checker calibration.",
+      "discriminating_test": "Does explicit scope decomposition beat the simpler checker? Its paper finds decomposition unhelpful in its settings.",
+      "source_quality_notes": [],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "The University of Texas at Austin",
+            "authors": [
+              "Liyan Tang",
+              "Greg Durrett"
+            ]
+          },
+          {
+            "organization": "Salesforce AI Research",
+            "authors": [
+              "Philippe Laban"
+            ]
+          }
+        ],
+        "source_url": "https://aclanthology.org/2024.emnlp-main.499.pdf"
+      },
+      "artifact": {
+        "status": "paper_link_not_executed",
+        "url": "https://github.com/Liyan06/MiniCheck"
+      }
+    },
+    {
+      "id": "xu2024knowledgeconflicts",
+      "title": "Knowledge Conflicts for LLMs: A Survey",
+      "authors": [
+        "Rongwu Xu",
+        "Zehan Qi",
+        "Zhijiang Guo",
+        "Cunxiang Wang",
+        "Hongru Wang",
+        "Yue Zhang",
+        "Wei Xu"
+      ],
+      "publication_date": "2024-11",
+      "date_precision": "month",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://aclanthology.org/2024.emnlp-main.486/",
+        "full_text": "https://aclanthology.org/2024.emnlp-main.486.pdf"
+      },
+      "citation": {
+        "key": "xu2024knowledgeconflicts",
+        "type": "inproceedings",
+        "year": 2024,
+        "venue": "EMNLP",
+        "doi": "10.18653/v1/2024.emnlp-main.486",
+        "pages": "8541–8565"
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "taxonomy",
+          "2.2",
+          "Longpre reference chain"
+        ]
+      },
+      "closest_claim": "Context-versus-parametric conflict is an established research problem.",
+      "overlap": "Generation from memorized knowledge despite contextual evidence is not a new phenomenon.",
+      "limitations": "A survey is a map of evidence, not a new empirical baseline.",
+      "what_we_borrow": "Separate context-memory, inter-context and intra-memory conflicts.",
+      "discriminating_test": "Withdrawal can remove support without introducing a contradictory proposition.",
+      "source_quality_notes": [],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "Tsinghua University",
+            "authors": [
+              "Rongwu Xu",
+              "Zehan Qi",
+              "Wei Xu"
+            ]
+          },
+          {
+            "organization": "University of Cambridge",
+            "authors": [
+              "Zhijiang Guo"
+            ]
+          },
+          {
+            "organization": "Westlake University",
+            "authors": [
+              "Cunxiang Wang",
+              "Yue Zhang"
+            ]
+          },
+          {
+            "organization": "The Chinese University of Hong Kong",
+            "authors": [
+              "Hongru Wang"
+            ]
+          }
+        ],
+        "source_url": "https://aclanthology.org/2024.emnlp-main.486.pdf"
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "longpre2021conflicts",
+      "title": "Entity-Based Knowledge Conflicts in Question Answering",
+      "authors": [
+        "Shayne Longpre",
+        "Kartik Perisetla",
+        "Anthony Chen",
+        "Nikhil Ramesh",
+        "Chris DuBois",
+        "Sameer Singh"
+      ],
+      "publication_date": "2021-11",
+      "date_precision": "month",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://aclanthology.org/2021.emnlp-main.565/",
+        "full_text": "https://aclanthology.org/anthology-files/pdf/emnlp/2021.emnlp-main.565.pdf"
+      },
+      "citation": {
+        "key": "longpre2021conflicts",
+        "type": "inproceedings",
+        "year": 2021,
+        "venue": "EMNLP",
+        "doi": "10.18653/v1/2021.emnlp-main.565",
+        "pages": "7052–7063"
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "1",
+          "entity substitution method"
+        ],
+        "notes": "Followed from Xu et al. survey; abstract/metadata and primary PDF inspected."
+      },
+      "closest_claim": "Parametric answers can override supplied contextual evidence.",
+      "overlap": "Controlled contextual/parametric conflict and mitigation are established.",
+      "limitations": "Entity substitutions may change plausibility; no agent evidence-withdrawal lifecycle.",
+      "what_we_borrow": "Include controlled prior-knowledge temptation without equating it to withdrawal.",
+      "discriminating_test": "Use support removal controls without artificial entity contradiction.",
+      "source_quality_notes": [],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "Apple",
+            "authors": [
+              "Shayne Longpre",
+              "Kartik Perisetla",
+              "Nikhil Ramesh",
+              "Chris DuBois"
+            ]
+          },
+          {
+            "organization": "University of California, Irvine",
+            "authors": [
+              "Anthony Chen",
+              "Sameer Singh"
+            ]
+          }
+        ],
+        "source_url": "https://aclanthology.org/anthology-files/pdf/emnlp/2021.emnlp-main.565.pdf"
+      },
+      "artifact": {
+        "status": "paper_link_not_executed",
+        "url": "https://github.com/apple/ml-knowledge-conflicts"
+      }
+    },
+    {
+      "id": "doyle1979tms",
+      "title": "A Truth Maintenance System",
+      "authors": [
+        "Jon Doyle"
+      ],
+      "publication_date": "1979",
+      "date_precision": "year",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://www.sciencedirect.com/science/article/pii/0004370279900080",
+        "full_text": null
+      },
+      "citation": {
+        "key": "doyle1979tms",
+        "type": "article",
+        "year": 1979,
+        "venue": "Artificial Intelligence",
+        "doi": null,
+        "pages": "231–272"
+      },
+      "read_depth": {
+        "level": "publisher_metadata_and_citing_primary_references",
+        "sections": [],
+        "notes": "Publisher fetch blocked; do not describe this as full-text reading."
+      },
+      "closest_claim": "Maintaining explicit justifications for beliefs is foundational prior work.",
+      "overlap": "Dependency-directed belief maintenance is not a new agent invention.",
+      "limitations": "This review did not independently inspect the complete original algorithm.",
+      "what_we_borrow": "Credit the foundation; verify details before implementing a named TMS.",
+      "discriminating_test": null,
+      "source_quality_notes": [
+        "Keep Your Receipts §2 is the verified reference-chain starting point."
+      ],
+      "organizations": {
+        "verification": "unknown",
+        "affiliations": [],
+        "source_url": null
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "dekleer1986atms",
+      "title": "An Assumption-Based TMS",
+      "authors": [
+        "Johan de Kleer"
+      ],
+      "publication_date": "1986",
+      "date_precision": "year",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://dekleer.org/bib.htm",
+        "full_text": "https://www.dekleer.org/Publications/An%20Assumption-Based%20TMS.pdf"
+      },
+      "citation": {
+        "key": "dekleer1986atms",
+        "type": "article",
+        "year": 1986,
+        "venue": "Artificial Intelligence",
+        "volume": "28",
+        "pages": "127–162",
+        "doi": null
+      },
+      "read_depth": {
+        "level": "author_bibliography_metadata_only",
+        "sections": [],
+        "notes": "Author-hosted scan timed out twice; algorithm details not independently read in this pass."
+      },
+      "closest_claim": "Assumption-based support labels are an acknowledged foundation.",
+      "overlap": "Alternative justifications and label propagation must receive historical credit.",
+      "limitations": "Direct scan access failed.",
+      "what_we_borrow": "Use as credited foundation, not as a reproduced implementation.",
+      "discriminating_test": null,
+      "source_quality_notes": [
+        "Keep Your Receipts cites this support-label lineage; no invented affiliation."
+      ],
+      "organizations": {
+        "verification": "unknown",
+        "affiliations": [],
+        "source_url": null
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "green2007semirings",
+      "title": "Provenance Semirings",
+      "authors": [
+        "Todd J. Green",
+        "Grigoris Karvounarakis",
+        "Val Tannen"
+      ],
+      "publication_date": "2007",
+      "date_precision": "year",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://doi.org/10.1145/1265530.1265535",
+        "full_text": "https://www.cs.ucdavis.edu/~green/papers/pods07.pdf"
+      },
+      "citation": {
+        "key": "green2007semirings",
+        "type": "inproceedings",
+        "year": 2007,
+        "venue": "PODS",
+        "doi": "10.1145/1265530.1265535",
+        "pages": "31–40"
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "abstract",
+          "1",
+          "provenance polynomial construction"
+        ]
+      },
+      "closest_claim": "Symbolic provenance records alternative and joint derivations.",
+      "overlap": "Support algebra and dependency tracing predate LLM agents.",
+      "limitations": "Exact query provenance assumes specified transformations; an LLM must infer semantic links.",
+      "what_we_borrow": "Distinguish alternative support from jointly required premises in the oracle.",
+      "discriminating_test": "Evaluate inferred links separately from deterministic propagation.",
+      "source_quality_notes": [
+        "Affiliation is University of Pennsylvania in the paper, despite the author copy being hosted at UC Davis."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "University of Pennsylvania",
+            "authors": [
+              "Todd J. Green",
+              "Grigoris Karvounarakis",
+              "Val Tannen"
+            ]
+          }
+        ],
+        "source_url": "https://www.cs.ucdavis.edu/~green/papers/pods07.pdf"
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "banerjee2026tac",
+      "title": "Static Alignment Is Not Enough: Alignment Claims Should Be Temporal Contracts",
+      "authors": [
+        "Amartya Banerjee",
+        "Anneliese Brei",
+        "Snehalkumar ‘Neil’ S. Gaikwad",
+        "Snigdha Chaturvedi"
+      ],
+      "publication_date": "2026-05-11",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://doi.org/10.13140/RG.2.2.24957.93926",
+        "full_text": "https://www.researchgate.net/publication/404733510_Static_Alignment_Is_Not_Enough_Alignment_Claims_Should_Be_Temporal_Contracts"
+      },
+      "citation": {
+        "key": "banerjee2026tac",
+        "type": "author_uploaded_preprint",
+        "year": 2026,
+        "doi": "10.13140/RG.2.2.24957.93926",
+        "date_basis": "author-upload date; not verified venue publication",
+        "equal_contribution": [
+          "Amartya Banerjee",
+          "Anneliese Brei"
+        ]
+      },
+      "read_depth": {
+        "level": "targeted_author_uploaded_full_text",
+        "sections": [
+          "4",
+          "5",
+          "6",
+          "Appendix C"
+        ]
+      },
+      "closest_claim": "Alignment claims have declared, revisable temporal conditions.",
+      "overlap": "Temporal auditable claims are established conceptual motivation.",
+      "limitations": "A claim-layer contract is not an evidence-retraction algorithm or an empirical validation of our task.",
+      "what_we_borrow": "Declare evaluator, policy scope and revision triggers; separate normative policy change from evidential change.",
+      "discriminating_test": "Hold the task policy fixed for the primary correction experiment.",
+      "source_quality_notes": [
+        "Uploaded by Anneliese May 11; no arXiv/institutional mirror located; no peer-review status inferred."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "University of North Carolina at Chapel Hill",
+            "authors": [
+              "Amartya Banerjee",
+              "Anneliese Brei",
+              "Snehalkumar ‘Neil’ S. Gaikwad",
+              "Snigdha Chaturvedi"
+            ]
+          }
+        ],
+        "source_url": "https://www.researchgate.net/publication/404733510_Static_Alignment_Is_Not_Enough_Alignment_Claims_Should_Be_Temporal_Contracts"
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "brei2025tuna",
+      "title": "Classifying Unreliable Narrators with Large Language Models",
+      "authors": [
+        "Anneliese Brei",
+        "Katharine Henry",
+        "Abhisheik Sharma",
+        "Shashank Srivastava",
+        "Snigdha Chaturvedi"
+      ],
+      "publication_date": "2025-07",
+      "date_precision": "month",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://aclanthology.org/2025.acl-long.1013/",
+        "full_text": "https://arxiv.org/html/2506.10231v1"
+      },
+      "citation": {
+        "key": "brei2025tuna",
+        "type": "inproceedings",
+        "year": 2025,
+        "venue": "ACL",
+        "doi": "10.18653/v1/2025.acl-long.1013",
+        "pages": "20766–20791"
+      },
+      "read_depth": {
+        "level": "targeted_full_text_and_canonical_record",
+        "sections": [
+          "definitions",
+          "dataset",
+          "annotation",
+          "limitations"
+        ],
+        "notes": "Primary full-text definitions inspected in earlier project review; canonical record rechecked October 21."
+      },
+      "closest_claim": "Narrative reliability requires contextual interpretation.",
+      "overlap": "Narrator reliability classification is established; it does not label factual correctness or maliciousness.",
+      "limitations": "The task concerns unintentional misrepresentation, not an agent security oracle.",
+      "what_we_borrow": "Invite expert construct/annotation review rather than transplant narrator labels.",
+      "discriminating_test": null,
+      "source_quality_notes": [
+        "No individual contribution or personal incentive inferred from authorship."
+      ],
+      "organizations": {
+        "verification": "unknown",
+        "affiliations": [],
+        "source_url": null
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "brei2026casper",
+      "title": "CASPER in the Machine: Insights into Character Variety in LLM-Generated Stories",
+      "authors": [
+        "Anneliese Brei",
+        "Abhisheik Sharma",
+        "Nicholas Sanaie",
+        "Lu Wang",
+        "Snigdha Chaturvedi"
+      ],
+      "publication_date": "2026-07",
+      "date_precision": "month",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://aclanthology.org/2026.acl-long.675/",
+        "full_text": "https://aclanthology.org/2026.acl-long.675.pdf"
+      },
+      "citation": {
+        "key": "brei2026casper",
+        "type": "inproceedings",
+        "year": 2026,
+        "venue": "ACL",
+        "doi": "10.18653/v1/2026.acl-long.675",
+        "pages": "14815–14840"
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "1",
+          "3.1",
+          "3.3"
+        ]
+      },
+      "closest_claim": "Literary constructs can be operationalized and checked against expert judgments.",
+      "overlap": "This is methodological background, not a correction or security predecessor.",
+      "limitations": "Character portrayal categories do not establish interests in this proposed task.",
+      "what_we_borrow": "Validate constructs and paired materials against human judgments.",
+      "discriminating_test": null,
+      "source_quality_notes": [],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "University of North Carolina at Chapel Hill",
+            "authors": [
+              "Anneliese Brei",
+              "Nicholas Sanaie",
+              "Snigdha Chaturvedi"
+            ]
+          },
+          {
+            "organization": "Georgia Institute of Technology",
+            "authors": [
+              "Abhisheik Sharma"
+            ]
+          },
+          {
+            "organization": "University of Michigan",
+            "authors": [
+              "Lu Wang"
+            ]
+          }
+        ],
+        "source_url": "https://aclanthology.org/2026.acl-long.675.pdf"
+      },
+      "artifact": {
+        "status": "not_checked",
+        "url": null
+      }
+    },
+    {
+      "id": "hou2026creativityprism",
+      "title": "CreativityPrism: A Cross-Domain Evaluation Framework for Large Language Model Creativity",
+      "authors": [
+        "Zhaoyi Joey Hou",
+        "Bowei Alvin Zhang",
+        "Yining Lu",
+        "Bhiman Kumar Baghel",
+        "Anneliese Brei",
+        "Ximing Lu",
+        "Meng Jiang",
+        "Faeze Brahman",
+        "Snigdha Chaturvedi",
+        "Haw-Shiuan Chang",
+        "Daniel Khashabi",
+        "Xiang Lorraine Li"
+      ],
+      "publication_date": "2026-07-01",
+      "date_precision": "day",
+      "retrieved_on": "2026-10-21",
+      "urls": {
+        "primary": "https://arxiv.org/abs/2510.20091",
+        "full_text": "https://arxiv.org/html/2510.20091v3"
+      },
+      "citation": {
+        "key": "hou2026creativityprism",
+        "type": "article",
+        "year": 2026,
+        "arxiv": "2510.20091",
+        "version": "v3",
+        "venue": "TMLR, as listed by author publication pages; OpenReview fetch blocked",
+        "doi": null,
+        "date_basis": "v3 date, not first arXiv submission"
+      },
+      "read_depth": {
+        "level": "targeted_full_text",
+        "sections": [
+          "3",
+          "4.2",
+          "Appendix D",
+          "limitations"
+        ]
+      },
+      "closest_claim": "Evaluation dimensions and automated-judge validity need separate checks.",
+      "overlap": "Multidimensional measurement and human-judge validation are established.",
+      "limitations": "Creativity outcomes do not validate evidence-support judgments.",
+      "what_we_borrow": "Keep support, correctness, utility and cost separate; independently calibrate judges.",
+      "discriminating_test": null,
+      "source_quality_notes": [
+        "Use v3 title/eight-task specification, not older nine-task abstract.",
+        "Only affiliations unambiguously attached in HTML are recorded.",
+        "The paper-linked OpenReview record returned a browser-verification challenge; acceptance details were not independently read there."
+      ],
+      "organizations": {
+        "verification": "paper_author_line_verified",
+        "affiliations": [
+          {
+            "organization": "University of North Carolina at Chapel Hill",
+            "authors": [
+              "Anneliese Brei",
+              "Snigdha Chaturvedi"
+            ]
+          },
+          {
+            "organization": "Johns Hopkins University",
+            "authors": [
+              "Bowei Alvin Zhang",
+              "Daniel Khashabi"
+            ]
+          },
+          {
+            "organization": "University of Notre Dame",
+            "authors": [
+              "Yining Lu",
+              "Meng Jiang"
+            ]
+          },
+          {
+            "organization": "University of Pittsburgh",
+            "authors": [
+              "Bhiman Kumar Baghel"
+            ]
+          },
+          {
+            "organization": "University of Washington",
+            "authors": [
+              "Ximing Lu"
+            ]
+          },
+          {
+            "organization": "Allen Institute for Artificial Intelligence",
+            "authors": [
+              "Faeze Brahman"
+            ]
+          },
+          {
+            "organization": "University of Massachusetts Amherst",
+            "authors": [
+              "Haw-Shiuan Chang"
+            ]
+          }
+        ],
+        "source_url": "https://arxiv.org/html/2510.20091v3"
+      },
+      "artifact": {
+        "status": "paper_project_link_not_executed",
+        "url": "https://joeyhou.github.io/CreativityPrism/"
+      }
+    }
+  ]
+}

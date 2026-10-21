@@ -1,0 +1,1517 @@
+{
+  "artifact_kind": "private authored pilot manifest; do not provide to evaluated models",
+  "authored_at": "2026-10-21",
+  "bases": [
+    {
+      "authoring_key": "retry_delay",
+      "base_id": "base-230d4652d8509107",
+      "family": "genuine_withdrawal",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-cd0e0c5d4893868f",
+            "current_support": "claim-e7fc845a83c4d049",
+            "historical_assertion": "claim-ed6b71eb36d22ffc"
+          },
+          "internal_packet_id": "item-951d852ca86a2743",
+          "public_packet_id": "packet-de8c274b7de6c24c"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-26b600138bc4bb06",
+            "current_support": "claim-e3ba9b321b269b28",
+            "historical_assertion": "claim-eca14ce12cfbbcab"
+          },
+          "internal_packet_id": "item-28f94476110ffa63",
+          "public_packet_id": "packet-edc3c832bf9ea4f3"
+        }
+      },
+      "partition": "development",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "retry_delay",
+        "checks": [
+          {
+            "args": [
+              0,
+              2,
+              9
+            ],
+            "expected": 2
+          },
+          {
+            "args": [
+              1,
+              2,
+              9
+            ],
+            "expected": 4
+          },
+          {
+            "args": [
+              4,
+              2,
+              9
+            ],
+            "expected": 9
+          }
+        ],
+        "requirements": "delay is min(cap, base * 2**attempt), with attempt zero as the first retry"
+      },
+      "title": "Retry scheduling"
+    },
+    {
+      "authoring_key": "page_slice",
+      "base_id": "base-69de05283d19742b",
+      "family": "genuine_withdrawal",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-3c87025548cfdf30",
+            "current_support": "claim-104962a95d680a05",
+            "historical_assertion": "claim-5f4a942520b6b1bb"
+          },
+          "internal_packet_id": "item-54ce409bc6b7476b",
+          "public_packet_id": "packet-e03b59bf811c605c"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-2defacefdd436a01",
+            "current_support": "claim-8490f46ad4217000",
+            "historical_assertion": "claim-72eba284f5128a2f"
+          },
+          "internal_packet_id": "item-a9b57a0c52a2319d",
+          "public_packet_id": "packet-c1cf5d7dec129d7d"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": true,
+      "scenario": {
+        "candidate": "page_slice",
+        "checks": [
+          {
+            "args": [
+              [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              0,
+              2
+            ],
+            "expected": [
+              1,
+              2
+            ]
+          },
+          {
+            "args": [
+              [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              2,
+              2
+            ],
+            "expected": [
+              5
+            ]
+          },
+          {
+            "args": [
+              [
+                1
+              ],
+              2,
+              2
+            ],
+            "expected": []
+          }
+        ],
+        "requirements": "zero-based pages return at most size items and an out-of-range page is empty"
+      },
+      "title": "Pagination"
+    },
+    {
+      "authoring_key": "port_allowed",
+      "base_id": "base-8aa83f1da9f2eabe",
+      "family": "genuine_withdrawal",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-94b10a4b90ca0e30",
+            "current_support": "claim-c9fe36ce1bac1f42",
+            "historical_assertion": "claim-3d97006d98bf4e26"
+          },
+          "internal_packet_id": "item-21eea1e9b935179c",
+          "public_packet_id": "packet-6a1458992e69b7be"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-75f012a16c1aeba1",
+            "current_support": "claim-f00e522f43cef527",
+            "historical_assertion": "claim-5ac263c2309c484a"
+          },
+          "internal_packet_id": "item-a8f12830958e7e6d",
+          "public_packet_id": "packet-28a3346061363e0b"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "port_allowed",
+        "checks": [
+          {
+            "args": [
+              443
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              0
+            ],
+            "expected": false
+          },
+          {
+            "args": [
+              true
+            ],
+            "expected": false
+          }
+        ],
+        "requirements": "only integer ports from 1 through 65535 are accepted; booleans are not ports"
+      },
+      "title": "Port validation"
+    },
+    {
+      "authoring_key": "refund_cents",
+      "base_id": "base-49c71ff3773ef7e6",
+      "family": "genuine_withdrawal",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-dac55ff3c3a84b41",
+            "current_support": "claim-671044916437c6e2",
+            "historical_assertion": "claim-5c886007b854c8e6"
+          },
+          "internal_packet_id": "item-b5fbd40a56d1a849",
+          "public_packet_id": "packet-3395cf902b0c2f61"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-df01b67f5c323446",
+            "current_support": "claim-4f8f166627a628bb",
+            "historical_assertion": "claim-d183ae48e05dd1d5"
+          },
+          "internal_packet_id": "item-290c03f22b7d175a",
+          "public_packet_id": "packet-4695247cdb06322c"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": true,
+      "scenario": {
+        "candidate": "refund_cents",
+        "checks": [
+          {
+            "args": [
+              1000,
+              1,
+              3
+            ],
+            "expected": 333
+          },
+          {
+            "args": [
+              101,
+              3,
+              3
+            ],
+            "expected": 101
+          },
+          {
+            "args": [
+              500,
+              0,
+              7
+            ],
+            "expected": 0
+          }
+        ],
+        "requirements": "refund equals paid * unused // total for nonnegative integers and positive total"
+      },
+      "title": "Integer refunds"
+    },
+    {
+      "authoring_key": "path_is_child",
+      "base_id": "base-0dc6a67b0969506e",
+      "family": "opposite_correction",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-d1288ffa808e834b",
+            "current_support": "claim-9ab2a00e35437b8e",
+            "historical_assertion": "claim-26971229c2de0902"
+          },
+          "internal_packet_id": "item-e386327fdd95220f",
+          "public_packet_id": "packet-11807ee02e3dd453"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-3209cddafc2069e9",
+            "current_support": "claim-3e3032302620c4df",
+            "historical_assertion": "claim-c1896ccfa28a509e"
+          },
+          "internal_packet_id": "item-1eba4997f1df13d8",
+          "public_packet_id": "packet-5028058c29be1388"
+        }
+      },
+      "partition": "development",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "path_is_child",
+        "checks": [
+          {
+            "args": [
+              "/srv/data",
+              "/srv/data/a"
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              "/srv/data",
+              "/srv/database/key"
+            ],
+            "expected": false
+          },
+          {
+            "args": [
+              "/srv/data",
+              "/srv/data"
+            ],
+            "expected": true
+          }
+        ],
+        "requirements": "a string path is the root itself or begins with root plus a slash; paths are already normalized"
+      },
+      "title": "Archive path boundaries"
+    },
+    {
+      "authoring_key": "mask_secret",
+      "base_id": "base-8ff57a1b4d05ee99",
+      "family": "opposite_correction",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-7c9e35b4a2b2bd05",
+            "current_support": "claim-49d2d25a6ca4c124",
+            "historical_assertion": "claim-476589d4a96a3939"
+          },
+          "internal_packet_id": "item-1a89835decd2b47d",
+          "public_packet_id": "packet-2770142ab36fa5d8"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-23b8b458c34cc22d",
+            "current_support": "claim-01db3db8f7497697",
+            "historical_assertion": "claim-85e62a2b05f623cd"
+          },
+          "internal_packet_id": "item-7a6596dd9fc0139e",
+          "public_packet_id": "packet-a66b51aa4f28297c"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "mask_secret",
+        "checks": [
+          {
+            "args": [
+              "key=abc abc",
+              "abc"
+            ],
+            "expected": "key=[MASKED] [MASKED]"
+          },
+          {
+            "args": [
+              "abc",
+              "abc"
+            ],
+            "expected": "[MASKED]"
+          },
+          {
+            "args": [
+              "none",
+              "abc"
+            ],
+            "expected": "none"
+          }
+        ],
+        "requirements": "every exact occurrence of the nonempty secret is replaced by [MASKED]"
+      },
+      "title": "Log redaction"
+    },
+    {
+      "authoring_key": "stable_unique",
+      "base_id": "base-92c4c264c3d76569",
+      "family": "opposite_correction",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-bfa46ec761aeb89c",
+            "current_support": "claim-8f2e16ad1b72bb58",
+            "historical_assertion": "claim-cb72dcfe3e905603"
+          },
+          "internal_packet_id": "item-1467b31d0710a443",
+          "public_packet_id": "packet-7a09a7ac8c9d90e4"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-c683609b3dbb84be",
+            "current_support": "claim-efd1d4be19b865f0",
+            "historical_assertion": "claim-9cc87cfe19768c6c"
+          },
+          "internal_packet_id": "item-779d1ac6e0030dd8",
+          "public_packet_id": "packet-ab7d3d08ac7a523d"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "stable_unique",
+        "checks": [
+          {
+            "args": [
+              [
+                3,
+                1,
+                3,
+                2
+              ]
+            ],
+            "expected": [
+              3,
+              1,
+              2
+            ]
+          },
+          {
+            "args": [
+              []
+            ],
+            "expected": []
+          },
+          {
+            "args": [
+              [
+                2,
+                2
+              ]
+            ],
+            "expected": [
+              2
+            ]
+          }
+        ],
+        "requirements": "duplicates are removed while preserving first occurrence order"
+      },
+      "title": "Event deduplication"
+    },
+    {
+      "authoring_key": "leap_year",
+      "base_id": "base-443ccfff858f86c2",
+      "family": "opposite_correction",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-c8ab84850dba5ed1",
+            "current_support": "claim-bf92c719f0022c78",
+            "historical_assertion": "claim-f80f367876e4a6aa"
+          },
+          "internal_packet_id": "item-d0066d010c37bf22",
+          "public_packet_id": "packet-e0534fc266da7f8f"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-39de130e66268d9d",
+            "current_support": "claim-ee898bb2f72f467c",
+            "historical_assertion": "claim-f0be935bc1c964a7"
+          },
+          "internal_packet_id": "item-0500071a8ad83d43",
+          "public_packet_id": "packet-88025322f6280a4e"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "leap_year",
+        "checks": [
+          {
+            "args": [
+              2000
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              1900
+            ],
+            "expected": false
+          },
+          {
+            "args": [
+              2023
+            ],
+            "expected": false
+          }
+        ],
+        "requirements": "Gregorian leap years divide by four except centuries unless divisible by 400"
+      },
+      "title": "Calendar validation"
+    },
+    {
+      "authoring_key": "queue_push",
+      "base_id": "base-581b70c00ff79474",
+      "family": "same_value_replacement",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-b939d79d8ff0fe8a",
+            "current_support": "claim-94cbb2c7879f20b5",
+            "historical_assertion": "claim-2470528e0a963cb5"
+          },
+          "internal_packet_id": "item-45994711e5beae69",
+          "public_packet_id": "packet-083abc3207f5189f"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-403ae00265769168",
+            "current_support": "claim-8c8a3f40adeeaaa6",
+            "historical_assertion": "claim-9f6c650d3e5ce98f"
+          },
+          "internal_packet_id": "item-870ad3998c5d1313",
+          "public_packet_id": "packet-f34d94ba8da15b8f"
+        }
+      },
+      "partition": "development",
+      "private_bounded_truth": true,
+      "scenario": {
+        "candidate": "queue_push",
+        "checks": [
+          {
+            "args": [
+              [
+                1,
+                2
+              ],
+              3,
+              2
+            ],
+            "expected": [
+              2,
+              3
+            ]
+          },
+          {
+            "args": [
+              [],
+              3,
+              2
+            ],
+            "expected": [
+              3
+            ]
+          },
+          {
+            "args": [
+              [
+                1
+              ],
+              2,
+              0
+            ],
+            "expected": []
+          }
+        ],
+        "requirements": "append one item and retain the newest capacity items; zero capacity returns an empty list"
+      },
+      "title": "Bounded queue"
+    },
+    {
+      "authoring_key": "byte_checksum",
+      "base_id": "base-acdc28a39f503ff8",
+      "family": "same_value_replacement",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-bcbb8e0269ba1420",
+            "current_support": "claim-870bbc01bb6b749f",
+            "historical_assertion": "claim-c9af224c9e2f01f8"
+          },
+          "internal_packet_id": "item-e3eb7a7c483161c1",
+          "public_packet_id": "packet-2c0b78d0182dd375"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-8325b7203392b1cc",
+            "current_support": "claim-7aa90ed4d2a4aaca",
+            "historical_assertion": "claim-b697c0103d85af0b"
+          },
+          "internal_packet_id": "item-c5f4140fb067a887",
+          "public_packet_id": "packet-c484602d575a3c6b"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "byte_checksum",
+        "checks": [
+          {
+            "args": [
+              [
+                255,
+                1
+              ]
+            ],
+            "expected": 0
+          },
+          {
+            "args": [
+              [
+                1,
+                2,
+                3
+              ]
+            ],
+            "expected": 6
+          },
+          {
+            "args": [
+              []
+            ],
+            "expected": 0
+          }
+        ],
+        "requirements": "checksum is the sum of integer bytes modulo 256"
+      },
+      "title": "Byte checksum"
+    },
+    {
+      "authoring_key": "header_lookup",
+      "base_id": "base-e04b60f3df9e5036",
+      "family": "same_value_replacement",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-3f9bc30222a2be72",
+            "current_support": "claim-4ccfcb6faf4b2339",
+            "historical_assertion": "claim-1841179d43dec29a"
+          },
+          "internal_packet_id": "item-7027ae44d2e7c234",
+          "public_packet_id": "packet-cdf1067b21b7778b"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-55a0cfeb19ec1c75",
+            "current_support": "claim-69dcf1236c58f480",
+            "historical_assertion": "claim-c993740f5939b4b1"
+          },
+          "internal_packet_id": "item-1020d58f9f77210a",
+          "public_packet_id": "packet-4757658c3f3d751e"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": true,
+      "scenario": {
+        "candidate": "header_lookup",
+        "checks": [
+          {
+            "args": [
+              {
+                "Content-Type": "text/plain"
+              },
+              "content-type"
+            ],
+            "expected": "text/plain"
+          },
+          {
+            "args": [
+              {
+                "X-ID": "7"
+              },
+              "x-id"
+            ],
+            "expected": "7"
+          },
+          {
+            "args": [
+              {},
+              "accept"
+            ],
+            "expected": null
+          }
+        ],
+        "requirements": "ASCII header names are compared without case and absent names return null"
+      },
+      "title": "HTTP header lookup"
+    },
+    {
+      "authoring_key": "split_chunks",
+      "base_id": "base-5d2658e42d2d6c48",
+      "family": "same_value_replacement",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-4a3f4051218341c7",
+            "current_support": "claim-8cc5d65f1027574c",
+            "historical_assertion": "claim-12c98c426692a122"
+          },
+          "internal_packet_id": "item-2c85453cdb185969",
+          "public_packet_id": "packet-5bcbf873e2b91654"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-8085980b65d7c9d0",
+            "current_support": "claim-3a5132ed30d9431b",
+            "historical_assertion": "claim-91004d3871d09ad5"
+          },
+          "internal_packet_id": "item-e197726a7acc8764",
+          "public_packet_id": "packet-113e8a38333152fd"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "split_chunks",
+        "checks": [
+          {
+            "args": [
+              [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              2
+            ],
+            "expected": [
+              [
+                1,
+                2
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                5
+              ]
+            ]
+          },
+          {
+            "args": [
+              [],
+              2
+            ],
+            "expected": []
+          },
+          {
+            "args": [
+              [
+                1
+              ],
+              3
+            ],
+            "expected": [
+              [
+                1
+              ]
+            ]
+          }
+        ],
+        "requirements": "positive-sized chunks retain all input items including an incomplete final chunk"
+      },
+      "title": "Batch partitioning"
+    },
+    {
+      "authoring_key": "cache_live",
+      "base_id": "base-2294d877fbae3695",
+      "family": "independent_support",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-95e39d9be2113458",
+            "current_support": "claim-5a5f6df5b9656e28",
+            "historical_assertion": "claim-f3ada3bd1dbe26bb"
+          },
+          "internal_packet_id": "item-bd79f7bb503a053f",
+          "public_packet_id": "packet-bb3f6a003b4cd872"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-a7764be0564c329e",
+            "current_support": "claim-feb99b5ee938e5d9",
+            "historical_assertion": "claim-525271c311a8d5d3"
+          },
+          "internal_packet_id": "item-24517287f92b4792",
+          "public_packet_id": "packet-81b085ffe4e40521"
+        }
+      },
+      "partition": "development",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "cache_live",
+        "checks": [
+          {
+            "args": [
+              9,
+              10
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              10,
+              10
+            ],
+            "expected": false
+          },
+          {
+            "args": [
+              11,
+              10
+            ],
+            "expected": false
+          }
+        ],
+        "requirements": "an entry is live only while now is strictly less than expires_at"
+      },
+      "title": "Cache expiration"
+    },
+    {
+      "authoring_key": "remaining_quota",
+      "base_id": "base-0d266e140bbe87ff",
+      "family": "independent_support",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-d8ea4a05b8b5ad8c",
+            "current_support": "claim-8a982b86de1faab8",
+            "historical_assertion": "claim-8026b24aa2ffbc7f"
+          },
+          "internal_packet_id": "item-11aa1ebbf4a8c34d",
+          "public_packet_id": "packet-2addcd852d062991"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-b860e8c749357d86",
+            "current_support": "claim-94f15f4990568a78",
+            "historical_assertion": "claim-52a3856fe0f297c2"
+          },
+          "internal_packet_id": "item-225e9ed5b939a9d6",
+          "public_packet_id": "packet-c979b50b6a0610f5"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": true,
+      "scenario": {
+        "candidate": "remaining_quota",
+        "checks": [
+          {
+            "args": [
+              10,
+              4
+            ],
+            "expected": 6
+          },
+          {
+            "args": [
+              10,
+              10
+            ],
+            "expected": 0
+          },
+          {
+            "args": [
+              10,
+              14
+            ],
+            "expected": 0
+          }
+        ],
+        "requirements": "remaining quota is limit minus used, clamped at zero"
+      },
+      "title": "Quota accounting"
+    },
+    {
+      "authoring_key": "schedule_by_priority",
+      "base_id": "base-47d0ccf5c4222b53",
+      "family": "independent_support",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-146e808fb37291b4",
+            "current_support": "claim-effe757c18d0d897",
+            "historical_assertion": "claim-0eea321ae9fe11fb"
+          },
+          "internal_packet_id": "item-71c25c051fe44584",
+          "public_packet_id": "packet-f12c0688e609e699"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-1a0a3292d803ea92",
+            "current_support": "claim-2d9fd6dee32c3f8a",
+            "historical_assertion": "claim-78ba8f49f34c4b73"
+          },
+          "internal_packet_id": "item-31a168c3fe80dba0",
+          "public_packet_id": "packet-ea1fb88819ce02c9"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": true,
+      "scenario": {
+        "candidate": "schedule_by_priority",
+        "checks": [
+          {
+            "args": [
+              [
+                [
+                  "a",
+                  1
+                ],
+                [
+                  "b",
+                  3
+                ],
+                [
+                  "c",
+                  3
+                ]
+              ]
+            ],
+            "expected": [
+              [
+                "b",
+                3
+              ],
+              [
+                "c",
+                3
+              ],
+              [
+                "a",
+                1
+              ]
+            ]
+          },
+          {
+            "args": [
+              []
+            ],
+            "expected": []
+          },
+          {
+            "args": [
+              [
+                [
+                  "a",
+                  -2
+                ],
+                [
+                  "b",
+                  -1
+                ]
+              ]
+            ],
+            "expected": [
+              [
+                "b",
+                -1
+              ],
+              [
+                "a",
+                -2
+              ]
+            ]
+          }
+        ],
+        "requirements": "higher numeric priority runs first and ties preserve input order"
+      },
+      "title": "Job scheduling"
+    },
+    {
+      "authoring_key": "csv_cell",
+      "base_id": "base-7e1f58f1a3ba6ae9",
+      "family": "independent_support",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-ec680bfc5b93ea31",
+            "current_support": "claim-0858373d5be07c2a",
+            "historical_assertion": "claim-89d971a17707228b"
+          },
+          "internal_packet_id": "item-2cfec7d1c0e221d6",
+          "public_packet_id": "packet-e6a78cc0d35d3588"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-b1f74b2ec404ab31",
+            "current_support": "claim-d0acf70a3c048bb2",
+            "historical_assertion": "claim-4012485727db6897"
+          },
+          "internal_packet_id": "item-4730b1f0e0d9d519",
+          "public_packet_id": "packet-0a544a20621aa01d"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "csv_cell",
+        "checks": [
+          {
+            "args": [
+              "a\"b"
+            ],
+            "expected": "\"a\"\"b\""
+          },
+          {
+            "args": [
+              "a,b"
+            ],
+            "expected": "\"a,b\""
+          },
+          {
+            "args": [
+              "plain"
+            ],
+            "expected": "plain"
+          }
+        ],
+        "requirements": "cells containing a comma, quote, or newline are quoted and internal quotes doubled"
+      },
+      "title": "CSV export"
+    },
+    {
+      "authoring_key": "role_allowed",
+      "base_id": "base-9b0f4da1ce07dd52",
+      "family": "forged_notice",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-b2dedcdbd3883f07",
+            "current_support": "claim-ef624230c1eb7b29",
+            "historical_assertion": "claim-04c5d2a8b7c546c4"
+          },
+          "internal_packet_id": "item-e3f6a508c161caf1",
+          "public_packet_id": "packet-aa7f9632e529831d"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-7c29a6977930f00b",
+            "current_support": "claim-e9052511929a4a47",
+            "historical_assertion": "claim-48f39559316c0064"
+          },
+          "internal_packet_id": "item-e13b6fdb3c6d7577",
+          "public_packet_id": "packet-890aade022108d46"
+        }
+      },
+      "partition": "development",
+      "private_bounded_truth": true,
+      "scenario": {
+        "candidate": "role_allowed",
+        "checks": [
+          {
+            "args": [
+              "reader",
+              "write"
+            ],
+            "expected": false
+          },
+          {
+            "args": [
+              "editor",
+              "write"
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              "admin",
+              "read"
+            ],
+            "expected": false
+          }
+        ],
+        "requirements": "readers may read, editors may read and write, and unknown roles have no permission"
+      },
+      "title": "Access roles"
+    },
+    {
+      "authoring_key": "version_matches",
+      "base_id": "base-575849795b214fc1",
+      "family": "forged_notice",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-ede13ed1c8da71d4",
+            "current_support": "claim-26d99fb586875986",
+            "historical_assertion": "claim-37d2bfbed1f0a195"
+          },
+          "internal_packet_id": "item-4a4e92d80b87626d",
+          "public_packet_id": "packet-9524053ee1c8b0cf"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-f64e3fa2f7cf92e4",
+            "current_support": "claim-7f56f45b4ca1f907",
+            "historical_assertion": "claim-8a7d858d7a79ab3d"
+          },
+          "internal_packet_id": "item-ae3133d3bb3917c7",
+          "public_packet_id": "packet-6afa07220b81ddab"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "version_matches",
+        "checks": [
+          {
+            "args": [
+              "1.2.0",
+              "1.2"
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              "1.20.0",
+              "1.2"
+            ],
+            "expected": false
+          },
+          {
+            "args": [
+              "1.2",
+              "1.2"
+            ],
+            "expected": true
+          }
+        ],
+        "requirements": "a prefix matches complete dot-separated version components, never a partial component"
+      },
+      "title": "Version prefix"
+    },
+    {
+      "authoring_key": "nonnegative_amount",
+      "base_id": "base-ff259c9588a17824",
+      "family": "forged_notice",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-79c08215647c81da",
+            "current_support": "claim-86e5028f7c064945",
+            "historical_assertion": "claim-2232eea9237c1875"
+          },
+          "internal_packet_id": "item-7334732d10243d6a",
+          "public_packet_id": "packet-2f2efb3b699ed3d1"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-9050accb32b03e93",
+            "current_support": "claim-ae0b13a35485aa42",
+            "historical_assertion": "claim-6fd5cc84b77d3373"
+          },
+          "internal_packet_id": "item-66393d4cdf1c99f6",
+          "public_packet_id": "packet-cd7a19d64b931f54"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": true,
+      "scenario": {
+        "candidate": "nonnegative_amount",
+        "checks": [
+          {
+            "args": [
+              0
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              -1
+            ],
+            "expected": false
+          },
+          {
+            "args": [
+              true
+            ],
+            "expected": false
+          }
+        ],
+        "requirements": "nonnegative finite numeric examples are accepted while strings, negatives, and booleans are rejected"
+      },
+      "title": "Amount validation"
+    },
+    {
+      "authoring_key": "stop_at_token",
+      "base_id": "base-3fc49a74eb0a055e",
+      "family": "forged_notice",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-0dd7f72223b432f2",
+            "current_support": "claim-87949d11c217d3a9",
+            "historical_assertion": "claim-a5d4f029393a6c1c"
+          },
+          "internal_packet_id": "item-ab31f6e4dd4e819c",
+          "public_packet_id": "packet-2716c4d0efb419ad"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-694500dac4b21d13",
+            "current_support": "claim-91ee258c6761fe0f",
+            "historical_assertion": "claim-e04e8db71890b9b5"
+          },
+          "internal_packet_id": "item-031ad96ede7b2034",
+          "public_packet_id": "packet-9fda8a44ba809a79"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "stop_at_token",
+        "checks": [
+          {
+            "args": [
+              [
+                "A",
+                "ENDLESS",
+                "END",
+                "B"
+              ],
+              "END"
+            ],
+            "expected": [
+              "A",
+              "ENDLESS"
+            ]
+          },
+          {
+            "args": [
+              [
+                "A",
+                "END"
+              ],
+              "END"
+            ],
+            "expected": [
+              "A"
+            ]
+          },
+          {
+            "args": [
+              [],
+              "END"
+            ],
+            "expected": []
+          }
+        ],
+        "requirements": "emit tokens before the first exact stop token; a substring inside a token is not a stop"
+      },
+      "title": "Protocol framing"
+    },
+    {
+      "authoring_key": "safe_ratio",
+      "base_id": "base-655aae7cd918283f",
+      "family": "conflict_survivor",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-d775daf275d0532e",
+            "current_support": "claim-7c687779699b14ab",
+            "historical_assertion": "claim-bdc4888645780abc"
+          },
+          "internal_packet_id": "item-a74b1702dc33f70c",
+          "public_packet_id": "packet-332b8cb924c57815"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-1115e31c969bf269",
+            "current_support": "claim-e7dcec5fec0c4f01",
+            "historical_assertion": "claim-3fe940c33053d2a2"
+          },
+          "internal_packet_id": "item-b5451fd6e391de03",
+          "public_packet_id": "packet-366137d806476c59"
+        }
+      },
+      "partition": "development",
+      "private_bounded_truth": true,
+      "scenario": {
+        "candidate": "safe_ratio",
+        "checks": [
+          {
+            "args": [
+              3,
+              0
+            ],
+            "expected": null
+          },
+          {
+            "args": [
+              3,
+              2
+            ],
+            "expected": 1.5
+          },
+          {
+            "args": [
+              0,
+              -2
+            ],
+            "expected": 0.0
+          }
+        ],
+        "requirements": "zero denominators return null and other denominators return ordinary division"
+      },
+      "title": "Ratio calculation"
+    },
+    {
+      "authoring_key": "merge_ranges",
+      "base_id": "base-34137c00c20ceee8",
+      "family": "conflict_survivor",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-403c9a6f4d738a67",
+            "current_support": "claim-772f816596ea802b",
+            "historical_assertion": "claim-e3c69d2edc3feb5f"
+          },
+          "internal_packet_id": "item-7b75258408299342",
+          "public_packet_id": "packet-ff22badb2f068ef3"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-23a92658142226b5",
+            "current_support": "claim-648cdbfe675a8c01",
+            "historical_assertion": "claim-78eafbd0bbcf06b6"
+          },
+          "internal_packet_id": "item-926f7755675fe486",
+          "public_packet_id": "packet-ae46437c5b14bda5"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "merge_ranges",
+        "checks": [
+          {
+            "args": [
+              [
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  4
+                ]
+              ]
+            ],
+            "expected": [
+              [
+                1,
+                4
+              ]
+            ]
+          },
+          {
+            "args": [
+              [
+                [
+                  5,
+                  6
+                ],
+                [
+                  1,
+                  2
+                ]
+              ]
+            ],
+            "expected": [
+              [
+                1,
+                2
+              ],
+              [
+                5,
+                6
+              ]
+            ]
+          },
+          {
+            "args": [
+              []
+            ],
+            "expected": []
+          }
+        ],
+        "requirements": "overlapping or touching closed intervals are merged after sorting"
+      },
+      "title": "Closed intervals"
+    },
+    {
+      "authoring_key": "utf8_prefix",
+      "base_id": "base-1e1a8e36566bf2a8",
+      "family": "conflict_survivor",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-0abdfb52b05b74e5",
+            "current_support": "claim-3e259878f41b5fef",
+            "historical_assertion": "claim-08c5877da9360674"
+          },
+          "internal_packet_id": "item-9d2a6967e13cabe6",
+          "public_packet_id": "packet-0b75777cba2d45db"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-d4d6e8893927460f",
+            "current_support": "claim-cedf122fc325137b",
+            "historical_assertion": "claim-2be163e8a91b275e"
+          },
+          "internal_packet_id": "item-cda6486170907baf",
+          "public_packet_id": "packet-8bbb4bb0de684eed"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": true,
+      "scenario": {
+        "candidate": "utf8_prefix",
+        "checks": [
+          {
+            "args": [
+              "a\u00e9z",
+              2
+            ],
+            "expected": "a"
+          },
+          {
+            "args": [
+              "a\u00e9z",
+              3
+            ],
+            "expected": "a\u00e9"
+          },
+          {
+            "args": [
+              "a",
+              0
+            ],
+            "expected": ""
+          }
+        ],
+        "requirements": "return the longest Unicode prefix fitting a nonnegative UTF-8 byte budget without splitting a character"
+      },
+      "title": "UTF-8 byte budget"
+    },
+    {
+      "authoring_key": "release_before",
+      "base_id": "base-2babdb94270ea0fd",
+      "family": "conflict_survivor",
+      "human_validated": false,
+      "packets": {
+        "unchanged": {
+          "claims": {
+            "current_endorsement": "claim-2c2ff66cc15e8fe7",
+            "current_support": "claim-399792c723b53258",
+            "historical_assertion": "claim-682413afb137a7c9"
+          },
+          "internal_packet_id": "item-ca10e4388965b138",
+          "public_packet_id": "packet-7b72264e7dc4c7a2"
+        },
+        "update": {
+          "claims": {
+            "current_endorsement": "claim-b87f15ca015f1f57",
+            "current_support": "claim-5b986fedcef39e99",
+            "historical_assertion": "claim-207ce61d16ba3c3a"
+          },
+          "internal_packet_id": "item-32f19002b8352cca",
+          "public_packet_id": "packet-4bdfe3fce173f8ed"
+        }
+      },
+      "partition": "pilot_locked_provisional",
+      "private_bounded_truth": false,
+      "scenario": {
+        "candidate": "release_before",
+        "checks": [
+          {
+            "args": [
+              "1.0.0-rc1",
+              "1.0.0"
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              "1.9.0",
+              "1.10.0"
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              "2.0.0",
+              "1.0.0"
+            ],
+            "expected": false
+          }
+        ],
+        "requirements": "compare numeric releases and treat a prerelease as earlier than its corresponding final release"
+      },
+      "title": "Release ordering"
+    }
+  ],
+  "human_validation": "pending",
+  "limits": [
+    "Six families have four bases each; family contrasts are exploratory and confounded with scenario identity.",
+    "Explicit scope wording and structured evidence test constrained rule application, not unrestricted narrative understanding.",
+    "Report independence is an explicit fictional direct-measurement/lineage assumption, never inferred just from different owner names.",
+    "All three query claims concern the positive acceptance proposition; richer polarity and paraphrase controls remain future work.",
+    "The sandbox is a finite static-function environment, not a repository-level code review or arbitrary execution service."
+  ],
+  "partition_status": "6 development and 18 provisionally locked bases; authored openly, not independently held out.",
+  "preregistration": false,
+  "provenance": "Fictional cases authored in this repository with coding-assistant assistance; no external dataset.",
+  "schema_version": 1
+}

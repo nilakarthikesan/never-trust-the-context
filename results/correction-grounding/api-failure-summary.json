@@ -1,0 +1,22 @@
+{
+  "artifact_kind": "saved-run coverage and oracle diagnostics; missing outputs never imputed",
+  "complete": false,
+  "condition": "raw_history",
+  "input_sha256": {
+    "run_manifest": "b47be5fd0d60ea2d388f6555cd613b2338a6a5fdddc2051c8539780f546efaf1",
+    "run_summary": "7270e2158d5a203bddf81e7496d351c6c54754c99b70d49bd865a929ba1ff1a7",
+    "suite": "50bf69d1b893e73172d1f6cea7005e8699d128d5461cf2b424914b9a1da0780f"
+  },
+  "model_metrics": null,
+  "n_expected_packets": 48,
+  "n_valid_packets": 0,
+  "origin": "provider_http",
+  "outcome_counts": {
+    "provider_failure": 48
+  },
+  "prediction_coverage": 0.0,
+  "provider_requests": 48,
+  "reported_cost_usd_at_declared_rates": 0,
+  "requested_model": "gpt-4.1-mini-2025-04-14",
+  "unknown_failure_reservations_are_not_confirmed_charges": true
+}

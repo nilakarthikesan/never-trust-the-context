@@ -1,174 +1,60 @@
 # Never Trust the Context
 
-### A Biba-Grounded Zero-Trust Layer for Enterprise LLM Agents
+**Current study: After a correction, what still counts as evidence?**
 
-Working repository for the paper with Prof. Vijay Madisetti. Working title above; see [`outreach/thesis.md`](outreach/thesis.md) for the locked thesis.
+An agent should distinguish a source's historical report, its current endorsement, and the evidence currently admitted for a decision. Withdrawing a report preserves its history without establishing that the underlying claim is false. This repository implements a controlled diagnostic of those distinctions and a bounded code-review sandbox.
 
-We mesh two papers:
+The empirical thesis is **unconfirmed**. The October 21, 2026 model run returned 48 HTTP 429 failures and **zero predictions**; a minimal diagnostic identified unavailable API quota. The saved deterministic results test the harness, not language-model performance. See the [results and failure record](results/correction-grounding/README.md).
 
-- **CI-Work** (Fu et al., ACL 2026 Industry) — a benchmark showing enterprise LLM agents leak sensitive context (violation 15.8–50.9%), and that scaling/prompt defenses do not fix it. Repo cloned at `data/ACV/misc/CI-Work`.
-- **Tian & Song** (ISCID 2021) — a zero-trust access-control method combining Bell–LaPadula (confidentiality) and Biba (integrity) with per-component trust scores.
+## What is implemented
 
-**Thesis:** put a Biba + BLP **zero-trust policy layer at the agent's write boundary**. CI-Work only measures the confidentiality axis (leak / no-leak). We add the missing **integrity axis** (Biba no-write-up): low-trust retrieved context must not contaminate a high-integrity outbound artifact.
+- **Cases and labels:** 24 different program contracts, each with unchanged/update evidence packets: 48 packets and 144 scope judgments across six update families. These are openly authored provisional cases, with no independent human validation or held-out claim.
+- **Ground-truth separation:** a finite evidence oracle handles owner-scoped withdrawal/replacement and historical assertions. A separate sandbox actually executes 72 bounded acceptance checks. Source support is not a guarantee of program correctness.
+- **Model collection:** four conditions, public-input exports, explicit model snapshots, exact request/response records, request/cost budgets, failure circuits, hash-checked resume, and offline replay. Constrained bare-proposition reconstruction is a local diagnostic, not a reproduction of a published graph-regeneration method.
+- **Baselines and analysis:** two deliberately limited non-LLM evidence heuristics, four executable reference policies, strict scope/status/citation scoring, and paired analysis resampling whole base situations. Ordinary entailment and matched-call model comparators are still required.
+- **Research material:** [25-reference primary-source ledger](research/correction-grounding/references.json), [literature review](research/correction-grounding/literature.md), [labs and researchers map](research/correction-grounding/research-map.md), and a [first paper draft](paper/correction-grounding-draft.md).
 
-## Layout
+Start with the [research guide](research/correction-grounding/README.md), [review brief](research/correction-grounding/review-brief.md), and [four review examples](research/correction-grounding/review-cases.md). The [protocol](research/correction-grounding/protocol.md) states what would falsify or narrow the thesis.
 
-| Path | What |
-|---|---|
-| `notes/` | 1-page reading notes for both papers (+ confirmed CI-Work repo interface) |
-| `design/mapping-table.md` | The mesh: CI × BLP × Biba × ZT entity/rule mapping; the dual `C`/`I` labels |
-| `design/dual-labeled-examples.md` | CI-Work's two published cases fully dual-labeled (source for Figure 1) |
-| `design/pep-design.md` | The system: PIP / PDP / PEP, org lattice, initial-trust rule, enforcement modes |
-| `design/weight-calibration.md` | **Where every weight comes from.** Three tiers, `w_C`/`w_I` derived instead of hand-set, severity model, two implementation bugs |
-| `design/pr-review-benchmark.md` | Benchmark construction for the PR-review agent: rule precedence, the third entry class `E_corr`, entangled twins, worked seeds, null cases |
-| `design/pr-review-walkthrough.md` | One case traced end-to-end through BLP, Biba, and zero trust with real arithmetic; two counterfactuals |
-| `design/enforcement-mechanics.md` | How read-but-never-emit is actually enforced: the L0–L3 ladder, handle-mediated citation, Biba as action downgrade |
-| `outreach/thesis.md` | the locked thesis, falsifiable claim, paper skeleton |
-| `outreach/explain-simple.md` | the thesis in plain words (the lease story) + SafeLattice link |
-| `outreach/professor-thesis-note.md` | 1-page thesis note to send Prof. Madisetti |
-| `src/zt_pep/` | The policy layer implementation (PIP/PDP/PEP, metrics) |
-| `src/zt_pep/inline.py` | Inline enforcement: PDP *before* generation, so the writer never holds what it must not emit |
-| `eval/` | CI-Work adapter, offline fixtures, and the evaluation runner |
-| `eval/fixtures/pr_review_cases.json` | The PR-review suite: `ext-01`, `lat-01`, and the `null-01` over-blocking control |
-| `tests/` | Unit tests for the rules + dual-labeled cases |
-| `config/policy.example.yaml` | Tunable policy (every reported number traces here) |
-| `config/policy.pr-review.yaml` | PR-review policy with **derived** `w_C`/`w_I` and an artifact-level integrity rubric |
+## Run offline
 
-## Quick start (offline, no API key)
+Python 3.9 or later; the new correction workflow uses the standard library. The older policy walkthrough also needs PyYAML.
 
-```bash
-python3 tests/test_pdp.py            # 15 unit tests, incl. regressions for both fixed bugs
+```sh
+python3 -m pip install -e '.[test]'
+python3 tests/test_pdp.py
+python3 -m unittest discover -s tests -p 'test_*.py' -v
+python3 eval/correction_scope_demo.py validate
+python3 eval/build_correction_pilot.py validate
+python3 eval/verify_walkthrough.py
+```
+
+Create fresh outputs; the export/scoring commands refuse to overwrite previous runs:
+
+```sh
+python3 eval/run_correction_eval.py export   --suite eval/fixtures/correction_pilot.json --output-dir /tmp/correction-public
+python3 eval/run_correction_models.py heuristic   --prompts /tmp/correction-public/prompts.jsonl   --method initial_records_heuristic --output-dir /tmp/correction-control
+python3 eval/run_correction_eval.py score   --suite eval/fixtures/correction_pilot.json --export-dir /tmp/correction-public   --predictions /tmp/correction-control/predictions.jsonl   --output-dir /tmp/correction-control-scored   --source-label deterministic_heuristic_NOT_LLM
+python3 eval/analyze_correction_pilot.py   --metrics /tmp/correction-control-scored/metrics.json   --output /tmp/correction-control-paired.json
+python3 eval/build_correction_pilot.py reference-policies   --output /tmp/correction-reference-policies.json
+```
+
+## Run a model
+
+See the [model instructions](research/correction-grounding/README.md#model-collection) and [planned configurations](config/correction-study.json). Set your provider key in the environment; never put credentials in files or command arguments. Review a `plan` before an explicitly budgeted `run`. A key that lists models can still lack generation quota.
+
+Only exported public packets go to evaluated models. Files named fixtures, manifests, scored results, and analyses contain private grading labels; “private” here means withheld from the evaluated model, not a restricted-access file.
+
+## Research scope and collaboration
+
+Nila owns implementation, case construction, experiment operations, initial analysis, and the first draft. An initial scientific review can be limited to the definitions and four cases: do historical attribution, present endorsement, and surviving support have clear, reproducible grading rules? Collaborator participation and scientific ownership remain to be agreed.
+
+[Venue options](research/correction-grounding/venues.md) include SAFE at AAAI 2027 (November 2, 2026), ACL 2027 through ARR (January 4, 2027), and LangCode at NAACL (February 5, 2027). These are alternative routes; choose after pilot validation and check the venue's concurrent-submission rules.
+
+## Earlier policy prototype
+
+The existing BLP/Biba policy layer remains under [src/zt_pep](src/zt_pep), with its [design](design/pep-design.md), [worked example](design/pr-review-walkthrough.md), and [older IEEE manuscript](paper/main.tex). Its template-writer and keyword-judge scores are deterministic demonstrations, not measured LLM robustness. The walkthrough verifier now calls the production policy implementation, and the LLM redactor interface has an integration regression test. The older evaluation CLI's `--judge llm` changes the judge; it does not turn its template writer into a real model experiment.
+
+```sh
 python3 eval/run_eval.py --source fixture --judge keyword
-python3 eval/verify_walkthrough.py   # reproduces every number in the PR-review walkthrough (needs pyyaml)
 ```
-
-`verify_walkthrough.py` recomputes the PDP decisions for case `ext-01` under all three request
-configurations in `design/pr-review-walkthrough.md` and asserts them, so the prose cannot silently drift
-from `config/policy.pr-review.yaml`. It also fails if a regulated entry is ever released by the `θ`
-override, which is the §4.4 bug.
-
-Offline demo result (2 dual-labeled CI-Work cases, deterministic keyword judge):
-
-```
-                    LR     VR     CR     IL     IVR
-undefended         50.0  100.0  100.0   25.0   50.0
-zt_pep_posthoc      0.0    0.0  100.0    0.0    0.0   <- cuts leak AND contamination, keeps utility
-zt_pep_inline       0.0    0.0  100.0    0.0    0.0
-zt_pep_deny         0.0    0.0    0.0    0.0    0.0   <- naive "refuse": privacy at the cost of all utility
-```
-
-Post-hoc and inline are identical on these two cases because neither has an essential entry above the write
-ceiling. The PR-review suite below is where they diverge.
-
-`LR/VR/CR` are CI-Work's Leakage/Violation/Conveyance (confidentiality). `IL/IVR` are the **new** Integrity-Leakage / Integrity-Violation metrics (Biba).
-
-### PR-review suite (`design/pr-review-benchmark.md`)
-
-```bash
-python3 eval/run_eval.py --source fixture --path eval/fixtures/pr_review_cases.json \
-    --policy config/policy.pr-review.yaml --per-case
-```
-
-```
-                         LR      VR      CR      IL     IVR      PC
-undefended             38.89   66.67   91.67   83.33   100.0     0.0
-zt_pep_posthoc          0.0     0.0    83.33    0.0     0.0      0.0
-zt_pep_inline*          0.0     0.0    91.67    0.0     0.0    100.0
-zt_pep_deny             0.0     0.0     0.0     0.0     0.0      0.0
-
-per case (ext-01 is the only one with an essential entry above the ceiling):
-  ext-01   undefended      66.67  100.0   75.0   50.0
-           posthoc          0.0     0.0   50.0    0.0
-           inline*          0.0     0.0   75.0    0.0   PC=100
-  lat-01   undefended      50.0   100.0  100.0  100.0
-           posthoc          0.0     0.0  100.0    0.0
-  null-01  undefended       0.0     0.0  100.0  100.0
-           posthoc          0.0     0.0  100.0    0.0
-```
-
-`PC` is **paraphrase conveyance**: over essential entries that BLP puts above the write ceiling, the share
-whose label-checked abstract still reached the recipient. Reported separately from `CR` so `CR` stays
-strictly comparable to CI-Work — an abstract deliberately omits the entry's distinctive specifics, so the
-judge correctly scores the original as undisclosed.
-
-**The headline: inline enforcement recovers all of the conveyance post-hoc loses.** `CR` returns to 91.67,
-exactly the undefended figure, while `LR`, `VR`, `IL`, and `IVR` all sit at 0. Post-hoc gives up 8.3 points
-of conveyance because it can only *delete*: it cannot paraphrase `ext-01`'s above-ceiling API contract, and
-it cannot restore the finding the undefended agent dropped after believing the PR author's sign-off claim.
-Inline runs the PDP *before* generation, so the writer receives admitted entries verbatim, above-ceiling
-entries as abstracts, and never sees the five withheld entries at all.
-
-> \* The inline row uses the deterministic `TemplateWriter`, so it is the **ceiling the admission policy
-> permits**, not a model's achieved score. It answers "if the agent used exactly the admitted context and
-> nothing else, what would the metrics be?" — isolating policy quality from model behavior the same way
-> eval-mode ground-truth `C` isolates the PDP from labeler error. `LLMWriter` gives the achieved number and
-> needs API access.
-
-Read the per-case rows, not the aggregate. Under post-hoc, **the trade-off is beaten exactly when the
-essential set fits under the write ceiling** (`lat-01`) **and not otherwise** (`ext-01`). `null-01` is the
-control: zero false suppression, so `ext-01`'s drop is a real collision rather than over-blocking.
-
-> The offline `KeywordJudge`/`KeywordRedactor` are deterministic **stand-ins** for CI-Work's LLM-as-a-Judge and an LLM redactor. They key on distinctive numeric/money tokens and can be noisy on entangled shared numbers; the real evaluation uses the LLM judge (below). They exist so the whole pipeline runs and is testable with zero dependencies.
-
-## Real evaluation on CI-Work data
-
-1. Generate/obtain a CI-Work `formatted_trajectory.json` (see `data/ACV/misc/CI-Work/README.md`; needs Azure/OpenAI keys).
-2. Run with the LLM judge that reuses CI-Work's own templates:
-
-```bash
-export OPENAI_API_KEY=...   # and OPENAI_API_BASE for Azure
-python3 eval/run_eval.py --source formatted \
-  --path data/ACV/misc/CI-Work/data/trajectory/<model>/naive/ess4_sen4/formatted_trajectory.json \
-  --judge llm
-```
-
-## Fixed: two latent policy bugs
-
-Both were found while deriving the weights in `design/weight-calibration.md`, and both were reachable under
-the configuration the paper was about to adopt rather than the one already measured.
-
-- [x] **`labels.py` — content markers could override the source channel.** A high-integrity marker such as
-  `"approved"` raised `I` to 0.85 regardless of source, so an author-controlled PR description containing
-  that one word cleared the Biba check: our own integrity labeler being prompt-injected by the party under
-  review. Now the uplift is bounded by provenance (`max_content_uplift`) with an absolute
-  `author_controlled_ceiling` applied last. `"approved"` and `"final"` removed from the marker defaults.
-  Principle and code in `design/weight-calibration.md` §3.1.
-- [x] **`pdp.py` — the `θ` override could release regulated content.** The override applied to `DENY`, not
-  just `QUARANTINE`, with no floor. `Entry.regulated` and `Policy.hard_deny_floor` now hard-block above the
-  override. Measured across the planned `θ` sweep, the pre-fix code released a named-customer regulated
-  entry at every operating point from `θ = 0.2` upward; see the table in
-  `design/weight-calibration.md` §4.4.
-
-The offline demo numbers below are unchanged, because `DEFAULT_POLICY` (`w_C = 1.0`, `θ = 0.15`) never
-reached the override. That is a fact about the old configuration, not a defense of it. Regression coverage:
-`test_author_controlled_marker_cannot_raise_integrity`, `test_regulated_entry_never_released_by_theta`, and
-two paired tests pinning the behavior that must *not* change.
-
-## Status / human actions still needed
-
-- [ ] Obtain the full Tian–Song IEEE PDF (paywalled) to lock exact trust-score formulas.
-- [ ] Send `outreach/professor-thesis-note.md` to Prof. Madisetti; confirm thesis + venue.
-- [ ] Run the LLM-judge evaluation on a CI-Work subset (Upward + External first) once API access is set up.
-- [ ] Add Prompt-Defense and CI-CoT baselines (CI-Work Table 2) to the comparison table.
-- [x] Add the `corrupting` entry class to the schema; recompute `IL`/`IVR` over `E_corr` instead of
-  `sensitive + essential` (`design/pr-review-benchmark.md` §3). Cases with no `corrupting` set fall back to
-  the old derivation, so CI-Work numbers are unchanged.
-- [x] Write the PR-review cases into `eval/fixtures/pr_review_cases.json` so
-  `design/pr-review-walkthrough.md` is executable rather than hand-computed. This immediately falsified two
-  claims in that file — see its Stage 5.
-- [x] Add a null seed to measure false suppression (`null-01`). Result: zero false suppression, which is what
-  licenses reading `ext-01`'s `CR` drop as a real collision.
-- [x] Implement the **inline** deployment point so the PEP can regenerate rather than only delete
-  (`src/zt_pep/inline.py`). Recovers all 8.3 points of conveyance post-hoc loses, and adds the `PC`
-  paraphrase-conveyance metric for the L2 abstract path.
-- [ ] Add `VC` (verdict corruption, paired runs) and `GR` (grounding rate) — the only metrics that measure
-  contamination directly rather than by disclosure proxy. `IL` currently misses `ext-01/e9` entirely.
-- [ ] Run inline with `LLMWriter` to convert the policy-ceiling row into an achieved number, and report the
-  gap between them. That gap is the model's contribution to the remaining failure.
-- [ ] Adversarial reconstruction check on abstracts (`design/enforcement-mechanics.md` §4): prompt a model
-  with the abstract plus all admitted entries and confirm it cannot recover the restricted specifics.
-  Until this exists, `abstract_C` is an assumption rather than a measurement.
-- [ ] Scale the PR-review suite to ~100 seeds with ≥20% null, per `design/pr-review-benchmark.md` §7.
-- [ ] Run the inverse-scaling experiment (3 model sizes × L0/L1/L2). This is the strongest falsifiable
-  claim available: `design/enforcement-mechanics.md` §4 predicts the leakage-vs-size slope flattens under
-  handle-mediated citation, contradicting CI-Work's scaling result.

@@ -1,0 +1,193 @@
+{
+  "artifact_kind": "software_only_NONLLM_heuristic_controls_full_pipeline",
+  "code_sha256": {
+    "eval/analyze_correction_pilot.py": "d257e2004f4c77b3eb28bb8e1d3660a9ea8a125c9509b4448cf752b416c42fa2",
+    "eval/run_correction_models.py": "85f66df50644b5658abb1107060074b141e713dd8fc9d5873be500cbff121a01",
+    "src/zt_pep/correction_pilot.py": "67948d9e90506c64b45d3e03b8778e33feb35f0a5a05dc5f68ae727940ea30a9",
+    "src/zt_pep/correction_runner.py": "7ae183530bd1da00706052d5cbd5be23814deeba038ca5645348ab2453f9b28c"
+  },
+  "commands": [
+    [
+      "python3",
+      "eval/run_correction_eval.py",
+      "export",
+      "--suite",
+      "eval/fixtures/correction_pilot.json",
+      "--output-dir",
+      "results/correction-grounding/controls/public-inputs"
+    ],
+    [
+      "python3",
+      "eval/run_correction_models.py",
+      "heuristic",
+      "--prompts",
+      "results/correction-grounding/controls/public-inputs/prompts.jsonl",
+      "--output-dir",
+      "results/correction-grounding/controls/initial_records_heuristic/predictions",
+      "--method",
+      "initial_records_heuristic"
+    ],
+    [
+      "python3",
+      "eval/run_correction_eval.py",
+      "score",
+      "--suite",
+      "eval/fixtures/correction_pilot.json",
+      "--export-dir",
+      "results/correction-grounding/controls/public-inputs",
+      "--predictions",
+      "results/correction-grounding/controls/initial_records_heuristic/predictions/predictions.jsonl",
+      "--output-dir",
+      "results/correction-grounding/controls/initial_records_heuristic/scored",
+      "--prediction-origin",
+      "unspecified",
+      "--source-label",
+      "deterministic_heuristic_NOT_LLM:initial_records_heuristic"
+    ],
+    [
+      "python3",
+      "eval/analyze_correction_pilot.py",
+      "--metrics",
+      "results/correction-grounding/controls/initial_records_heuristic/scored/metrics.json",
+      "--output",
+      "results/correction-grounding/controls/initial_records_heuristic/paired-analysis.json",
+      "--bootstrap-samples",
+      "2000",
+      "--seed",
+      "1729"
+    ],
+    [
+      "python3",
+      "eval/run_correction_models.py",
+      "heuristic",
+      "--prompts",
+      "results/correction-grounding/controls/public-inputs/prompts.jsonl",
+      "--output-dir",
+      "results/correction-grounding/controls/latest_notice_heuristic/predictions",
+      "--method",
+      "latest_notice_heuristic"
+    ],
+    [
+      "python3",
+      "eval/run_correction_eval.py",
+      "score",
+      "--suite",
+      "eval/fixtures/correction_pilot.json",
+      "--export-dir",
+      "results/correction-grounding/controls/public-inputs",
+      "--predictions",
+      "results/correction-grounding/controls/latest_notice_heuristic/predictions/predictions.jsonl",
+      "--output-dir",
+      "results/correction-grounding/controls/latest_notice_heuristic/scored",
+      "--prediction-origin",
+      "unspecified",
+      "--source-label",
+      "deterministic_heuristic_NOT_LLM:latest_notice_heuristic"
+    ],
+    [
+      "python3",
+      "eval/analyze_correction_pilot.py",
+      "--metrics",
+      "results/correction-grounding/controls/latest_notice_heuristic/scored/metrics.json",
+      "--output",
+      "results/correction-grounding/controls/latest_notice_heuristic/paired-analysis.json",
+      "--bootstrap-samples",
+      "2000",
+      "--seed",
+      "1729"
+    ]
+  ],
+  "created_at_utc": "2026-10-21T11:34:43.015907+00:00",
+  "input_sha256": {
+    "eval/fixtures/correction_pilot.json": "50bf69d1b893e73172d1f6cea7005e8699d128d5461cf2b424914b9a1da0780f",
+    "eval/fixtures/correction_pilot_manifest.json": "619e51e780b45e473261b129ffffbe43de5adc253d3e61a6a17ca50ee9bf900e"
+  },
+  "limitations": [
+    "These are transparent software controls, not model performance or research evidence that an LLM intervention works.",
+    "Initial-records intentionally ignores all updates; latest-notice intentionally accepts notices without checking issuer authority.",
+    "Lexical source/scope matching covers these explicit templates and is not an unrestricted semantic parser.",
+    "Gold labels are used only by the scorer; heuristic generation consumes public exported packets.",
+    "Bootstrap intervals describe the small authored base-block sample, not population generalization or a preregistered test.",
+    "No model action or regeneration result is inferred from these scope/support scores."
+  ],
+  "model_calls": 0,
+  "n_bases": 24,
+  "n_claims_per_method": 144,
+  "n_packets_per_method": 48,
+  "origin": "deterministic_heuristic_NOT_LLM",
+  "output_sha256": {
+    "initial_records_heuristic/paired-analysis.json": "764a6964a7255278e1c46f6f77314c001738526a164af7d0b6c3fafaf64c26b3",
+    "initial_records_heuristic/predictions/predictions.jsonl": "6bd69fc09abb6c1b0e6136149efaac53d0147d9ff033455fbf413e66769c2ea3",
+    "initial_records_heuristic/predictions/run_manifest.json": "5cefad6e0ec7aae90b15e1fc512139295a6f602b4b7acb819c3dbed3527f0123",
+    "initial_records_heuristic/scored/metrics.json": "ca44746c5964b5de1ff3c0e0002212d73f19d107721e4afff06d6af529c8e2ea",
+    "initial_records_heuristic/scored/predictions.jsonl": "6bd69fc09abb6c1b0e6136149efaac53d0147d9ff033455fbf413e66769c2ea3",
+    "initial_records_heuristic/scored/run_manifest.json": "54c3c0292db4d74e2d2c6014a1af8cdb514fa09cba40bc352f5c8fc75e650f40",
+    "latest_notice_heuristic/paired-analysis.json": "7569c2d6d3d27cb4b9119fe502cd1ea39ad5571f18b9b2f95883ec28e6b919e3",
+    "latest_notice_heuristic/predictions/predictions.jsonl": "7b9efa95ce835d40c7da39c784cd26c16d194b8a40c27da529e36b21a7cba6ce",
+    "latest_notice_heuristic/predictions/run_manifest.json": "58819770953e7b876c2257305728731e869b021b9558475af141c4128f530e6f",
+    "latest_notice_heuristic/scored/metrics.json": "c9135ef6dc051e71c256ab702293cbc86371391dec19a21d0c31c7f5b6676c13",
+    "latest_notice_heuristic/scored/predictions.jsonl": "7b9efa95ce835d40c7da39c784cd26c16d194b8a40c27da529e36b21a7cba6ce",
+    "latest_notice_heuristic/scored/run_manifest.json": "95192396c48521992cdeaa6377afc3a8f687447b4a1c122dab41f03f836bcc68",
+    "public-inputs/export_manifest.json": "ec8fb008a1e3135bfdcd09b58f7b3727df32e76ab56aa8535e0ebca0464ee675",
+    "public-inputs/prompts.jsonl": "e2c0772efdb0f32a1e88858418d06a4c1e00242a72cd9cb4a6ded1f430d9b5ad"
+  },
+  "provider_requests": 0,
+  "reproduction_note": "Commands record the executed CLI workflow. Output creation refuses overwrite; reproduce in a new output root and consistently replace the results/correction-grounding/controls path.",
+  "scorer_origin_note": "The existing scoring CLI has no deterministic-control enum; scored run manifests use unspecified with the explicit deterministic_heuristic_NOT_LLM:<method> source label. Prediction manifests and this manifest identify the non-LLM origin.",
+  "summary": {
+    "initial_records_heuristic": {
+      "directional_status_errors": {
+        "opposed_claim_marked_supported": 8,
+        "supported_current_claim_marked_unsupported_or_opposed": 0,
+        "supported_history_marked_unsupported_or_opposed": 0,
+        "unsupported_claim_marked_supported": 16
+      },
+      "paired_status": {
+        "descriptive_base_bootstrap_95_interval": [
+          -0.4444444444444445,
+          -0.22222222222222224
+        ],
+        "paired_mean_change": -0.3333333333333333,
+        "unchanged_base_mean": 1.0,
+        "update_base_mean": 0.6666666666666665
+      },
+      "scope_status_scoring": {
+        "all_fields_correct_rate": 0.7222222222222222,
+        "claims_with_unknown_citations": 0,
+        "evidence_sets_exact_rate": 0.7222222222222222,
+        "n_claims": 144,
+        "n_packets": 48,
+        "scope_correct_rate": 1.0,
+        "scope_status_correct_rate": 0.8333333333333334,
+        "status_correct_rate": 0.8333333333333334
+      }
+    },
+    "latest_notice_heuristic": {
+      "directional_status_errors": {
+        "opposed_claim_marked_supported": 0,
+        "supported_current_claim_marked_unsupported_or_opposed": 8,
+        "supported_history_marked_unsupported_or_opposed": 0,
+        "unsupported_claim_marked_supported": 0
+      },
+      "paired_status": {
+        "descriptive_base_bootstrap_95_interval": [
+          -0.2222222222222223,
+          -0.02777777777777778
+        ],
+        "paired_mean_change": -0.11111111111111112,
+        "unchanged_base_mean": 1.0,
+        "update_base_mean": 0.8888888888888887
+      },
+      "scope_status_scoring": {
+        "all_fields_correct_rate": 0.9444444444444444,
+        "claims_with_unknown_citations": 0,
+        "evidence_sets_exact_rate": 0.9444444444444444,
+        "n_claims": 144,
+        "n_packets": 48,
+        "scope_correct_rate": 1.0,
+        "scope_status_correct_rate": 0.9444444444444444,
+        "status_correct_rate": 0.9444444444444444
+      }
+    }
+  }
+}

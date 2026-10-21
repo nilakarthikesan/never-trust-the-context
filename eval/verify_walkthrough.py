@@ -18,6 +18,9 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from zt_pep.policy import Policy  # noqa: E402
+from zt_pep.model import Entry, RequestContext, Decision  # noqa: E402
+from zt_pep.pdp import decide_entry  # noqa: E402
+from zt_pep.labels import required_outbound_integrity  # noqa: E402
 
 POLICY_PATH = os.path.join(os.path.dirname(__file__), "..", "config", "policy.pr-review.yaml")
 
@@ -34,14 +37,6 @@ ENTRIES = [
     ("e9", "corrupting", 0.05, 0.10, False),
 ]
 
-# capability -> lvl_I floor (design/weight-calibration.md §2.2)
-CAPABILITY_FLOOR = {
-    "comment": 0.40,
-    "request_changes": 0.55,
-    "approve": 0.70,
-    "approve_automerge": 0.85,
-}
-
 # The decisions each stage of the walkthrough claims.
 EXPECTED = {
     ("External", "comment"): {
@@ -51,7 +46,7 @@ EXPECTED = {
     },
     ("Downward", "comment"): {
         "e1": "ALLOW", "e2": "ALLOW", "e3": "ALLOW", "e4": "ALLOW",
-        "e5": "DENY", "e6": "DENY", "e7": "ALLOW",          # e7 released by theta
+        "e5": "DENY", "e6": "DENY", "e7": "DENY",          # hard-deny floor applies
         "e8": "QUARANTINE", "e9": "QUARANTINE",
     },
     ("External", "approve_automerge"): {
@@ -62,21 +57,12 @@ EXPECTED = {
 }
 
 
-def decide(C, I, clr, lvl, wC, wI, theta):
-    """Mirror of pdp.py::decide_entry, kept inline so this script has no import coupling."""
-    conf_ok = C <= clr
-    integ_ok = I >= lvl
-    risk = wC * max(0.0, C - clr) + wI * max(0.0, lvl - I)
-    if conf_ok and integ_ok:
-        decision = "ALLOW"
-    elif not conf_ok:
-        decision = "DENY"
-    else:
-        decision = "QUARANTINE"
-    released = False
-    if decision != "ALLOW" and risk <= theta:
-        decision, released = "ALLOW", True
-    return decision, risk, released
+def production_decision(row, direction, capability, policy):
+    """Exercise production policy instead of maintaining a duplicate decision rule."""
+    eid, kind, C, I, regulated = row
+    entry = Entry(eid, eid, kind=kind, C=C, I=I, regulated=regulated)
+    ctx = RequestContext(direction=direction, capability=capability)
+    return decide_entry(entry, ctx, policy)
 
 
 def main() -> int:
@@ -85,7 +71,8 @@ def main() -> int:
 
     for (direction, capability), expected in EXPECTED.items():
         clr = policy.clr_C(direction)
-        lvl = max(policy.lvl_I(direction), CAPABILITY_FLOOR[capability])
+        lvl = required_outbound_integrity(RequestContext(direction=direction,
+                                                        capability=capability), policy)
         wC = policy.w_C[direction]
         wI = policy.w_I[direction]
         theta = policy.theta[direction]
@@ -94,7 +81,9 @@ def main() -> int:
         print(f"clr_C={clr}  lvl_I={lvl}  w_C={wC}  w_I={wI}  theta={theta}")
 
         for eid, cls, C, I, regulated in ENTRIES:
-            decision, risk, released = decide(C, I, clr, lvl, wC, wI, theta)
+            result = production_decision((eid, cls, C, I, regulated), direction, capability, policy)
+            decision, risk = result.decision.value.upper(), result.risk
+            released = result.decision is Decision.ALLOW and not (result.conf_ok and result.integ_ok)
             want = expected[eid]
             ok = decision == want
             flag = "" if ok else f"   MISMATCH expected {want}"
@@ -119,7 +108,8 @@ def main() -> int:
     print(f"\n=== §4.4 margin check ===")
     print(f"e5 (regulated, named customer) under Downward: risk={risk_e5:.4f}, "
           f"margin over theta = {margin:+.4f}")
-    print(f"theta would only need to reach {risk_e5:.4f} to release it.")
+    print(f"Before the hard-deny fix, theta={risk_e5:.4f} could release it; "
+          "production now blocks regulated entries regardless of theta.")
     if margin > 0.05:
         print("NOTE: margin has widened; the §4.4 example in the walkthrough needs updating.")
 

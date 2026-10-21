@@ -1,0 +1,54 @@
+{
+  "artifact_kind": "planned configurations; not evidence that these runs succeeded",
+  "as_of": "2026-10-21",
+  "suite": "eval/fixtures/correction_pilot.json",
+  "pairing_manifest_WITHHOLD_FROM_MODELS": "eval/fixtures/correction_pilot_manifest.json",
+  "conditions": [
+    "raw_history",
+    "source_filtered_reread",
+    "regeneration_audit",
+    "source_support_audit"
+  ],
+  "shared_settings": {
+    "base_url": "https://api.openai.com/v1",
+    "temperature": 0.0,
+    "max_output_tokens": 800,
+    "max_retries": 0
+  },
+  "proposed_total_local_budget_usd": 5.0,
+  "budget_note": "Each CLI run has its own cap. The operator must keep the sum across runs below the total. Failed or unknown usage retains reservations; these are not confirmed charges.",
+  "models": [
+    {
+      "model": "gpt-4.1-mini-2025-04-14",
+      "input_price_per_million": 0.4,
+      "output_price_per_million": 1.6,
+      "official_source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+      "run_status": "raw_history attempted; zero outputs; insufficient quota; other conditions unrun",
+      "suggested_condition_budgets_usd": {
+        "raw_history": 0.25,
+        "source_filtered_reread": 0.25,
+        "regeneration_audit": 0.45,
+        "source_support_audit": 0.45
+      }
+    },
+    {
+      "model": "gpt-4.1-2025-04-14",
+      "input_price_per_million": 2.0,
+      "output_price_per_million": 8.0,
+      "official_source": "https://developers.openai.com/api/docs/models/gpt-4.1",
+      "run_status": "unrun",
+      "suggested_condition_budgets_usd": {
+        "raw_history": 0.7,
+        "source_filtered_reread": 0.7,
+        "regeneration_audit": 1.0,
+        "source_support_audit": 1.0
+      }
+    }
+  ],
+  "limitations": [
+    "Rates are caller-declared and time-specific; recheck before a future run.",
+    "These snapshots were listed by the configured API but generation quota was unavailable.",
+    "Successful complete reported usage releases excess reservations; missing usage retains them.",
+    "No model comparison, model action effect, or novelty claim is established."
+  ]
+}

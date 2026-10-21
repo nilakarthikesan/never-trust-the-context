@@ -226,23 +226,19 @@ private repo. `clr_C = 0.70`, `lvl_I = 0.45`, `w_C = 0.67`, `w_I = 0.60`, `θ = 
 | e4 | 0 (0.30 ≤ 0.70) | **ALLOW** | was DENY |
 | e5 | 0.67 × 0.25 = **0.1675** | DENY | margin over `θ` is 0.0175 |
 | e6 | 0.67 × 0.30 = 0.201 | DENY | — |
-| e7 | 0.67 × 0.15 = **0.1005** ≤ θ | **ALLOW** | was DENY, released by the threshold |
+| e7 | 0.67 × 0.15 = **0.1005** ≤ θ | **DENY** | C=0.85 exceeds the hard-deny floor |
 | e8, e9 | 0.60 × 0.35 = 0.21 | QUARANTINE | — |
 
-This is the zero-trust property made visible. **No label changed.** `C(e7)` is 0.85 in both runs. The
-roadmap entry became quotable because the audience changed, and the decision was recomputed from the
-request rather than read from a cache. Static BLP with administratively assigned labels cannot express
-this; it would need a different label per audience per entry.
+**No label changed.** Entry e4 becomes quotable because the recipient clearance changes. Entry e7
+remains denied: its confidentiality is above the hard-deny floor even though its weighted risk falls
+below the override threshold. The verifier now calls the production PDP instead of copying its rules.
 
 Two findings fall out:
 
 - **Integrity did not relax.** e8 and e9 stay quarantined internally. Familiarity of the audience is not
   evidence, which is the correct property and one that confidentiality-only defenses miss entirely.
-- **e5 survives on 0.0175 of margin.** A named-customer regulated disclosure is one `θ` adjustment away
-  from being emitted. If `θ` were 0.17 instead of 0.15, `pdp.py`'s threshold override would release it.
-  This is the concrete case for the bug fix in `design/weight-calibration.md` §4.4: rule 3 must sit above
-  the override, so regulated entries are never eligible for it at any `θ`. Until that lands, the safety of
-  this case is an accident of calibration.
+- **The hard-deny fix is active.** Before the fix, e5's 0.0175 threshold margin made protection depend
+  on calibration. Production now blocks regulated entries from the override at every threshold.
 
 ## Stage 7 — Counterfactual: identical request, more capability
 
@@ -274,7 +270,7 @@ Worth separating, because the paper's claim is that all three are load-bearing a
 |---|---|---|
 | **BLP** | The write ceiling and the read/write asymmetry: read at 0.9, emit at 0.2 | No principled basis for reading e5 while never emitting it — you get all-or-nothing access |
 | **Biba** | The integrity axis: e8/e9 quarantined, the e2 finding restored | Prompt injection is unmodelled; every confidentiality metric reads clean while the verdict is wrong |
-| **Zero trust** | Per-request recomputation and least-privilege scoping: e7 flips between runs, HR never connects | Labels get cached as "internal, therefore fine" and the Downward decision leaks into the External one |
+| **Zero trust** | Per-request decisions and least-privilege scoping: e4 changes with clearance, e7 remains hard-denied, HR never connects | A cached decision is reused for a different request |
 
 And the CI-Work contribution is the five directions, which supply `clr_C` — the single most consequential
 number in the whole trace, obtained without any model judgement.

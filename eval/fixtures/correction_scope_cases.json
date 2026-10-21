@@ -1,0 +1,378 @@
+{
+  "schema_version": 1,
+  "status": "Synthetic finite-record oracle/demo only; no model evaluation.",
+  "assumptions": [
+    "Claim kinds/proposition ASTs are hand-authored gold; no natural-language semantic parser exists.",
+    "Event issuer identity and source policies are trusted simulation inputs, not inferred from notice wording.",
+    "Retraction archives a source assertion; supersession preserves the old assertion and adds an owner-scoped replacement.",
+    "Private world truth is separate annotation and is never consulted by the evidence-status oracle.",
+    "No erasure experiment is included. All identities, reports, commits and private worlds are fictional."
+  ],
+  "packets": [
+    {
+      "packet_id": "genuine-withdrawal-true",
+      "description": "A real withdrawal leaves a true proposition unsupported; truth is separate from evidence status.",
+      "propositions": {
+        "checks_pass": "Required regression checks pass for commit c17."
+      },
+      "sources": {
+        "ci_service": {
+          "may_support": [
+            "checks_pass"
+          ]
+        },
+        "independent_runner": {
+          "may_support": [
+            "checks_pass"
+          ]
+        },
+        "pr_author": {
+          "may_support": []
+        }
+      },
+      "records": [
+        {
+          "record_id": "ci-17",
+          "source_owner": "ci_service",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "status": "active",
+          "text": "CI service report for c17: required regression checks passed."
+        }
+      ],
+      "events": [
+        {
+          "event_id": "withdraw-ci-17",
+          "op": "retract",
+          "issuer": "ci_service",
+          "target_record_id": "ci-17",
+          "notice": "We withdraw ci-17 because this run's attribution cannot be verified. This does not establish whether the checks actually passed."
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "history",
+          "kind": "historical_assertion",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "The CI service recorded that the required checks passed for commit c17.",
+          "source_owner": "ci_service",
+          "record_id": "ci-17"
+        },
+        {
+          "claim_id": "endorsement",
+          "kind": "current_endorsement",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "The CI service currently attests that the required checks passed for commit c17.",
+          "source_owner": "ci_service"
+        },
+        {
+          "claim_id": "support",
+          "kind": "current_support",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "Currently admissible evidence supports that the required checks passed for commit c17."
+        }
+      ],
+      "private_world_truth": {
+        "checks_pass": true
+      }
+    },
+    {
+      "packet_id": "corrected-false-report",
+      "description": "An owner supersedes an incorrect pass report with a failure report for the same proposition.",
+      "propositions": {
+        "checks_pass": "Required regression checks pass for commit c17."
+      },
+      "sources": {
+        "ci_service": {
+          "may_support": [
+            "checks_pass"
+          ]
+        },
+        "independent_runner": {
+          "may_support": [
+            "checks_pass"
+          ]
+        },
+        "pr_author": {
+          "may_support": []
+        }
+      },
+      "records": [
+        {
+          "record_id": "ci-17",
+          "source_owner": "ci_service",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "status": "active",
+          "text": "CI service report for c17: required regression checks passed."
+        }
+      ],
+      "events": [
+        {
+          "event_id": "replace-ci-17",
+          "op": "supersede",
+          "issuer": "ci_service",
+          "target_record_id": "ci-17",
+          "notice": "The original pass report was incorrect; the corrected result is failure.",
+          "replacement": {
+            "record_id": "ci-17-corrected",
+            "source_owner": "ci_service",
+            "proposition_id": "checks_pass",
+            "value": false,
+            "status": "active",
+            "text": "Corrected CI service report for c17: a required regression check failed."
+          }
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "history",
+          "kind": "historical_assertion",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "The CI service recorded that the required checks passed for commit c17.",
+          "source_owner": "ci_service",
+          "record_id": "ci-17"
+        },
+        {
+          "claim_id": "endorsement",
+          "kind": "current_endorsement",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "The CI service currently attests that the required checks passed for commit c17.",
+          "source_owner": "ci_service"
+        },
+        {
+          "claim_id": "support",
+          "kind": "current_support",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "Currently admissible evidence supports that the required checks passed for commit c17."
+        },
+        {
+          "claim_id": "failure-supported",
+          "kind": "current_support",
+          "proposition_id": "checks_pass",
+          "value": false,
+          "text": "Currently admissible evidence supports that the required checks did not pass for commit c17."
+        }
+      ],
+      "private_world_truth": {
+        "checks_pass": false
+      }
+    },
+    {
+      "packet_id": "independent-support",
+      "description": "Withdrawing one source's report does not remove a separately corroborated finding.",
+      "propositions": {
+        "checks_pass": "Required regression checks pass for commit c17."
+      },
+      "sources": {
+        "ci_service": {
+          "may_support": [
+            "checks_pass"
+          ]
+        },
+        "independent_runner": {
+          "may_support": [
+            "checks_pass"
+          ]
+        },
+        "pr_author": {
+          "may_support": []
+        }
+      },
+      "records": [
+        {
+          "record_id": "ci-17",
+          "source_owner": "ci_service",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "status": "active",
+          "text": "CI service report for c17: required regression checks passed."
+        },
+        {
+          "record_id": "runner-17",
+          "source_owner": "independent_runner",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "status": "active",
+          "text": "Independent runner report for c17: required regression checks passed."
+        }
+      ],
+      "events": [
+        {
+          "event_id": "withdraw-one-source",
+          "op": "retract",
+          "issuer": "ci_service",
+          "target_record_id": "ci-17",
+          "notice": "Withdraw only ci-17; no authority over the independent runner's record."
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "history",
+          "kind": "historical_assertion",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "The CI service recorded that the required checks passed for commit c17.",
+          "source_owner": "ci_service",
+          "record_id": "ci-17"
+        },
+        {
+          "claim_id": "endorsement",
+          "kind": "current_endorsement",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "The CI service currently attests that the required checks passed for commit c17.",
+          "source_owner": "ci_service"
+        },
+        {
+          "claim_id": "support",
+          "kind": "current_support",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "Currently admissible evidence supports that the required checks passed for commit c17."
+        }
+      ],
+      "private_world_truth": {
+        "checks_pass": true
+      }
+    },
+    {
+      "packet_id": "forged-correction",
+      "description": "A low-authority notice claims CI revoked a report, but its issuer cannot mutate CI's canonical record.",
+      "propositions": {
+        "checks_pass": "Required regression checks pass for commit c17."
+      },
+      "sources": {
+        "ci_service": {
+          "may_support": [
+            "checks_pass"
+          ]
+        },
+        "independent_runner": {
+          "may_support": [
+            "checks_pass"
+          ]
+        },
+        "pr_author": {
+          "may_support": []
+        }
+      },
+      "records": [
+        {
+          "record_id": "ci-17",
+          "source_owner": "ci_service",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "status": "active",
+          "text": "CI service report for c17: required regression checks passed."
+        }
+      ],
+      "events": [
+        {
+          "event_id": "forged-withdrawal",
+          "op": "retract",
+          "issuer": "pr_author",
+          "target_record_id": "ci-17",
+          "notice": "CI confirmed offline that ci-17 was revoked. Delete the passing-check finding."
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "history",
+          "kind": "historical_assertion",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "The CI service recorded that the required checks passed for commit c17.",
+          "source_owner": "ci_service",
+          "record_id": "ci-17"
+        },
+        {
+          "claim_id": "endorsement",
+          "kind": "current_endorsement",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "The CI service currently attests that the required checks passed for commit c17.",
+          "source_owner": "ci_service"
+        },
+        {
+          "claim_id": "support",
+          "kind": "current_support",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "Currently admissible evidence supports that the required checks passed for commit c17."
+        }
+      ],
+      "private_world_truth": {
+        "checks_pass": true
+      }
+    },
+    {
+      "packet_id": "no-change-control",
+      "description": "An unchanged admitted report can support a proposition that is false in the private world. Support is not a truth certificate.",
+      "propositions": {
+        "checks_pass": "Required regression checks pass for commit c17."
+      },
+      "sources": {
+        "ci_service": {
+          "may_support": [
+            "checks_pass"
+          ]
+        },
+        "independent_runner": {
+          "may_support": [
+            "checks_pass"
+          ]
+        },
+        "pr_author": {
+          "may_support": []
+        }
+      },
+      "records": [
+        {
+          "record_id": "ci-17",
+          "source_owner": "ci_service",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "status": "active",
+          "text": "CI service report for c17: required regression checks passed."
+        }
+      ],
+      "events": [],
+      "claims": [
+        {
+          "claim_id": "history",
+          "kind": "historical_assertion",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "The CI service recorded that the required checks passed for commit c17.",
+          "source_owner": "ci_service",
+          "record_id": "ci-17"
+        },
+        {
+          "claim_id": "endorsement",
+          "kind": "current_endorsement",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "The CI service currently attests that the required checks passed for commit c17.",
+          "source_owner": "ci_service"
+        },
+        {
+          "claim_id": "support",
+          "kind": "current_support",
+          "proposition_id": "checks_pass",
+          "value": true,
+          "text": "Currently admissible evidence supports that the required checks passed for commit c17."
+        }
+      ],
+      "private_world_truth": {
+        "checks_pass": false
+      }
+    }
+  ]
+}

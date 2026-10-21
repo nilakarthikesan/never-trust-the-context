@@ -1,4 +1,6 @@
-# The Thesis (locked) — and the paper that follows from it
+# Earlier thesis proposal
+
+**Revision status, October 21, 2026:** this earlier thesis is superseded by the [current study protocol](../research/correction-grounding/protocol.md), [literature review](../research/correction-grounding/literature.md), and [executed-artifact record](../results/correction-grounding/README.md). Its original claims and cross-benchmark numerical targets below are historical proposals, not confirmed results.
 
 One page. Lead the meeting with this.
 

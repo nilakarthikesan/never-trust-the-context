@@ -1,0 +1,18 @@
+{
+  "artifact_kind": "offline replay/scoring of supplied observations; no model/action execution",
+  "code_sha256": {
+    "eval/correction_scope_demo.py": "97770904a6c0ce344771ab59d5f6e9354592358beb0353cc63b82f41cedb734c",
+    "eval/run_correction_eval.py": "227e196e86d77037822b7ad7b5cb1e5536fba73ad8943a85c336ea5586dcc2d8",
+    "src/zt_pep/correction_eval.py": "5e2d12febe663c9aa091641826a7edd95758d8bf2158b646079a1e461bda7986"
+  },
+  "created_at_utc": "2026-10-21T11:34:28.200163+00:00",
+  "declared_prediction_origin": "unspecified",
+  "declared_source_label": "deterministic_heuristic_NOT_LLM:latest_notice_heuristic",
+  "export_manifest_sha256": "ec8fb008a1e3135bfdcd09b58f7b3727df32e76ab56aa8535e0ebca0464ee675",
+  "format": "correction-scope-external-v1",
+  "origin_verification": "not independently verified",
+  "predictions_sha256": "7b9efa95ce835d40c7da39c784cd26c16d194b8a40c27da529e36b21a7cba6ce",
+  "prompts_sha256": "e2c0772efdb0f32a1e88858418d06a4c1e00242a72cd9cb4a6ded1f430d9b5ad",
+  "scope_condition": "externally extracted scopes; gold used only in private scoring",
+  "suite_sha256": "50bf69d1b893e73172d1f6cea7005e8699d128d5461cf2b424914b9a1da0780f"
+}

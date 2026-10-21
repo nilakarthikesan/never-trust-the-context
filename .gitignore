@@ -13,6 +13,8 @@ __pycache__/
 .venv/
 venv/
 *.egg-info/
+build/
+dist/
 
 # Secrets
 .env
@@ -22,3 +24,17 @@ venv/
 
 # Overleaf upload bundles (regenerated on demand)
 overleaf-*.zip
+
+# Local correspondence, collaborator planning, unrelated workspace outputs.
+outreach/email-*
+outreach/meeting-prep-*
+notes/collaborator-profiles.md
+notes/*2026-10-19.md
+design/correction-grounding-study.md
+design/verification-allocation-study.md
+output/
+artifacts/
+never-trust-the-context-paper.zip
+
+# Raw experiment records are retained intentionally for reproducibility.
+!results/correction-grounding/**/*.jsonl
